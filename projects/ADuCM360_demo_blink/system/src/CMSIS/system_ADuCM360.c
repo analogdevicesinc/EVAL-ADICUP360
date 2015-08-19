@@ -23,7 +23,6 @@
  ******************************************************************************/
 
 #include "ADuCM360.h"
-#include "blink.h"
 #include <WdtLib.h>
 #include <ClkLib.h>
 #include <DioLib.h>
@@ -67,6 +66,17 @@ void SystemCoreClockUpdate (void)            /* Get Core Clock Frequency      */
 void SystemInit (void)
 {
 
-	Blink_Sys_Init();
+	/* Disable Watchdog timer resets */
+	WdtCfg(T3CON_PRE_DIV1, T3CON_IRQ_EN, T3CON_PD_DIS);
+
+	/* Disable clock to all peripherals */
+	ClkDis( CLKDIS_DISSPI0CLK| CLKDIS_DISSPI1CLK| CLKDIS_DISI2CCLK|
+			CLKDIS_DISUARTCLK| CLKDIS_DISPWMCLK|
+			CLKDIS_DIST1CLK| CLKDIS_DISDACCLK| CLKDIS_DISDMACLK|
+			CLKDIS_DISADCCLK);
+
+	/*Configures system clock */
+	ClkCfg(CLK_CD0, CLK_HF, CLKSYSDIV_DIV2EN_DIS, CLK_UCLKCG);
+	ClkSel(CLK_CD0,CLK_CD0,CLK_CD0,CLK_CD0);
 
 }
