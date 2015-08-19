@@ -49,46 +49,12 @@
 #include <ADuCM360.h>
 
 #include "blink.h"
-#include "WdtLib.h"
-#include "ClkLib.h"
 #include "DioLib.h"
-#include "Timer.h"
-#include "GptLib.h"
 
-/******************************************************************************/
-/************************* Variable Definitions ******************************/
-/******************************************************************************/
-int		byPassTimer0 = 0;
 
 /******************************************************************************/
 /************************* Functions Definitions ******************************/
 /******************************************************************************/
-/**
-	@brief void Blink_Sys_Init(void)
-			==========System required initializations==========
-**/
-void Blink_Sys_Init(void)
-{
-	/* Disable Watchdog timer resets */
-	WdtCfg(T3CON_PRE_DIV1, T3CON_IRQ_EN, T3CON_PD_DIS);
-
-	/* Disable clock to all peripherals */
-	ClkDis( CLKDIS_DISSPI0CLK| CLKDIS_DISSPI1CLK| CLKDIS_DISI2CCLK|
-			CLKDIS_DISUARTCLK| CLKDIS_DISPWMCLK|
-			CLKDIS_DIST1CLK| CLKDIS_DISDACCLK| CLKDIS_DISDMACLK|
-			CLKDIS_DISADCCLK);
-
-	/*Configures system clock */
-	ClkCfg(CLK_CD0, CLK_HF, CLKSYSDIV_DIV2EN_DIS, CLK_UCLKCG);
-	ClkSel(CLK_CD0,CLK_CD0,CLK_CD0,CLK_CD0);
-
-#if (BLINK_USE_IRQ == YES)
-	/* Initialize the general purpose timer */
-	GptLd(pADI_TM0,63);                                  // Set timeout period for 0.5 seconds
-	GptCfg(pADI_TM0,TCON_CLK_LFOSC,TCON_PRE_DIV256,TCON_MOD_PERIODIC|TCON_ENABLE);
-#endif
-
-}
 
 
 /**
@@ -98,43 +64,24 @@ void Blink_Sys_Init(void)
 void Blink_Init(void)
 {
 	/* Set the digital outputs for the LEDs */
-	DioOen(pADI_GP0, GP0OEN_OEN4_OUT|GP0OEN_OEN5_OUT);
+	DioOen(pADI_GP0, GP0OEN_OEN4_OUT | GP0OEN_OEN5_OUT);
 
 	/* Initialize output values for LEDs */
-	DioWr(pADI_GP0, GP0OUT_OUT4_LOW|GP0OUT_OUT5_HIGH);
+	DioWr(pADI_GP0, GP0OUT_OUT4_LOW | GP0OUT_OUT5_HIGH);
 
 }
 
-#if (BLINK_USE_IRQ == NO)
+
 /**
 	@brief void Blink_Process(void)
 			==========Blinking process when not using Timer IRQ==========
 **/
 void Blink_Process(void)
 {
-	/* Configure blinking interval */
-	timer_sleep(BLINK_TIME*TIMER_FREQUENCY_HZ);
-
 	/* Toggle P0.4 - LED2, P0.5 - LED3 */
-	DioTgl(pADI_GP0, GPTGL_TGL4|GPTGL_TGL5);
+	DioTgl(pADI_GP0, GPTGL_TGL4 | GPTGL_TGL5);
 
 }
-#else
-/**
-	@brief void Blink_Interrupt_Process(void)
-			==========Blinking process when using Timer IRQ==========
-**/
-void Blink_Interrupt_Process(void)
-{
-	/* Clears current Timer interrupt */
-    GptClrInt(pADI_TM0,TSTA_TMOUT);
 
-    if (!byPassTimer0) {
-
-    	/* Toggle P0.4 - LED2, P0.5 - LED3 */
-    	DioTgl(pADI_GP0, GPTGL_TGL4|GPTGL_TGL5);
-    }
-}
-#endif
 
 /***************************************************************************/

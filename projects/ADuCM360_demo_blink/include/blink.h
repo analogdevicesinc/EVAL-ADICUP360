@@ -49,29 +49,11 @@
 
 
 /***************************************************************************/
-#define YES 	1
-#define NO 		0
-
-
 #define BLINK_TIME   1
 
-
-/* Configure the Blink application: Using or not the Timer IRQ*/
-#define BLINK_USE_IRQ   NO
-
-
 extern int	byPassTimer0;
-
-
-extern void Blink_Sys_Init(void);
-
 extern void Blink_Init(void);
-
-#if (BLINK_USE_IRQ == NO)
-	extern void Blink_Process(void);
-
-#else
-	extern void Blink_Interrupt_Process(void);
-#endif
+extern void Blink_Process(void);
+extern void Blink_Interrupt_Process(void);
 
 #endif /* BLINK_H_ */

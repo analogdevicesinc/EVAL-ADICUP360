@@ -7,6 +7,7 @@
 #define TIMER_H_
 
 #include "cmsis_device.h"
+#include "GptLib.h"
 
 // ----------------------------------------------------------------------------
 
@@ -16,11 +17,9 @@ typedef uint32_t timer_ticks_t;
 
 extern volatile timer_ticks_t timer_delayCount;
 
-extern void
-timer_start (void);
+extern void timer_start (void);
 
-extern void
-timer_sleep (timer_ticks_t ticks);
+extern void timer_sleep (timer_ticks_t ticks);
 
 // ----------------------------------------------------------------------------
 

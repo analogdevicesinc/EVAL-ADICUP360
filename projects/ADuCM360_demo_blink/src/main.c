@@ -12,6 +12,7 @@
 #include "blink.h"
 #include "Timer.h"
 
+
 // ----------------------------------------------------------------------------
 //
 // Print a greeting message on the trace device and enter a loop
@@ -32,25 +33,38 @@
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 #pragma GCC diagnostic ignored "-Wreturn-type"
 
-int
-main (int argc, char* argv[])
+const unsigned use_irq = 1;
+
+void GP_Tmr0_Int_Handler(void)
 {
-	/* Initialize Blink application */
+	Blink_Process();
+	/* Clears current Timer interrupt */
+    GptClrInt(pADI_TM0, TSTA_TMOUT);
+}
+
+int main (int argc, char* argv[])
+{
+	/* Initialize GPIO */
 	Blink_Init();
 
-	/* Configure the system's tick interrupt */
-    timer_start ();
-
-#if (BLINK_USE_IRQ == YES)
-    NVIC_EnableIRQ(TIMER0_IRQn);     	// Enable Timer0 IRQ
-#endif
+    if (use_irq) {
+    	/* Initialize the general purpose timer0 */
+    	GptLd(pADI_TM0, 63);                                  // Set timeout period for 0.5 seconds
+    	GptCfg(pADI_TM0, TCON_CLK_LFOSC, TCON_PRE_DIV256, TCON_MOD_PERIODIC | TCON_ENABLE);
+        NVIC_EnableIRQ(TIMER0_IRQn);     	// Enable Timer0 IRQ
+	} else {
+		/* Configure the system's tick interrupt */
+	    timer_start ();
+	}
 
 	/* Main Program Loop */
 	while (1)
     {
-		#if (BLINK_USE_IRQ == NO)
+		if(!use_irq) {
+			/* Configure blinking interval */
+			timer_sleep(BLINK_TIME * TIMER_FREQUENCY_HZ);
 			Blink_Process();
-		#endif
+		}
     }
 }
 
