@@ -2,7 +2,7 @@
 ******************************************************************************
 *   @file     Communication.c
 *   @brief    Source file for communication part.
-*   @version  V0.1
+*   @version  V0.2
 *   @author   ADI
 *   @date     September 2015
 *
@@ -46,6 +46,7 @@
 
 /***************************** Include Files **********************************/
 #include <stdio.h>
+#include <stdint.h>
 #include "Communication.h"
 #include "ADuCM360.h"
 #include "SpiLib.h"
@@ -62,18 +63,16 @@
 **/
 void SPI_Init(void)
 {
-	   // Disable the internal pull ups on P1[6:4]
-	   DioPul(pADI_GP1, 0x8F);
 
-	   // Configure P1[6:4] for SPI0
-	   DioCfg(pADI_GP1, 0xAA00);
+   DioPul(pADI_GP1, 0x8F);  /* Disable the internal pull ups on P1[6:4] */
 
-	   // Set the SPI0 clock rate in Master mode to 400 kHz.
-	   SpiBaud(pADI_SPI0, 9, SPIDIV_BCRST_DIS);
+   DioCfg(pADI_GP1, 0xAA00);    /* Configure P1[6:4] for SPI0 */
 
-	   SpiCfg(pADI_SPI0, SPICON_MOD_TX1RX1, SPICON_MASEN_EN, SPICON_CON_EN|
-	          SPICON_RXOF_EN|SPICON_ZEN_EN|SPICON_TIM_TXWR|SPICON_CPOL_LOW|
-	          SPICON_CPHA_SAMPLELEADING|SPICON_ENABLE_EN);
+   SpiBaud(pADI_SPI0, 9, SPIDIV_BCRST_DIS);      /* Set the SPI0 clock rate in Master mode to 400 kHz. */
+
+   SpiCfg(pADI_SPI0, SPICON_MOD_TX1RX1, SPICON_MASEN_EN, SPICON_CON_EN|
+		  SPICON_RXOF_EN|SPICON_ZEN_EN|SPICON_TIM_TXWR|SPICON_CPOL_LOW|
+		  SPICON_CPHA_SAMPLELEADING|SPICON_ENABLE_EN);   /* Configure SPI0 channel */
 }
 
 
