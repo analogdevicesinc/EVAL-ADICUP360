@@ -79,17 +79,17 @@
 
 /* Write data mode */
 typedef enum {
-	SPI_WRITE_DATA = 1,            /* Write data to LCD */
-	SPI_WRITE_COMMAND,               /* Write command to LCD */
-	SPI_WRITE_REG                 /* Write ACC register */
+   SPI_WRITE_DATA = 1,            /* Write data to LCD */
+   SPI_WRITE_COMMAND,               /* Write command to LCD */
+   SPI_WRITE_REG                 /* Write ACC register */
 
- }enWriteData;
+} enWriteData;
 
- typedef enum {
- 	SPI_READ_ONE_REG = 1,            /* Read one ACC register */
- 	SPI_READ_TWO_REG               /* Read two ACC registers */
+typedef enum {
+   SPI_READ_ONE_REG = 1,            /* Read one ACC register */
+   SPI_READ_TWO_REG               /* Read two ACC registers */
 
-  }enRegsNum;
+} enRegsNum;
 
 
 void SPI_Init(void);

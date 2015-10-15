@@ -51,7 +51,7 @@
 /***************************************************************************/
 #define BLINK_TIME   1
 
-extern int	byPassTimer0;
+extern int  byPassTimer0;
 extern void Blink_Init(void);
 extern void Blink_Process(void);
 extern void Blink_Interrupt_Process(void);

@@ -56,9 +56,9 @@
 /************************* Functions Definitions ******************************/
 
 /**
-	@brief SPI initialization
+   @brief SPI initialization
 
-	@return none
+   @return none
 
 **/
 void SPI_Init(void)
@@ -70,75 +70,71 @@ void SPI_Init(void)
 
    SpiBaud(pADI_SPI0, 9, SPIDIV_BCRST_DIS);      /* Set the SPI0 clock rate in Master mode to 400 kHz. */
 
-   SpiCfg(pADI_SPI0, SPICON_MOD_TX1RX1, SPICON_MASEN_EN, SPICON_CON_EN|
-		  SPICON_RXOF_EN|SPICON_ZEN_EN|SPICON_TIM_TXWR|SPICON_CPOL_LOW|
-		  SPICON_CPHA_SAMPLELEADING|SPICON_ENABLE_EN);   /* Configure SPI0 channel */
+   SpiCfg(pADI_SPI0, SPICON_MOD_TX1RX1, SPICON_MASEN_EN, SPICON_CON_EN |
+          SPICON_RXOF_EN | SPICON_ZEN_EN | SPICON_TIM_TXWR | SPICON_CPOL_LOW |
+          SPICON_CPHA_SAMPLELEADING | SPICON_ENABLE_EN); /* Configure SPI0 channel */
 }
 
 
 /**
-	@brief Writes a data, a command or a register to the LCD or to ACC via SPI.
+   @brief Writes a data, a command or a register to the LCD or to ACC via SPI.
 
-	@param ui8address - ACC register address
-	@param ui8Data - value to be written
-	@enMode ui8Data - write mode
+   @param ui8address - ACC register address
+   @param ui8Data - value to be written
+   @enMode ui8Data - write mode
 
-	@return none
+   @return none
 
 **/
 void SPI_Write(uint8_t ui8address, uint8_t ui8Data, enWriteData enMode)
 {
-	if(enMode != SPI_WRITE_REG)
-	{
+   if(enMode != SPI_WRITE_REG) {
 
-	   DioClr(CSLCD_PORT, CSLCD_PIN);  /* Select LCD */
+      DioClr(CSLCD_PORT, CSLCD_PIN);  /* Select LCD */
 
-	   if(enMode == SPI_WRITE_DATA)
-	   {
+      if(enMode == SPI_WRITE_DATA) {
 
-		   DioSet(A0LCD_PORT, A0LCD_PIN); /* Select to send data */
-	   }
-	   else if(enMode == SPI_WRITE_COMMAND)
-	   {
+         DioSet(A0LCD_PORT, A0LCD_PIN); /* Select to send data */
 
-			DioClr(A0LCD_PORT, A0LCD_PIN);   /* Select to send command */
-	   }
+      } else if(enMode == SPI_WRITE_COMMAND) {
 
-	   SpiFifoFlush(pADI_SPI0, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);     /* Flush Tx and Rx FIFOs */
+         DioClr(A0LCD_PORT, A0LCD_PIN);   /* Select to send command */
+      }
 
-	   SpiTx(pADI_SPI0, ui8Data);
+      SpiFifoFlush(pADI_SPI0, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);     /* Flush Tx and Rx FIFOs */
 
-	   while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_ONEBYTE) != SPI0STA_RXFSTA_ONEBYTE);   /* Wait until 1 byte is received */
+      SpiTx(pADI_SPI0, ui8Data);
 
-	    DioSet(CSLCD_PORT, CSLCD_PIN);   /* Deselect LCD */
-   }
-   else
-   {
+      while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_ONEBYTE) != SPI0STA_RXFSTA_ONEBYTE);   /* Wait until 1 byte is received */
 
-	   DioClr(CSACC_PORT, CSACC_PIN);   	   /* Select accelerometer */
+      DioSet(CSLCD_PORT, CSLCD_PIN);   /* Deselect LCD */
 
-	   SpiFifoFlush(pADI_SPI0, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN); 	   /* Flush Tx and Rx FIFOs */
+   } else {
 
-	   SpiTx(pADI_SPI0, COMM_WRITE);  	   /* Send write command */
+      DioClr(CSACC_PORT, CSACC_PIN);         /* Select accelerometer */
 
-	   SpiTx(pADI_SPI0, ui8address);      	   /* Send register address */
+      SpiFifoFlush(pADI_SPI0, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);      /* Flush Tx and Rx FIFOs */
 
-	   SpiTx(pADI_SPI0, ui8Data);        	   /* Send value to be written */
+      SpiTx(pADI_SPI0, COMM_WRITE);       /* Send write command */
 
-	   while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_THREEBYTES) != SPI0STA_RXFSTA_THREEBYTES);   	   /* Wait until 3 bytes are received */
+      SpiTx(pADI_SPI0, ui8address);          /* Send register address */
 
-	   DioSet(CSACC_PORT, CSACC_PIN);   	   /* Deselect accelerometer */
+      SpiTx(pADI_SPI0, ui8Data);             /* Send value to be written */
+
+      while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_THREEBYTES) != SPI0STA_RXFSTA_THREEBYTES);        /* Wait until 3 bytes are received */
+
+      DioSet(CSACC_PORT, CSACC_PIN);         /* Deselect accelerometer */
    }
 
 }
 
 /**
-	@brief Reads a specified register or two registers address in the accelerometer via SPI.
+   @brief Reads a specified register or two registers address in the accelerometer via SPI.
 
-	@param ui8address - register address
-	@param enRegs - register number
+   @param ui8address - register address
+   @param enRegs - register number
 
-	@return reading result
+   @return reading result
 
 **/
 uint16_t SPI_Read(uint8_t ui8address, enRegsNum enRegs)
@@ -160,35 +156,33 @@ uint16_t SPI_Read(uint8_t ui8address, enRegsNum enRegs)
 
    SpiTx(pADI_SPI0, 0xAA);               /* Send a dummy byte in order to receive the register value */
 
-   if (enRegs == SPI_READ_ONE_REG)
-   {
+   if (enRegs == SPI_READ_ONE_REG) {
 
-	   while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_THREEBYTES) != SPI0STA_RXFSTA_THREEBYTES);    /* Wait until 3 bytes are received */
+      while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_THREEBYTES) != SPI0STA_RXFSTA_THREEBYTES);    /* Wait until 3 bytes are received */
 
-	   /* Two dummy reads */
-	   ui8value = SpiRx(pADI_SPI0);
-	   ui8value = SpiRx(pADI_SPI0);
+      /* Two dummy reads */
+      ui8value = SpiRx(pADI_SPI0);
+      ui8value = SpiRx(pADI_SPI0);
 
-	   /* Read the register value */
-	   ui8value = SpiRx(pADI_SPI0);
+      /* Read the register value */
+      ui8value = SpiRx(pADI_SPI0);
 
-	   ui16Result = (uint16_t)ui8value;   /* Set read result*/
-   }
-   else
-   {
-	   SpiTx(pADI_SPI0, 0xAA);
+      ui16Result = (uint16_t)ui8value;   /* Set read result*/
 
-	   while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_FOURBYTES) != SPI0STA_RXFSTA_FOURBYTES);      /* Wait until 4 bytes are received */
+   } else {
+      SpiTx(pADI_SPI0, 0xAA);
 
-	   /* Two dummy reads */
-	   ui16valueL = SpiRx(pADI_SPI0);
-	   ui16valueL = SpiRx(pADI_SPI0);
+      while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_FOURBYTES) != SPI0STA_RXFSTA_FOURBYTES);      /* Wait until 4 bytes are received */
 
-	   /* Read the two register values */
-	   ui16valueL = SpiRx(pADI_SPI0);
-	   ui16valueH = SpiRx(pADI_SPI0);
+      /* Two dummy reads */
+      ui16valueL = SpiRx(pADI_SPI0);
+      ui16valueL = SpiRx(pADI_SPI0);
 
-	   ui16Result = (uint16_t)((ui16valueH << 8) | ui16valueL); /* Set read result*/
+      /* Read the two register values */
+      ui16valueL = SpiRx(pADI_SPI0);
+      ui16valueH = SpiRx(pADI_SPI0);
+
+      ui16Result = (uint16_t)((ui16valueH << 8) | ui16valueL); /* Set read result*/
    }
 
    /* Deselect accelerometer */

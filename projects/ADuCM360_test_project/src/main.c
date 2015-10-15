@@ -46,7 +46,9 @@
 **/
 void UART_Int_Handler (void)
 {
-	if (UrtIntSta(pADI_UART) & COMIIR_NINT) return;
+   if (UrtIntSta(pADI_UART) & COMIIR_NINT) {
+      return;
+   }
 
 }
 
@@ -58,11 +60,10 @@ void UART_Int_Handler (void)
 **/
 void I2C0_Master_Int_Handler(void)
 {
-    if((I2cSta(MASTER)& I2CMSTA_TCOMP_SET) == I2CMSTA_TCOMP_SET)
-    {
+   if((I2cSta(MASTER)& I2CMSTA_TCOMP_SET) == I2CMSTA_TCOMP_SET) {
 
-    	I2cMCfg(0,I2CMCON_IENCMP|I2CMCON_IENTX_EN|I2CMCON_IENRX_EN,I2CMCON_LOOPBACK_EN|I2CMCON_MAS_EN);
-    }
+      I2cMCfg(0, I2CMCON_IENCMP | I2CMCON_IENTX_EN | I2CMCON_IENRX_EN, I2CMCON_LOOPBACK_EN | I2CMCON_MAS_EN);
+   }
 
 }
 
@@ -71,26 +72,23 @@ void I2C0_Master_Int_Handler(void)
   @brief Main function
 
 **/
-int main (int argc, char* argv[])
+int main (int argc, char *argv[])
 {
 
-	Test_Init();    /* Init Test project */
+   Test_Init();    /* Init Test project */
 
-	timer_start();   /* Start timer */
+   timer_start();   /* Start timer */
 
 
-	while(1)
-	{
+   while(1) {
 
-	    if(FUNCTION_TO_TEST == GPIO)
-	      {
-	        Test_Port();   /* Test ports */
-	      }
-	    else
-	      {
-	        Test_Periph();   /* Test peripherals */
-	      }
-	}
+      if(FUNCTION_TO_TEST == GPIO) {
+         Test_Port();   /* Test ports */
+
+      } else {
+         Test_Periph();   /* Test peripherals */
+      }
+   }
 
 }
 

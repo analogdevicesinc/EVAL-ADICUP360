@@ -37,35 +37,35 @@ const unsigned use_irq = 1;
 
 void GP_Tmr0_Int_Handler(void)
 {
-	Blink_Process();
-	/* Clears current Timer interrupt */
-    GptClrInt(pADI_TM0, TSTA_TMOUT);
+   Blink_Process();
+   /* Clears current Timer interrupt */
+   GptClrInt(pADI_TM0, TSTA_TMOUT);
 }
 
-int main (int argc, char* argv[])
+int main (int argc, char *argv[])
 {
-	/* Initialize GPIO */
-	Blink_Init();
+   /* Initialize GPIO */
+   Blink_Init();
 
-    if (use_irq) {
-    	/* Initialize the general purpose timer0 */
-    	GptLd(pADI_TM0, 63);                                  // Set timeout period for 0.5 seconds
-    	GptCfg(pADI_TM0, TCON_CLK_LFOSC, TCON_PRE_DIV256, TCON_MOD_PERIODIC | TCON_ENABLE);
-        NVIC_EnableIRQ(TIMER0_IRQn);     	// Enable Timer0 IRQ
-	} else {
-		/* Configure the system's tick interrupt */
-	    timer_start ();
-	}
+   if (use_irq) {
+      /* Initialize the general purpose timer0 */
+      GptLd(pADI_TM0, 63);                                  // Set timeout period for 0.5 seconds
+      GptCfg(pADI_TM0, TCON_CLK_LFOSC, TCON_PRE_DIV256, TCON_MOD_PERIODIC | TCON_ENABLE);
+      NVIC_EnableIRQ(TIMER0_IRQn);      // Enable Timer0 IRQ
 
-	/* Main Program Loop */
-	while (1)
-    {
-		if(!use_irq) {
-			/* Configure blinking interval */
-			timer_sleep(BLINK_TIME * TIMER_FREQUENCY_HZ);
-			Blink_Process();
-		}
-    }
+   } else {
+      /* Configure the system's tick interrupt */
+      timer_start ();
+   }
+
+   /* Main Program Loop */
+   while (1) {
+      if(!use_irq) {
+         /* Configure blinking interval */
+         timer_sleep(BLINK_TIME * TIMER_FREQUENCY_HZ);
+         Blink_Process();
+      }
+   }
 }
 
 #pragma GCC diagnostic pop

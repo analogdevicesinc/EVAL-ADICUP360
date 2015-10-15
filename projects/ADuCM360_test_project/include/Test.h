@@ -51,17 +51,17 @@
 
 
 typedef enum {
-	UART = 1,
-	SPI,
-	I2C,
-	GPIO
- }enTestFunc;
+   UART = 1,
+   SPI,
+   I2C,
+   GPIO
+} enTestFunc;
 
- typedef enum {
+typedef enum {
    GPIO0 = 0,
    GPIO1,
    GPIO2
-  }enPort;
+} enPort;
 
 void Test_Init(void);
 void Test_Periph(void);

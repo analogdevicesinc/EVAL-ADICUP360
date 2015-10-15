@@ -39,22 +39,21 @@
 /*Interrupt handler for UART */
 void UART_Int_Handler ()
 {
-    Cli_Int_Handler();
+   Cli_Int_Handler();
 }
 
-int main (int argc, char* argv[])
+int main (int argc, char *argv[])
 {
 
-	UART_Init(B9600, COMLCR_WLS_8BITS);  /* UART initialization */
+   UART_Init(B9600, COMLCR_WLS_8BITS);  /* UART initialization */
 
-	timer_start();
+   timer_start();
 
 
-	while(1)
-	{
+   while(1) {
 
-		Cli_Process();    /* Command interpreter */
-	}
+      Cli_Process();    /* Command interpreter */
+   }
 
 }
 

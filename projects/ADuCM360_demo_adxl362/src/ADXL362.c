@@ -108,9 +108,9 @@ static uint32_t ui32ScanSensorCounter;
 /************************* Global scope functions *****************************/
 
 /**
-	@brief Initialization the accelerometer sensor
+   @brief Initialization the accelerometer sensor
 
-	@return none
+   @return none
 
 **/
 void Sensor_Init(void)
@@ -118,7 +118,7 @@ void Sensor_Init(void)
 
    SPI_Write(SOFT_RESET_REG, 0x52, SPI_WRITE_REG);  /* Soft reset accelerometer */
 
-   timer_sleep(100); 								/* Wait at least 0.5 ms */
+   timer_sleep(100);                         /* Wait at least 0.5 ms */
 
    /* Set activity threshold */
    SPI_Write(THRESH_ACT_L, ACT_VALUE & 0xFF, SPI_WRITE_REG);
@@ -140,9 +140,9 @@ void Sensor_Init(void)
 }
 
 /**
-	@brief Turns on accelerometer measurement mode.
+   @brief Turns on accelerometer measurement mode.
 
-	@return none
+   @return none
 
 **/
 void Sensor_Start(void)
@@ -160,34 +160,33 @@ void Sensor_Start(void)
 
 
 /**
-	@brief Puts the accelerometer into standby mode.
+   @brief Puts the accelerometer into standby mode.
 
-	@return none
+   @return none
 
 **/
 void Sensor_Stop(void)
 {
    uint8_t ui8temp;
 
-   ui8temp = (uint8_t)SPI_Read(POWER_CTL_REG, SPI_READ_ONE_REG);		   /*Read POWER_CTL register, before modifying it */
+   ui8temp = (uint8_t)SPI_Read(POWER_CTL_REG, SPI_READ_ONE_REG);        /*Read POWER_CTL register, before modifying it */
 
-   ui8temp = ui8temp & 0xFC;												   /* Clear measurement bit in POWER_CTL register */
+   ui8temp = ui8temp & 0xFC;                                      /* Clear measurement bit in POWER_CTL register */
 
-   SPI_Write(POWER_CTL_REG, ui8temp, SPI_WRITE_REG);						/* Write the new value to POWER_CTL register */
+   SPI_Write(POWER_CTL_REG, ui8temp, SPI_WRITE_REG);                 /* Write the new value to POWER_CTL register */
 
 }
 
 /**
-	@brief Reads the accelerometer data.
+   @brief Reads the accelerometer data.
 
-	@return none
+   @return none
 
 **/
 void Sensor_Scan(void)
 {
-   if (Sensor_Delay(0, &ui32ScanSensorCounter, SCAN_SENSOR_TIME))
-   {
-	  Sensor_Delay(1, &ui32ScanSensorCounter, SCAN_SENSOR_TIME);
+   if (Sensor_Delay(0, &ui32ScanSensorCounter, SCAN_SENSOR_TIME)) {
+      Sensor_Delay(1, &ui32ScanSensorCounter, SCAN_SENSOR_TIME);
 
       i16SensorX = SPI_Read(XDATA_L_REG, SPI_READ_TWO_REG);
 
@@ -200,27 +199,24 @@ void Sensor_Scan(void)
 }
 
 /**
-	@brief Insert a delay for sensor transmitted data
+   @brief Insert a delay for sensor transmitted data
 
-	@param ui8StartFlag - start counter
-	@param pu32EndTm - end counter
-	@param pu32EndTm - delay time
+   @param ui8StartFlag - start counter
+   @param pu32EndTm - end counter
+   @param pu32EndTm - delay time
 
-	@return uint8_t - delay status
+   @return uint8_t - delay status
 
 **/
 uint8_t Sensor_Delay(uint8_t ui8StartFlag, uint32_t *pu32EndTm, uint32_t ui32Delay)
 {
    uint8_t ui8Status = 0;
 
-   if (ui8StartFlag)
-   {
+   if (ui8StartFlag) {
       *pu32EndTm = ui32timer_counter + ui32Delay;
-   }
-   else
-   {
-      if (ui32timer_counter > *pu32EndTm)
-      {
+
+   } else {
+      if (ui32timer_counter > *pu32EndTm) {
          ui8Status = 1;
       }
    }

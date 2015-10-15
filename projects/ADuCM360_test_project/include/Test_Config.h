@@ -55,7 +55,7 @@
  Available value:
 
    SPI_PMOD    -> SPI0
- 	 SPI_ARDUINO -> SPI1
+    SPI_ARDUINO -> SPI1
 
 */
 #define SPI_CHANNEL  SPI_PMOD
@@ -64,18 +64,18 @@
 /* Select UART pins connection
  Available value:
 
- 	 UART_PINS_12 -> Connected to P0.1, P0.2
- 	 UART_PINS_67 -> Connected to P0.6, P0.7
+    UART_PINS_12 -> Connected to P0.1, P0.2
+    UART_PINS_67 -> Connected to P0.6, P0.7
 */
-#define UART_PINS   	UART_PINS_12
+#define UART_PINS    UART_PINS_12
 
 /* Select I2C pins connection
  Available value:
 
- 	 I2C_PINS_0_12 -> Connected to P0.1, P0.2
- 	 I2C_PINS_2_01 -> Connected to P2.0, P2.1
+    I2C_PINS_0_12 -> Connected to P0.1, P0.2
+    I2C_PINS_2_01 -> Connected to P2.0, P2.1
 */
-#define I2C_PINS   	I2C_PINS_2_01
+#define I2C_PINS     I2C_PINS_2_01
 
 /* Select GPIO bank connection
  Available value:
@@ -90,10 +90,10 @@
 /* Select what do you want to test
  Available value:
 
- 	 UART
- 	 SPI
- 	 I2C
- 	 GPIO
+    UART
+    SPI
+    I2C
+    GPIO
 */
 #define FUNCTION_TO_TEST  GPIO
 

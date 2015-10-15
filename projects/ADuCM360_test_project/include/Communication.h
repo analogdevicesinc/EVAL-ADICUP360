@@ -59,9 +59,9 @@
 
 
 typedef enum {
-	SPI_PMOD = 0,    /* SPI0 - used for PMOD connector on ADICUP360 board */
-	SPI_ARDUINO      /* SPI1 - used for ARDUINO connector on ADICUP360 board*/
- }enSpiPort;
+   SPI_PMOD = 0,    /* SPI0 - used for PMOD connector on ADICUP360 board */
+   SPI_ARDUINO      /* SPI1 - used for ARDUINO connector on ADICUP360 board*/
+} enSpiPort;
 
 
 

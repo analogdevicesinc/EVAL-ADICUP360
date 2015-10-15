@@ -81,15 +81,13 @@ static void Port_Init(void);
 **/
 static void Test_SPI(void)
 {
-	if(SPI_CHANNEL == SPI_PMOD)   /* Check if SPI0 channel is tested */
-	{
-		SPI_Write(pADI_SPI0, 0x03);    /* Write data to SPI0 */
-	}
-	else if (SPI_CHANNEL == SPI_ARDUINO)   /* Check if SPI1 channel is tested */
-	{
+   if(SPI_CHANNEL == SPI_PMOD) { /* Check if SPI0 channel is tested */
+      SPI_Write(pADI_SPI0, 0x03);    /* Write data to SPI0 */
 
-		SPI_Write(pADI_SPI1, 0x20);    /* Write data to SPI1 */
-	}
+   } else if (SPI_CHANNEL == SPI_ARDUINO) { /* Check if SPI1 channel is tested */
+
+      SPI_Write(pADI_SPI1, 0x20);    /* Write data to SPI1 */
+   }
 }
 
 
@@ -102,14 +100,12 @@ static void Test_SPI(void)
 static void Test_UART(void)
 {
 
-	if(UART_PINS == UART_PINS_67)   /* Check if UART is connected to P0.6-P0.7 pins */
-	{
-		UART_WriteChar('V');  /* 0x56 - Write data to UART*/
-	}
-	else if(UART_PINS == UART_PINS_12)   /* Check if UART is connected to P0.1-P0.2 pins */
-	{
-		UART_WriteChar(0x43);    /* Write data to UART */
-	}
+   if(UART_PINS == UART_PINS_67) { /* Check if UART is connected to P0.6-P0.7 pins */
+      UART_WriteChar('V');  /* 0x56 - Write data to UART*/
+
+   } else if(UART_PINS == UART_PINS_12) { /* Check if UART is connected to P0.1-P0.2 pins */
+      UART_WriteChar(0x43);    /* Write data to UART */
+   }
 
 }
 
@@ -122,7 +118,7 @@ static void Test_UART(void)
 static void Test_I2C(void)
 {
 
-	I2C_Write(0x01);   /* Write data to I2C */
+   I2C_Write(0x01);   /* Write data to I2C */
 
 }
 
@@ -135,22 +131,18 @@ static void Test_I2C(void)
 void Test_Init(void)
 {
 
-	if(FUNCTION_TO_TEST == SPI)   /* Check if SPI is tested */
-	{
-		SPI_Init();         /* SPI initialization */
-	}
-	else if(FUNCTION_TO_TEST == UART)     /* Check if UART is tested */
-	{
-		UART_Init(B9600, COMLCR_WLS_8BITS);    /* UART initialization: 9600 baud rate and 8 bits data */
-	}
-	else if(FUNCTION_TO_TEST == I2C)     /* Check if I2C is tested */
-	{
-		I2C_Init();         /* I2C initialization */
-	}
-	else if(FUNCTION_TO_TEST == GPIO)     /* Check if GPIO is tested */
-	{
-	    Port_Init();
-	}
+   if(FUNCTION_TO_TEST == SPI) { /* Check if SPI is tested */
+      SPI_Init();         /* SPI initialization */
+
+   } else if(FUNCTION_TO_TEST == UART) { /* Check if UART is tested */
+      UART_Init(B9600, COMLCR_WLS_8BITS);    /* UART initialization: 9600 baud rate and 8 bits data */
+
+   } else if(FUNCTION_TO_TEST == I2C) { /* Check if I2C is tested */
+      I2C_Init();         /* I2C initialization */
+
+   } else if(FUNCTION_TO_TEST == GPIO) { /* Check if GPIO is tested */
+      Port_Init();
+   }
 
 }
 
@@ -162,19 +154,16 @@ void Test_Init(void)
 **/
 void Test_Periph(void)
 {
-	if(FUNCTION_TO_TEST == SPI)  /* Check if SPI is tested */
-	{
-		Test_SPI();             /* Test SPI */
-	}
-	else if(FUNCTION_TO_TEST == UART)   /* Check if UART is tested */
-	{
-		Test_UART();            /* Test UART */
-	}
-	else if(FUNCTION_TO_TEST == I2C)   /* Check if I2C is tested */
-	{
-		Test_I2C();            /* Test I2C */
+   if(FUNCTION_TO_TEST == SPI) { /* Check if SPI is tested */
+      Test_SPI();             /* Test SPI */
 
-	}
+   } else if(FUNCTION_TO_TEST == UART) { /* Check if UART is tested */
+      Test_UART();            /* Test UART */
+
+   } else if(FUNCTION_TO_TEST == I2C) { /* Check if I2C is tested */
+      Test_I2C();            /* Test I2C */
+
+   }
 
 }
 
@@ -186,27 +175,24 @@ void Test_Periph(void)
 **/
 static void Port_Init(void)
 {
-if (GPIO_PINS == GPIO0)   /* Check if Port 0 is tested as GPIO */
-  {
-    DioCfg(pADI_GP0, 0x4000);     /* Port 0 configured to GPIO */
-    DioPul(pADI_GP0, 0);        /* Disables all pull-up resistors */
-    DioOen(pADI_GP0, 0xFF);       /* Sets Port 0 to be outputs */
-    DioClr(pADI_GP0, 0xFF);       /* Clear Port 0 outputs */
-  }
-  else if (GPIO_PINS == GPIO1)    /* Check if Port 1 is tested as GPIO */
-  {
-    DioCfg(pADI_GP1, 0x0000);     /* Port 1 configured to GPIO */
-    DioPul(pADI_GP1, 0);        /* Disables all pull-up resistors */
-    DioOen(pADI_GP1, 0xFF);       /* Sets Port 1 to be outputs */
-    DioClr(pADI_GP1, 0xFF);       /* Clear Port 1 outputs */
-  }
-  else if (GPIO_PINS == GPIO2)    /* Check if Port 2 is tested as GPIO */
-  {
-    DioCfg(pADI_GP2, 0xAA80);     /* Port 2 configured to GPIO */
-    DioPul(pADI_GP2, 0);        /* Disables all pull-up resistors */
-    DioOen(pADI_GP2, 0x07);       /* Sets Port 2 to be outputs */
-    DioClr(pADI_GP2, 0x07);       /* Clear Port 2 outputs */
-  }
+   if (GPIO_PINS == GPIO0) { /* Check if Port 0 is tested as GPIO */
+      DioCfg(pADI_GP0, 0x4000);     /* Port 0 configured to GPIO */
+      DioPul(pADI_GP0, 0);        /* Disables all pull-up resistors */
+      DioOen(pADI_GP0, 0xFF);       /* Sets Port 0 to be outputs */
+      DioClr(pADI_GP0, 0xFF);       /* Clear Port 0 outputs */
+
+   } else if (GPIO_PINS == GPIO1) { /* Check if Port 1 is tested as GPIO */
+      DioCfg(pADI_GP1, 0x0000);     /* Port 1 configured to GPIO */
+      DioPul(pADI_GP1, 0);        /* Disables all pull-up resistors */
+      DioOen(pADI_GP1, 0xFF);       /* Sets Port 1 to be outputs */
+      DioClr(pADI_GP1, 0xFF);       /* Clear Port 1 outputs */
+
+   } else if (GPIO_PINS == GPIO2) { /* Check if Port 2 is tested as GPIO */
+      DioCfg(pADI_GP2, 0xAA80);     /* Port 2 configured to GPIO */
+      DioPul(pADI_GP2, 0);        /* Disables all pull-up resistors */
+      DioOen(pADI_GP2, 0x07);       /* Sets Port 2 to be outputs */
+      DioClr(pADI_GP2, 0x07);       /* Clear Port 2 outputs */
+   }
 }
 
 
@@ -218,18 +204,15 @@ if (GPIO_PINS == GPIO0)   /* Check if Port 0 is tested as GPIO */
 **/
 void Test_Port(void)
 {
-    if (GPIO_PINS == GPIO0)   /* Check if Port 0 is tested as GPIO */
-    {
+   if (GPIO_PINS == GPIO0) { /* Check if Port 0 is tested as GPIO */
       DioSet(pADI_GP0, 0xFF);  /* Set Port 0 outputs to High */
-    }
-    else if (GPIO_PINS == GPIO1)  /* Check if Port 1 is tested as GPIO */
-    {
+
+   } else if (GPIO_PINS == GPIO1) { /* Check if Port 1 is tested as GPIO */
       DioSet(pADI_GP1, 0xFF);   /* Set Port 1 outputs to High */
-    }
-    else if (GPIO_PINS == GPIO2)   /* Check if Port 2 is tested as GPIO */
-    {
+
+   } else if (GPIO_PINS == GPIO2) { /* Check if Port 2 is tested as GPIO */
       DioSet(pADI_GP2, 0x07);     /* Set Port 2 outputs to High */
-    }
+   }
 
 }
 

@@ -57,103 +57,106 @@
 unsigned char           uart_rx_buffer[UART_RX_BUFFER_SIZE];
 unsigned char           uart_tx_buffer[UART_TX_BUFFER_SIZE];
 
-unsigned int			uart_rpos, uart_rcnt, uart_tpos, uart_tcnt;
-unsigned int			uart_echo, uart_cmd, uart_ctrlc, uart_tbusy;
+unsigned int         uart_rpos, uart_rcnt, uart_tpos, uart_tcnt;
+unsigned int         uart_echo, uart_cmd, uart_ctrlc, uart_tbusy;
 
 /************************* Functions Definitions ******************************/
 
 /**
-	@brief UART initialization
+   @brief UART initialization
 
 **/
 void UART_Init(long lBaudrate, int iBits)
 {
-	/*Configure UART pins */
+   /*Configure UART pins */
 #if(UART_PINS == UART_PINS_12)
-	DioCfg(pADI_GP0, 0x003C);                    /* Configure P0.1/P0.2 for UART */
+   DioCfg(pADI_GP0, 0x003C);                    /* Configure P0.1/P0.2 for UART */
 #elif(UART_PINS == UART_PINS_67)
-	DioCfg(pADI_GP0, 0x9000);                    /* Configure P0.6/P0.7 for UART */
+   DioCfg(pADI_GP0, 0x9000);                    /* Configure P0.6/P0.7 for UART */
 #endif
 
-	UrtCfg(pADI_UART,lBaudrate,iBits,0); // Baud rate for 9600, 8-bits
-	UrtMod(pADI_UART,COMMCR_DTR,0);             // <<<<< Modem Bits
+   UrtCfg(pADI_UART, lBaudrate, iBits, 0); // Baud rate for 9600, 8-bits
+   UrtMod(pADI_UART, COMMCR_DTR, 0);           // <<<<< Modem Bits
 
-	UrtIntCfg(pADI_UART,COMIEN_ERBFI|COMIEN_ETBEI);  /* Enables UART interrupt source */
-	NVIC_EnableIRQ(UART_IRQn);                  // Enable UART IRQ
+   UrtIntCfg(pADI_UART, COMIEN_ERBFI | COMIEN_ETBEI); /* Enables UART interrupt source */
+   NVIC_EnableIRQ(UART_IRQn);                  // Enable UART IRQ
 }
 
 /**
-	@brief Writes one character to UART.
+   @brief Writes one character to UART.
 
-	@param data - Character to write.
-	@param mode - Write mode
+   @param data - Character to write.
+   @param mode - Write mode
 
-	@return UART_SUCCESS or error code.
+   @return UART_SUCCESS or error code.
 
 **/
 int UART_WriteChar(char data, enWriteData mode)
 {
-	if(mode == UART_WRITE)
-	{
-		UrtTx(pADI_UART,data);
+   if(mode == UART_WRITE) {
+      UrtTx(pADI_UART, data);
 
-		return UART_SUCCESS;
-	}
-	else
-	{
-		if (uart_tcnt == UART_TX_BUFFER_SIZE){
+      return UART_SUCCESS;
 
-			return UART_NO_TX_SPACE;
+   } else {
+      if (uart_tcnt == UART_TX_BUFFER_SIZE) {
 
-		} else{
+         return UART_NO_TX_SPACE;
 
-			if (mode == UART_WRITE_NO_INT)
-				NVIC_DisableIRQ(UART_IRQn);             /* Disable UART IRQ */
+      } else {
 
-			if (uart_tbusy)	{
-				uart_tx_buffer[(uart_tpos + (uart_tcnt++)) % UART_TX_BUFFER_SIZE] = data;
-			} else {
-				UrtTx(pADI_UART,data);
-				uart_tbusy = UART_TRUE;
-			}
+         if (mode == UART_WRITE_NO_INT) {
+            NVIC_DisableIRQ(UART_IRQn);   /* Disable UART IRQ */
+         }
 
-			if (mode == UART_WRITE_NO_INT)
-				NVIC_EnableIRQ(UART_IRQn);                  /* Enable UART IRQ */
+         if (uart_tbusy)   {
+            uart_tx_buffer[(uart_tpos + (uart_tcnt++)) % UART_TX_BUFFER_SIZE] = data;
 
-			return UART_SUCCESS;
-		}
-	}
+         } else {
+            UrtTx(pADI_UART, data);
+            uart_tbusy = UART_TRUE;
+         }
+
+         if (mode == UART_WRITE_NO_INT) {
+            NVIC_EnableIRQ(UART_IRQn);   /* Enable UART IRQ */
+         }
+
+         return UART_SUCCESS;
+      }
+   }
 }
 
 /**
-	@brief Writes string to UART.
+   @brief Writes string to UART.
 
-	@param string - string to write.
+   @param string - string to write.
 
-	@return UART_SUCCESS or error code.
+   @return UART_SUCCESS or error code.
 
 **/
-int UART_WriteString(char* string)
+int UART_WriteString(char *string)
 {
-	int     result = UART_SUCCESS;
+   int     result = UART_SUCCESS;
 
-	while (*string!='\0') {
-		result = UART_WriteChar(*string++, UART_WRITE_NO_INT);
-		if (result != UART_SUCCESS)
-			break;
-	}
+   while (*string != '\0') {
+      result = UART_WriteChar(*string++, UART_WRITE_NO_INT);
 
-	return result;
+      if (result != UART_SUCCESS) {
+         break;
+      }
+   }
+
+   return result;
 }
 
 /**
-	@brief Read character from UART.
+   @brief Read character from UART.
 
-	@param data - data to read.
+   @param data - data to read.
 
 **/
 void UART_ReadChar(char *data)
 {
-    *data = (char)UrtRx(pADI_UART);
+   *data = (char)UrtRx(pADI_UART);
 }
 

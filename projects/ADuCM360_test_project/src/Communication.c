@@ -58,28 +58,28 @@
 /************************* Functions Definitions ******************************/
 
 /**
-	@brief UART initialization
+   @brief UART initialization
 
-	@param lBaudrate - UART baud rate
-	@param iBits - UART data bits
+   @param lBaudrate - UART baud rate
+   @param iBits - UART data bits
 
   @return none
 
 **/
 void UART_Init(long lBaudrate, int iBits)
 {
-	/*Configure UART pins */
+   /*Configure UART pins */
 #if(UART_PINS == UART_PINS_12)
-	DioCfg(pADI_GP0, 0x003C);                    /* Configure P0.1/P0.2 for UART */
+   DioCfg(pADI_GP0, 0x003C);                    /* Configure P0.1/P0.2 for UART */
 #elif(UART_PINS == UART_PINS_67)
-	DioCfg(pADI_GP0, 0x9000);                    /* Configure P0.6/P0.7 for UART */
+   DioCfg(pADI_GP0, 0x9000);                    /* Configure P0.6/P0.7 for UART */
 #endif
 
-	UrtCfg(pADI_UART,lBaudrate,iBits,0);    /*  Baud rate = lBaudrate,  5-8 bits */
-	UrtMod(pADI_UART,COMMCR_DTR,0);             /*  Modem Bits*/
+   UrtCfg(pADI_UART, lBaudrate, iBits, 0); /*  Baud rate = lBaudrate,  5-8 bits */
+   UrtMod(pADI_UART, COMMCR_DTR, 0);           /*  Modem Bits*/
 
-	UrtIntCfg(pADI_UART,COMIEN_ERBFI|COMIEN_ETBEI);  /* Enables UART interrupt source */
-	NVIC_EnableIRQ(UART_IRQn);                  /* Enable UART IRQ */
+   UrtIntCfg(pADI_UART, COMIEN_ERBFI | COMIEN_ETBEI); /* Enables UART interrupt source */
+   NVIC_EnableIRQ(UART_IRQn);                  /* Enable UART IRQ */
 }
 
 /**
@@ -93,7 +93,7 @@ void UART_Init(long lBaudrate, int iBits)
 void UART_WriteChar(char data)
 {
 
-	UrtTx(pADI_UART,data);    /* Send to UART */
+   UrtTx(pADI_UART, data);   /* Send to UART */
 
 }
 
@@ -106,32 +106,30 @@ void UART_WriteChar(char data)
 void SPI_Init(void)
 {
 
-	if(SPI_CHANNEL == SPI_PMOD)      /* Check if SPI0 channel is tested */
-	{
+   if(SPI_CHANNEL == SPI_PMOD) {    /* Check if SPI0 channel is tested */
 
-	   DioPul(pADI_GP1, 0x0F);  /* Disable the internal pull ups on P1[7:4] */
+      DioPul(pADI_GP1, 0x0F);  /* Disable the internal pull ups on P1[7:4] */
 
-	   DioCfg(pADI_GP1, 0xAA00);    /* Configure P1[7:4] for SPI0 */
+      DioCfg(pADI_GP1, 0xAA00);    /* Configure P1[7:4] for SPI0 */
 
-	   SpiBaud(pADI_SPI0, 9, SPIDIV_BCRST_DIS);      /* Set the SPI0 clock rate in Master mode to x kHz. */
+      SpiBaud(pADI_SPI0, 9, SPIDIV_BCRST_DIS);      /* Set the SPI0 clock rate in Master mode to x kHz. */
 
-	   SpiCfg(pADI_SPI0, SPICON_MOD_TX1RX1, SPICON_MASEN_EN, SPICON_CON_EN|
-			  SPICON_RXOF_EN|SPICON_ZEN_EN|SPICON_TIM_TXWR|SPICON_CPOL_LOW|
-			  SPICON_CPHA_SAMPLELEADING|SPICON_ENABLE_EN);   /* Configure SPI0 channel */
-	}
-	else if (SPI_CHANNEL == SPI_ARDUINO)  /* Check if SPI1 channel is tested */
-	{
+      SpiCfg(pADI_SPI0, SPICON_MOD_TX1RX1, SPICON_MASEN_EN, SPICON_CON_EN |
+             SPICON_RXOF_EN | SPICON_ZEN_EN | SPICON_TIM_TXWR | SPICON_CPOL_LOW |
+             SPICON_CPHA_SAMPLELEADING | SPICON_ENABLE_EN); /* Configure SPI0 channel */
 
-	   DioPul(pADI_GP0, 0xF0);  /* Disable the internal pull ups on P0[3:0] */
+   } else if (SPI_CHANNEL == SPI_ARDUINO) { /* Check if SPI1 channel is tested */
 
-	   DioCfg(pADI_GP0, 0x0055);    /* Configure P0[3:0] for SPI1 */
+      DioPul(pADI_GP0, 0xF0);  /* Disable the internal pull ups on P0[3:0] */
 
-	   SpiBaud(pADI_SPI1, 2, SPIDIV_BCRST_DIS);      /* Set the SPI1 clock rate in Master mode to x kHz. */
+      DioCfg(pADI_GP0, 0x0055);    /* Configure P0[3:0] for SPI1 */
 
-	   SpiCfg(pADI_SPI1, SPICON_MOD_TX1RX1, SPICON_MASEN_EN, SPICON_CON_EN|
-			  SPICON_RXOF_EN|SPICON_ZEN_EN|SPICON_TIM_TXWR|SPICON_CPOL_LOW|
-			  SPICON_CPHA_SAMPLELEADING|SPICON_ENABLE_EN);   /* Configure SPI1 channel */
-	}
+      SpiBaud(pADI_SPI1, 2, SPIDIV_BCRST_DIS);      /* Set the SPI1 clock rate in Master mode to x kHz. */
+
+      SpiCfg(pADI_SPI1, SPICON_MOD_TX1RX1, SPICON_MASEN_EN, SPICON_CON_EN |
+             SPICON_RXOF_EN | SPICON_ZEN_EN | SPICON_TIM_TXWR | SPICON_CPOL_LOW |
+             SPICON_CPHA_SAMPLELEADING | SPICON_ENABLE_EN); /* Configure SPI1 channel */
+   }
 
 }
 
@@ -146,9 +144,9 @@ void SPI_Init(void)
 **/
 void SPI_Write( ADI_SPI_TypeDef *pSPI, uint8_t ui8Data)
 {
-	   SpiFifoFlush(pSPI, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);     /* Flush Tx and Rx FIFOs */
+   SpiFifoFlush(pSPI, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);     /* Flush Tx and Rx FIFOs */
 
-	   SpiTx(pSPI, ui8Data);    /* Send data to SPI */
+   SpiTx(pSPI, ui8Data);    /* Send data to SPI */
 }
 
 /**
@@ -159,22 +157,20 @@ void SPI_Write( ADI_SPI_TypeDef *pSPI, uint8_t ui8Data)
 **/
 void I2C_Init(void)
 {
-	if (I2C_PINS == I2C_PINS_0_12)    /* Check if I2C connection pins are P0.1 - P0.2 */
-	{
-	   DioCfg(pADI_GP0, 0x28);      /* Configure P0.1/P0.2 */
-	   DioPul(pADI_GP0, 0xF9);      /* Disable pull up on P0.1/P0.2 */
-	}
-	else if (I2C_PINS == I2C_PINS_2_01)    /* Check if I2C connection pins are P2.0 - P2.1 */
-	{
+   if (I2C_PINS == I2C_PINS_0_12) {  /* Check if I2C connection pins are P0.1 - P0.2 */
+      DioCfg(pADI_GP0, 0x28);      /* Configure P0.1/P0.2 */
+      DioPul(pADI_GP0, 0xF9);      /* Disable pull up on P0.1/P0.2 */
 
-	  DioCfg(pADI_GP2, 0x05);      /* Configure P2.0/P2.1 */
-	  DioPul(pADI_GP2, 0xFC);      /* Disable pull up on P2.0/P2.1 */
-	}
+   } else if (I2C_PINS == I2C_PINS_2_01) { /* Check if I2C connection pins are P2.0 - P2.1 */
 
-	  I2cMCfg(I2CMCON_TXDMA_DIS|I2CMCON_RXDMA_DIS, I2CMCON_IENCMP|I2CMCON_IENRX|I2CMCON_IENTX, I2CMCON_MAS_EN); /* Configure I2C */
-	  I2cBaud(0x4E,0x4F);  /* Set frequency to 100kHz -  standard mode */
+      DioCfg(pADI_GP2, 0x05);      /* Configure P2.0/P2.1 */
+      DioPul(pADI_GP2, 0xFC);      /* Disable pull up on P2.0/P2.1 */
+   }
 
-	  NVIC_EnableIRQ(I2CM_IRQn);    /* Enable I2C IRQ*/
+   I2cMCfg(I2CMCON_TXDMA_DIS | I2CMCON_RXDMA_DIS, I2CMCON_IENCMP | I2CMCON_IENRX | I2CMCON_IENTX, I2CMCON_MAS_EN); /* Configure I2C */
+   I2cBaud(0x4E, 0x4F); /* Set frequency to 100kHz -  standard mode */
+
+   NVIC_EnableIRQ(I2CM_IRQn);    /* Enable I2C IRQ*/
 
 }
 
@@ -188,11 +184,11 @@ void I2C_Init(void)
 **/
 void I2C_Write(uint8_t ui8Data)
 {
-	  I2cFifoFlush(MASTER, ENABLE);  /* Flush MASTER FIFO */
+   I2cFifoFlush(MASTER, ENABLE);  /* Flush MASTER FIFO */
 
-	  I2cMWrCfg(0x10);       /* Configure device address register */
+   I2cMWrCfg(0x10);       /* Configure device address register */
 
-	  I2cTx(MASTER, ui8Data);    /* Send data to MASTER */
+   I2cTx(MASTER, ui8Data);    /* Send data to MASTER */
 
 }
 

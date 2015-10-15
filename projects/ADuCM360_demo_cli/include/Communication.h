@@ -57,15 +57,15 @@
 /* ------------------------------------------------------------------------- */
 
 /* UART available modes */
-#define UART_INT_MODE  			1 /* Enables using both RX & TX interrupts */
-#define UART_TX_INT_MODE  		2 /* Enables using TX interrupts */
-#define UART_RX_INT_MODE  		3 /* Enables using RX interrupts */
+#define UART_INT_MODE         1 /* Enables using both RX & TX interrupts */
+#define UART_TX_INT_MODE      2 /* Enables using TX interrupts */
+#define UART_RX_INT_MODE      3 /* Enables using RX interrupts */
 
 
-#define UART_PINS   	UART_PINS_67
+#define UART_PINS    UART_PINS_67
 
 /* The serial port may be used in polling or interrupt mode */
-#define UART_MODE	UART_INT_MODE
+#define UART_MODE UART_INT_MODE
 
 /* Execution status */
 #define UART_SUCCESS             0
@@ -74,25 +74,25 @@
 #define UART_NO_RX_SPACE        -3
 
 /* UART status */
-#define UART_TRUE	   	        1
-#define UART_FALSE	   	        0
+#define UART_TRUE               1
+#define UART_FALSE                 0
 
 /* Write data mode */
 typedef enum {
-	UART_WRITE_NO_INT = 1,            /* Write data when interrupts are disabled */
-	UART_WRITE_IN_INT,               /* Write data while in an interrupt routine */
-	UART_WRITE
- }enWriteData;
+   UART_WRITE_NO_INT = 1,            /* Write data when interrupts are disabled */
+   UART_WRITE_IN_INT,               /* Write data while in an interrupt routine */
+   UART_WRITE
+} enWriteData;
 
- /* Buffer size for UART Tx and Rx */
+/* Buffer size for UART Tx and Rx */
 #define UART_TX_BUFFER_SIZE      1024       // UART transmit buffer size
 #define UART_RX_BUFFER_SIZE      256        // UART receive buffer size
-						
-extern unsigned int				uart_rpos, uart_rcnt, uart_tpos, uart_tcnt;
-extern unsigned int				uart_echo, uart_cmd, uart_ctrlc, uart_tbusy;
 
-extern unsigned char 			uart_rx_buffer[UART_RX_BUFFER_SIZE];
-extern unsigned char 			uart_tx_buffer[UART_TX_BUFFER_SIZE];
+extern unsigned int           uart_rpos, uart_rcnt, uart_tpos, uart_tcnt;
+extern unsigned int           uart_echo, uart_cmd, uart_ctrlc, uart_tbusy;
+
+extern unsigned char          uart_rx_buffer[UART_RX_BUFFER_SIZE];
+extern unsigned char          uart_tx_buffer[UART_TX_BUFFER_SIZE];
 
 
 /* Initializes the UART communication peripheral. */
@@ -105,6 +105,6 @@ void UART_ReadChar(char *data);
 int UART_WriteChar(char data, enWriteData mode);
 
 /* Writes one character string to UART. */
-int UART_WriteString(char* string);
+int UART_WriteString(char *string);
 
 #endif /* _COMMUNICATION_H_ */

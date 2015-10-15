@@ -50,41 +50,41 @@
 #include <stddef.h>
 
 /* CLI SW version */
-#define	VERSION	"V0.1"
+#define  VERSION  "V0.1"
 
 
 /* ASCII code */
-#define CTRL_C_	                3
-#define BS_		                8
-#define TAB_		            9
-#define CR_		                13
-#define LF_		                10
-#define SPC_		            32
-#define SP_						127
+#define CTRL_C_                   3
+#define BS_                    8
+#define TAB_                  9
+#define CR_                    13
+#define LF_                    10
+#define SPC_                  32
+#define SP_                127
 
 /* Used values */
 #define UART_CMD_LENGTH          2
 #define UART_CMD_USUALMAXLEN     32
 
 
-typedef  int (*msUartCPFun)(uint8_t*);
+typedef  int (*msUartCPFun)(uint8_t *);
 
-extern char        	*kwnUrtMonCmd[];
-extern msUartCPFun 	urtMonCmdFun[];
+extern char          *kwnUrtMonCmd[];
+extern msUartCPFun   urtMonCmdFun[];
 
-extern int 			Cli_CmdHelp(uint8_t *args);
-extern int 			Cli_CmdVersion(uint8_t *args);
-extern int 			Cli_CmdDump(uint8_t *args);
-extern int 			Cli_CmdReset(uint8_t *args);
+extern int        Cli_CmdHelp(uint8_t *args);
+extern int        Cli_CmdVersion(uint8_t *args);
+extern int        Cli_CmdDump(uint8_t *args);
+extern int        Cli_CmdReset(uint8_t *args);
 
-extern uint8_t* 	Cli_FindNextArgv(uint8_t *args);
-extern int 			Cli_GetArgv(char *dst, uint8_t *args);
-extern int 			Cli_IsSeparator(uint8_t c);
+extern uint8_t   *Cli_FindNextArgv(uint8_t *args);
+extern int        Cli_GetArgv(char *dst, uint8_t *args);
+extern int        Cli_IsSeparator(uint8_t c);
 
-extern int     		Cli_Prompt(void);
+extern int           Cli_Prompt(void);
 extern void         Cli_Process(void);
-extern msUartCPFun 	Cli_FindCommandFunction(char *);
+extern msUartCPFun   Cli_FindCommandFunction(char *);
 
-extern void 		Cli_Printf(const char *fmt, ...);
-extern void 		Cli_Int_Handler(void);
+extern void       Cli_Printf(const char *fmt, ...);
+extern void       Cli_Int_Handler(void);
 #endif /* CLI_H_ */

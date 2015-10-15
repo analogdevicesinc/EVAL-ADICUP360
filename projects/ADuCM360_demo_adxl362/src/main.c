@@ -79,12 +79,12 @@
 /**************************** Function Definitions ****************************/
 
 /**
-	@brief The main application function
+   @brief The main application function
 
-	@return the function contains infinite loop and never returns/
+   @return the function contains infinite loop and never returns/
 
 **/
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
    uint8_t ui8s[22];
    uint8_t ui8xu;
@@ -117,12 +117,9 @@ int main(int argc, char* argv[])
    ui8awake = 0;
 
    /* Infinite loop */
-   while (1)
-   {
-      if (DioRd(INTACC_PORT) & INTACC_PIN)
-      {
-         if (ui8awake == 0)
-         {
+   while (1) {
+      if (DioRd(INTACC_PORT) & INTACC_PIN) {
+         if (ui8awake == 0) {
             ui8awake = 1;
 
             /* Set BLLCD pin - turn on LCD backlight */
@@ -149,11 +146,9 @@ int main(int argc, char* argv[])
             Lcd_DisplaySymbol(2, DOWN_X, 8, pui8RecInv8x8);
             Lcd_DisplaySymbol(1, CENTER_X, 8, pui8RecInv8x8);
          }
-      }
-      else
-      {
-         if (ui8awake == 1)
-         {
+
+      } else {
+         if (ui8awake == 1) {
             ui8awake = 0;
 
             /* Clear BLLCD pin - turn off LCD backlight */
@@ -164,9 +159,8 @@ int main(int argc, char* argv[])
          }
       }
 
-      if (ui8awake == 1)
-      {
-    	  Sensor_Scan();
+      if (ui8awake == 1) {
+         Sensor_Scan();
 
          sprintf((char *)ui8s, "x = % 5d", i16SensorX);
          Lcd_DisplayString(0, 0, (int8_t *)ui8s);
@@ -185,92 +179,74 @@ int main(int argc, char* argv[])
          sprintf((char *)ui8s, "t = % 4.1f", f32temp);
          Lcd_DisplayString(3, 0, (int8_t *)ui8s);
 #endif
-         if (i16SensorY > ACC_LIMIT)
-         {
-            if (ui8xu == 0)
-            {
+
+         if (i16SensorY > ACC_LIMIT) {
+            if (ui8xu == 0) {
                ui8xu = 1;
                Lcd_DisplaySymbol(0, UP_X, 8, pui8Rec8x8);
             }
-         }
-         else
-         {
-            if (ui8xu == 1)
-            {
+
+         } else {
+            if (ui8xu == 1) {
                ui8xu = 0;
                Lcd_DisplaySymbol(0, UP_X, 8, pui8RecInv8x8);
             }
          }
 
-         if (i16SensorY < -ACC_LIMIT)
-         {
-            if (ui8xd == 0)
-            {
+         if (i16SensorY < -ACC_LIMIT) {
+            if (ui8xd == 0) {
                ui8xd = 1;
                Lcd_DisplaySymbol(2, DOWN_X, 8, pui8Rec8x8);
             }
-         }
-         else
-         {
-            if (ui8xd == 1)
-            {
+
+         } else {
+            if (ui8xd == 1) {
                ui8xd = 0;
                Lcd_DisplaySymbol(2, DOWN_X, 8, pui8RecInv8x8);
             }
          }
 
-         if (i16SensorX > ACC_LIMIT)
-         {
-            if (ui8yu == 0)
-            {
+         if (i16SensorX > ACC_LIMIT) {
+            if (ui8yu == 0) {
                ui8yu = 1;
                Lcd_DisplaySymbol(1, RIGHT_X, 8, pui8Rec8x8);
             }
-         }
-         else
-         {
-            if (ui8yu == 1)
-            {
+
+         } else {
+            if (ui8yu == 1) {
                ui8yu = 0;
                Lcd_DisplaySymbol(1, RIGHT_X, 8, pui8RecInv8x8);
             }
          }
 
-         if (i16SensorX < -ACC_LIMIT)
-         {
-            if (ui8yd == 0)
-            {
+         if (i16SensorX < -ACC_LIMIT) {
+            if (ui8yd == 0) {
                ui8yd = 1;
                Lcd_DisplaySymbol(1, LEFT_X, 8, pui8Rec8x8);
             }
-         }
-         else
-         {
-            if (ui8yd == 1)
-            {
+
+         } else {
+            if (ui8yd == 1) {
                ui8yd = 0;
                Lcd_DisplaySymbol(1, LEFT_X, 8, pui8RecInv8x8);
             }
          }
 
-         if ((ui8xu == 0) && (ui8xd == 0) && (ui8yu == 0) && (ui8yd == 0))
-         {
-            if (ui8all == 0)
-            {
+         if ((ui8xu == 0) && (ui8xd == 0) && (ui8yu == 0) && (ui8yd == 0)) {
+            if (ui8all == 0) {
                ui8all = 1;
                Lcd_DisplaySymbol(1, CENTER_X, 8, pui8Rec8x8);
             }
-         }
-         else
-         {
-            if (ui8all == 1)
-            {
+
+         } else {
+            if (ui8all == 1) {
                ui8all = 0;
                Lcd_DisplaySymbol(1, CENTER_X, 8, pui8RecInv8x8);
             }
          }
       }
    }
+
    /* Infinite loop, never returns. */
 }
 

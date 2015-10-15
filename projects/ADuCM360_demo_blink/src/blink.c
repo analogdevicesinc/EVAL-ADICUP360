@@ -58,28 +58,28 @@
 
 
 /**
-	@brief void Blink_Init(void)
-			==========Application required initializations==========
+   @brief void Blink_Init(void)
+         ==========Application required initializations==========
 **/
 void Blink_Init(void)
 {
-	/* Set the digital outputs for the LEDs */
-	DioOen(pADI_GP0, GP0OEN_OEN4_OUT | GP0OEN_OEN5_OUT);
+   /* Set the digital outputs for the LEDs */
+   DioOen(pADI_GP0, GP0OEN_OEN4_OUT | GP0OEN_OEN5_OUT);
 
-	/* Initialize output values for LEDs */
-	DioWr(pADI_GP0, GP0OUT_OUT4_LOW | GP0OUT_OUT5_HIGH);
+   /* Initialize output values for LEDs */
+   DioWr(pADI_GP0, GP0OUT_OUT4_LOW | GP0OUT_OUT5_HIGH);
 
 }
 
 
 /**
-	@brief void Blink_Process(void)
-			==========Blinking process when not using Timer IRQ==========
+   @brief void Blink_Process(void)
+         ==========Blinking process when not using Timer IRQ==========
 **/
 void Blink_Process(void)
 {
-	/* Toggle P0.4 - LED2, P0.5 - LED3 */
-	DioTgl(pADI_GP0, GPTGL_TGL4 | GPTGL_TGL5);
+   /* Toggle P0.4 - LED2, P0.5 - LED3 */
+   DioTgl(pADI_GP0, GPTGL_TGL4 | GPTGL_TGL5);
 
 }
 
