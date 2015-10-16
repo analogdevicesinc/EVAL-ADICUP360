@@ -1,9 +1,9 @@
 /**************************************************************************//**
- * @file     system_<Device>.h
- * @brief    CMSIS Cortex-M# Device Peripheral Access Layer Header File for
- *           Device <Device>
- * @version  V3.10
- * @date     23. November 2012
+ * @file     system_ADuCM360.h
+ * @brief    CMSIS Cortex-M3 Device Peripheral Access Layer Header File for
+ *           ADuCM360 Device 
+ * @version  V0.1
+ * @date     11 September 2015
  *
  * @note
  *
@@ -36,8 +36,8 @@
    ---------------------------------------------------------------------------*/
 
 
-#ifndef SYSTEM_Device_H   /* ToDo: replace '<Device>' with your device name */
-#define SYSTEM_Device_H
+#ifndef SYSTEM_ADUCM360_H   /* ToDo: replace '<Device>' with your device name */
+#define SYSTEM_ADUCM360_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -74,4 +74,4 @@ extern void SystemCoreClockUpdate (void);
 }
 #endif
 
-#endif /* SYSTEM_<Device>_H */
+#endif /* SYSTEM_ADUCM360_H */

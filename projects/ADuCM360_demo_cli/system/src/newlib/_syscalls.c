@@ -725,13 +725,33 @@ _swiread (int fh, char* ptr, int len)
 /* fd, is a valid user file handle.
  Translates the return of _swiread into
  bytes read. */
-int __attribute__((weak))
-_read(int file __attribute__((unused)), char* ptr __attribute__((unused)),
-    int len __attribute__((unused)))
+int
+_read (int fd, char* ptr, int len)
 {
-  errno = ENOSYS;
-  return -1;
+  int res;
+  struct fdent *pfd;
+
+  pfd = findslot (fd);
+  if (pfd == NULL)
+    {
+      errno = EBADF;
+      return -1;
+    }
+
+  res = _swiread (pfd->handle, ptr, len);
+
+  if (res == -1)
+    {
+      return res;
+    }
+
+  pfd->pos += len - res;
+
+  /* res == len is not an error,
+   at least if we want feof() to work.  */
+  return len - res;
 }
+
 /* fd, is a user file descriptor. */
 int
 _swilseek (int fd, int ptr, int dir)
@@ -821,15 +841,38 @@ _swiwrite (int fh, char* ptr, int len)
 }
 
 /* fd, is a user file descriptor. */
-
-int __attribute__((weak))
-_write(int file __attribute__((unused)), char* ptr __attribute__((unused)),
-    int len __attribute__((unused)))
+int
+_write (int fd, char* ptr, int len)
 {
-  errno = ENOSYS;
-  return -1;
-}
+  int res;
+  struct fdent *pfd;
 
+  pfd = findslot (fd);
+  if (pfd == NULL)
+    {
+      errno = EBADF;
+      return -1;
+    }
+
+  res = _swiwrite (pfd->handle, ptr, len);
+
+  /* Clearly an error. */
+  if (res < 0)
+    {
+      return -1;
+    }
+
+  pfd->pos += len - res;
+
+  /* We wrote 0 bytes?
+   Retrieve errno just in case. */
+  if ((len - res) == 0)
+    {
+      return error (0);
+    }
+
+  return (len - res);
+}
 
 int
 _swiopen (const char* path, int flags)
