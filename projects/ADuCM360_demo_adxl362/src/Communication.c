@@ -4,7 +4,10 @@
 *   @brief    Source file for communication part.
 *   @version  V0.2
 *   @author   ADI
-*   @date     September 2015
+*   @date     October 2015
+*  @par Revision History:
+*  - V0.1, September 2015: initial version.
+*  - V0.2, October 2015: changed used SPI channel to SPI1 and added revision history.
 *
 *******************************************************************************
 * Copyright 2015(c) Analog Devices, Inc.
@@ -47,10 +50,12 @@
 /***************************** Include Files **********************************/
 #include <stdio.h>
 #include <stdint.h>
-#include "Communication.h"
+
 #include "ADuCM360.h"
 #include "SpiLib.h"
 #include "DioLib.h"
+
+#include "Communication.h"
 
 
 /************************* Functions Definitions ******************************/
@@ -64,15 +69,15 @@
 void SPI_Init(void)
 {
 
-   DioPul(pADI_GP1, 0x8F);  /* Disable the internal pull ups on P1[6:4] */
+   DioPul(pADI_GP0, 0xF0);  /* Disable the internal pull ups on P0[3:0] */
 
-   DioCfg(pADI_GP1, 0xAA00);    /* Configure P1[6:4] for SPI0 */
+   DioCfg(pADI_GP0, 0x0055);    /* Configure P0[3:0] for SPI1 */
 
-   SpiBaud(pADI_SPI0, 9, SPIDIV_BCRST_DIS);      /* Set the SPI0 clock rate in Master mode to 400 kHz. */
+   SpiBaud(pADI_SPI1, 9, SPIDIV_BCRST_DIS);      /* Set the SPI1 clock rate in Master mode to x kHz. */
 
-   SpiCfg(pADI_SPI0, SPICON_MOD_TX1RX1, SPICON_MASEN_EN, SPICON_CON_EN |
+   SpiCfg(pADI_SPI1, SPICON_MOD_TX1RX1, SPICON_MASEN_EN, SPICON_CON_EN |
           SPICON_RXOF_EN | SPICON_ZEN_EN | SPICON_TIM_TXWR | SPICON_CPOL_LOW |
-          SPICON_CPHA_SAMPLELEADING | SPICON_ENABLE_EN); /* Configure SPI0 channel */
+          SPICON_CPHA_SAMPLELEADING | SPICON_ENABLE_EN); /* Configure SPI1 channel */
 }
 
 
@@ -101,11 +106,11 @@ void SPI_Write(uint8_t ui8address, uint8_t ui8Data, enWriteData enMode)
          DioClr(A0LCD_PORT, A0LCD_PIN);   /* Select to send command */
       }
 
-      SpiFifoFlush(pADI_SPI0, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);     /* Flush Tx and Rx FIFOs */
+      SpiFifoFlush(pADI_SPI1, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);     /* Flush Tx and Rx FIFOs */
 
-      SpiTx(pADI_SPI0, ui8Data);
+      SpiTx(pADI_SPI1, ui8Data);
 
-      while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_ONEBYTE) != SPI0STA_RXFSTA_ONEBYTE);   /* Wait until 1 byte is received */
+      while ((SpiSta(pADI_SPI1) & SPI1STA_RXFSTA_ONEBYTE) != SPI1STA_RXFSTA_ONEBYTE);   /* Wait until 1 byte is received */
 
       DioSet(CSLCD_PORT, CSLCD_PIN);   /* Deselect LCD */
 
@@ -113,15 +118,15 @@ void SPI_Write(uint8_t ui8address, uint8_t ui8Data, enWriteData enMode)
 
       DioClr(CSACC_PORT, CSACC_PIN);         /* Select accelerometer */
 
-      SpiFifoFlush(pADI_SPI0, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);      /* Flush Tx and Rx FIFOs */
+      SpiFifoFlush(pADI_SPI1, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);      /* Flush Tx and Rx FIFOs */
 
-      SpiTx(pADI_SPI0, COMM_WRITE);       /* Send write command */
+      SpiTx(pADI_SPI1, COMM_WRITE);       /* Send write command */
 
-      SpiTx(pADI_SPI0, ui8address);          /* Send register address */
+      SpiTx(pADI_SPI1, ui8address);          /* Send register address */
 
-      SpiTx(pADI_SPI0, ui8Data);             /* Send value to be written */
+      SpiTx(pADI_SPI1, ui8Data);             /* Send value to be written */
 
-      while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_THREEBYTES) != SPI0STA_RXFSTA_THREEBYTES);        /* Wait until 3 bytes are received */
+      while ((SpiSta(pADI_SPI1) & SPI1STA_RXFSTA_THREEBYTES) != SPI1STA_RXFSTA_THREEBYTES);        /* Wait until 3 bytes are received */
 
       DioSet(CSACC_PORT, CSACC_PIN);         /* Deselect accelerometer */
    }
@@ -148,39 +153,39 @@ uint16_t SPI_Read(uint8_t ui8address, enRegsNum enRegs)
 
    DioClr(CSACC_PORT, CSACC_PIN);      /* Select accelerometer */
 
-   SpiFifoFlush(pADI_SPI0, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);       /* Flush Tx and Rx FIFOs */
+   SpiFifoFlush(pADI_SPI1, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);       /* Flush Tx and Rx FIFOs */
 
-   SpiTx(pADI_SPI0, COMM_READ);       /* Send read command */
+   SpiTx(pADI_SPI1, COMM_READ);       /* Send read command */
 
-   SpiTx(pADI_SPI0, ui8address);       /* Send register address */
+   SpiTx(pADI_SPI1, ui8address);       /* Send register address */
 
-   SpiTx(pADI_SPI0, 0xAA);               /* Send a dummy byte in order to receive the register value */
+   SpiTx(pADI_SPI1, 0xAA);               /* Send a dummy byte in order to receive the register value */
 
    if (enRegs == SPI_READ_ONE_REG) {
 
-      while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_THREEBYTES) != SPI0STA_RXFSTA_THREEBYTES);    /* Wait until 3 bytes are received */
+      while ((SpiSta(pADI_SPI1) & SPI1STA_RXFSTA_THREEBYTES) != SPI1STA_RXFSTA_THREEBYTES);    /* Wait until 3 bytes are received */
 
       /* Two dummy reads */
-      ui8value = SpiRx(pADI_SPI0);
-      ui8value = SpiRx(pADI_SPI0);
+      ui8value = SpiRx(pADI_SPI1);
+      ui8value = SpiRx(pADI_SPI1);
 
       /* Read the register value */
-      ui8value = SpiRx(pADI_SPI0);
+      ui8value = SpiRx(pADI_SPI1);
 
       ui16Result = (uint16_t)ui8value;   /* Set read result*/
 
    } else {
-      SpiTx(pADI_SPI0, 0xAA);
+      SpiTx(pADI_SPI1, 0xAA);
 
-      while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_FOURBYTES) != SPI0STA_RXFSTA_FOURBYTES);      /* Wait until 4 bytes are received */
+      while ((SpiSta(pADI_SPI1) & SPI1STA_RXFSTA_FOURBYTES) != SPI1STA_RXFSTA_FOURBYTES);      /* Wait until 4 bytes are received */
 
       /* Two dummy reads */
-      ui16valueL = SpiRx(pADI_SPI0);
-      ui16valueL = SpiRx(pADI_SPI0);
+      ui16valueL = SpiRx(pADI_SPI1);
+      ui16valueL = SpiRx(pADI_SPI1);
 
       /* Read the two register values */
-      ui16valueL = SpiRx(pADI_SPI0);
-      ui16valueH = SpiRx(pADI_SPI0);
+      ui16valueL = SpiRx(pADI_SPI1);
+      ui16valueH = SpiRx(pADI_SPI1);
 
       ui16Result = (uint16_t)((ui16valueH << 8) | ui16valueL); /* Set read result*/
    }

@@ -2,9 +2,12 @@
 ******************************************************************************
 *   @file     Communication.h
 *   @brief    Header file for communication part
-*   @version  V0.1
+*   @version  V0.2
 *   @author   ADI
-*   @date     September 2015
+*   @date     October 2015
+*  @par Revision History:
+*  - V0.1, September 2015: initial version.
+*  - V0.2, October 2015: added missing comments and revision history.
 *
 *******************************************************************************
 * Copyright 2015(c) Analog Devices, Inc.
@@ -46,36 +49,9 @@
 #define _COMMUNICATION_H_
 
 
-/* LCD pin definitions */
-/* CSLCD - P0.4 - output */
-#define CSLCD_PORT      pADI_GP0
-#define CSLCD_PIN       0x10
-
-/* A0 - P1.3 - output */
-#define A0LCD_PORT      pADI_GP1
-#define A0LCD_PIN       0x08
-
-/* BL - P1.2 - output */
-#define BLLCD_PORT      pADI_GP1
-#define BLLCD_PIN       0x04
-
-/* CSADXL362 - P1.7 - output */
-#define CSACC_PORT      pADI_GP1
-#define CSACC_PIN       0x80
-
-/* INT - P0.5 - input */
-#define INTACC_PORT     pADI_GP0
-#define INTACC_PIN      0x20
-
-#define A0_BLL_CS_LCD_PORT      pADI_GP1
-
-/* Accelerometer write command */
-#define COMM_WRITE         0x0A
-
-/* Accelerometer read command */
-#define COMM_READ          0x0B
-
-#define ADDR_NOT_USE       0x00
+/*******************************************************************************
+**************************** Internal types ************************************
+********************************************************************************/
 
 /* Write data mode */
 typedef enum {
@@ -92,8 +68,61 @@ typedef enum {
 } enRegsNum;
 
 
+/*******************************************************************************
+**************************** Internal definitions ******************************
+********************************************************************************/
+
+/* Accelerometer write command */
+#define COMM_WRITE         0x0A
+
+/* Accelerometer read command */
+#define COMM_READ          0x0B
+
+/* Unused address */
+#define ADDR_NOT_USE       0x00
+
+
+/*******************************************************************************
+**************************** Functions declarations *****************************
+********************************************************************************/
+
 void SPI_Init(void);
 void SPI_Write(uint8_t ui8address, uint8_t ui8Data, enWriteData enMode);
 uint16_t SPI_Read(uint8_t ui8address, enRegsNum enRegs);
+
+
+/*******************************************************************************
+**************************** Configuration settings ****************************
+********************************************************************************/
+
+/*** LCD pin configuration ***/
+
+/* CSLCD - P0.5 - output */
+#define CSLCD_PORT      pADI_GP0
+#define CSLCD_PIN       0x20
+
+/* A0 - P1.1 - output */
+#define A0LCD_PORT      pADI_GP1
+#define A0LCD_PIN       0x02
+
+/* BL - P1.0 - output */
+#define BLLCD_PORT      pADI_GP1
+#define BLLCD_PIN       0x01
+
+
+/*** ACC pin configuration ***/
+
+/* CSADXL362 - P2.2- output */
+#define CSACC_PORT         pADI_GP2
+#define CSACC_PIN          0x04
+#define CSACC_PIN_NUMBER   0x02
+
+/* INT - P0.4 - input */
+#define INTACC_PORT        pADI_GP0
+#define INTACC_PIN         0x10
+#define INTACC_PIN_NUMBER  0x04
+
+#define A0_BL_LCD_PORT      pADI_GP1
+
 
 #endif /* _COMMUNICATION_H_ */

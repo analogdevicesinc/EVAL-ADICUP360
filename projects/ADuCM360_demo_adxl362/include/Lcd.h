@@ -1,10 +1,13 @@
 /**
 ******************************************************************************
 *   @file     Lcd.c
-*   @brief    Header file for ST7565R LCD control.
-*   @version  V0.1
+*   @brief    Header file for LCD control.
+*   @version  V0.2
 *   @author   ADI
-*   @date     September 2015
+*   @date     October 2015
+*  @par Revision History:
+*  - V0.1, September 2015: initial version.
+*  - V0.2, October 2015: removed "ST7565R" references and added revision history.
 *
 *******************************************************************************
 * Copyright 2015(c) Analog Devices, Inc.
@@ -43,8 +46,8 @@
 *******************************************************************************
 **/
 
-#ifndef LCDST7565R_H_
-#define LCDST7565R_H_
+#ifndef LCD_H_
+#define LCD_H_
 
 
 /********************************* Definitions ********************************/
@@ -116,6 +119,6 @@ void Lcd_FillPages(uint8_t ui8start, uint8_t ui8num, uint8_t ui8Data);
 void Lcd_SetLine(uint8_t ui8line);
 
 
-#endif /* LCDST7565R_H_ */
+#endif /* LCD_H_ */
 
 /* End Of File */

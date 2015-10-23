@@ -2,9 +2,12 @@
 ******************************************************************************
 *   @file     ADXL362.h
 *   @brief    Header file for ADXL362 accelerometer control.
-*   @version  V0.1
+*   @version  V0.2
 *   @author   ADI
-*   @date     September 2015
+*   @date     October 2015
+*  @par Revision History:
+*  - V0.1, September 2015: initial version.
+*  - V0.2, October 2015: moved ACC definitions and added revision history.
 *
 *******************************************************************************
 * Copyright 2015(c) Analog Devices, Inc.
@@ -44,6 +47,47 @@
 **/
 #ifndef ADXL362_H_
 #define ADXL362_H_
+
+
+/********************************* Definitions ********************************/
+
+/* Accelerometer registers addresses */
+#define STATUS_REG         0x0B
+#define XDATA_L_REG        0x0E
+#define YDATA_L_REG        0x10
+#define ZDATA_L_REG        0x12
+#define TEMP_L_REG         0x14
+#define SOFT_RESET_REG     0x1F
+#define THRESH_ACT_L       0x20
+#define THRESH_ACT_H       0x21
+#define TIME_ACT           0x22
+#define THRESH_INACT_L     0x23
+#define THRESH_INACT_H     0x24
+#define TIME_INACT_L       0x25
+#define TIME_INACT_H       0x26
+#define ACT_INACT_CTL      0x27
+#define INTMAP1            0x2A
+#define INTMAP2            0x2B
+#define POWER_CTL_REG      0x2D
+
+
+/**************************** Configuration parameters **********************/
+
+#define TEMP_ADC        1     /* Temperature display units: 1 for ADC, 0 for degrees Celsius */
+
+/* Temperature parameters */
+#define SENS_TEMP_ADD   (float)348.7
+#define SENS_TEMP_MUL   (float)0.06
+
+#define SCAN_SENSOR_TIME   500    /* Accelerometer scan interval in ms */
+
+#define ACT_VALUE          50     /* Activity threshold value */
+
+#define INACT_VALUE        50     /* Inactivity threshold value */
+
+#define ACT_TIMER          100    /* Activity timer value in ms */
+
+#define INACT_TIMER        10     /* Inactivity timer value in seconds */
 
 
 /****************************** Global Data ***********************************/

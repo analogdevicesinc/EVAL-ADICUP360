@@ -2,9 +2,12 @@
 ******************************************************************************
 *   @file     Lcd.c
 *   @brief    Source file for ST7565R LCD control.
-*   @version  V0.1
+*   @version  V0.2
 *   @author   ADI
-*   @date     September 2015
+*   @date     October 2015
+*  @par Revision History:
+*  - V0.1, September 2015: initial version.
+*  - V0.2, October 2015: reconfigured LCD pins and added revision history.
 *
 *******************************************************************************
 * Copyright 2015(c) Analog Devices, Inc.
@@ -47,9 +50,10 @@
 /***************************** Include Files **********************************/
 /******************************************************************************/
 #include <stdio.h>
+
 #include <ADuCM360.h>
 #include <DioLib.h>
-#include <SpiLib.h>
+
 #include "Lcd.h"
 #include "Communication.h"
 #include "Timer.h"
@@ -184,12 +188,14 @@ static void Lcd_SetCursor(uint8_t ui8PA, uint8_t ui8CA);
 void Lcd_Init(void)
 {
 
-   DioPul(CSLCD_PORT, (~CSLCD_PIN));         /* Disable the internal pull up on CSLCD pin */
+   DioPul(CSLCD_PORT, (~CSLCD_PIN));          /* Disable the internal pull up on CSLCD pin */
    DioOen(CSLCD_PORT, CSLCD_PIN);               /* Set CSLCD pin as output */
 
-   DioPul(A0_BLL_CS_LCD_PORT, (~(A0LCD_PIN | BLLCD_PIN | CSACC_PIN)));    /* Disable the internal pull up on A0LCD, BLLCD_PIN and CSACC_PIN pins*/
-   DioOen(A0_BLL_CS_LCD_PORT, (A0LCD_PIN | BLLCD_PIN | CSACC_PIN));       /* Set A0LCD, BLLCD_PIN and CSACC_PIN pins as output */
+   DioPulPin(INTACC_PORT, INTACC_PIN_NUMBER, 0);           /* Disable the internal pull up on INTACC pin */
+   DioOenPin(INTACC_PORT, INTACC_PIN_NUMBER, 0);         /* Set INTACC pin as input */
 
+   DioPul(A0_BL_LCD_PORT, (~(A0LCD_PIN | BLLCD_PIN )));    /* Disable the internal pull up on A0LCD and BLLCD_PIN pins*/
+   DioOen(A0_BL_LCD_PORT, (A0LCD_PIN | BLLCD_PIN ));       /* Set A0LCD and BLLCD_PIN pins as output */
 
    SPI_Write(ADDR_NOT_USE, CMD_DISPLAY_OFF, SPI_WRITE_COMMAND);            /* Display OFF */
 

@@ -2,9 +2,12 @@
 ******************************************************************************
 *   @file     main.c
 *   @brief    Project main source file
-*   @version  V0.1
+*   @version  V0.2
 *   @author   ADI
-*   @date     September 2015
+*   @date     October 2015
+*  @par Revision History:
+*  - V0.1, September 2015: initial version.
+*  - V0.2, October 2015: removed ACC defintions and added revision history.
 *
 *******************************************************************************
 * Copyright 2015(c) Analog Devices, Inc.
@@ -47,26 +50,16 @@
 /***************************** Include Files **********************************/
 
 #include <stdio.h>
-#include <ADuCM360.h>
+
 #include <DioLib.h>
-#include <GptLib.h>
-#include <IntLib.h>
 
 #include "diag/Trace.h"
 #include "Timer.h"
-#include "Communication.h"
-#include "Lcd.h"
+
 #include "ADXL362.h"
+#include "Lcd.h"
+#include "Communication.h"
 
-
-/********************************* Definitions ********************************/
-
-/* Temperature display units: 1 for ADC, 0 for degrees Celsius */
-#define TEMP_ADC        1
-
-/* Treal = (Tadc - SENS_TEMP_ADD) * SENS_TEMP_MUL */
-#define SENS_TEMP_ADD   (float)348.7
-#define SENS_TEMP_MUL   (float)0.06
 
 /* Sample pragmas to cope with warnings. Please note the related line at
   the end of this function, used to pop the compiler diagnostics status. */
@@ -99,7 +92,7 @@ int main(int argc, char *argv[])
 #endif
 
    /* Initialize ports */
-   /* Initialize SPI0 */
+   /* Initialize SPI1 */
    SPI_Init();
 
    /* Initialize the System Timer and its interrupt, and starts the System Tick Timer. */

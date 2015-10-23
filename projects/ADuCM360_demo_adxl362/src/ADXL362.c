@@ -2,9 +2,12 @@
 ******************************************************************************
 *   @file     ADXL362.c
 *   @brief    Source file for ADXL362 accelerometer control.
-*   @version  V0.1
+*   @version  V0.2
 *   @author   ADI
-*   @date     September 2015
+*   @date     October 2015
+*  @par Revision History:
+*  - V0.1, September 2015: initial version.
+*  - V0.2, October 2015: removed ACC definitions, added configuration for CSACC pin and revision history.
 *
 *******************************************************************************
 * Copyright 2015(c) Analog Devices, Inc.
@@ -45,50 +48,14 @@
 
 /***************************** Include Files **********************************/
 #include <stdio.h>
+
 #include <ADuCM360.h>
 #include <DioLib.h>
-#include <SpiLib.h>
+
 #include "ADXL362.h"
-#include "Lcd.h"
 #include "Communication.h"
 #include "Timer.h"
 
-
-/********************************* Definitions ********************************/
-
-/* Accelerometer registers addresses */
-#define STATUS_REG         0x0B
-#define XDATA_L_REG        0x0E
-#define YDATA_L_REG        0x10
-#define ZDATA_L_REG        0x12
-#define TEMP_L_REG         0x14
-#define SOFT_RESET_REG     0x1F
-#define THRESH_ACT_L       0x20
-#define THRESH_ACT_H       0x21
-#define TIME_ACT           0x22
-#define THRESH_INACT_L     0x23
-#define THRESH_INACT_H     0x24
-#define TIME_INACT_L       0x25
-#define TIME_INACT_H       0x26
-#define ACT_INACT_CTL      0x27
-#define INTMAP1            0x2A
-#define INTMAP2            0x2B
-#define POWER_CTL_REG      0x2D
-
-/* Accelerometer scan interval in ms */
-#define SCAN_SENSOR_TIME   500
-
-/* Activity threshold value */
-#define ACT_VALUE          50
-
-/* Inactivity threshold value */
-#define INACT_VALUE        50
-
-/* Activity timer value in ms */
-#define ACT_TIMER          100
-
-/* Inactivity timer value in seconds */
-#define INACT_TIMER        10
 
 /****************************** Global Data ***********************************/
 
@@ -115,6 +82,8 @@ static uint32_t ui32ScanSensorCounter;
 **/
 void Sensor_Init(void)
 {
+   DioPulPin(CSACC_PORT, CSACC_PIN_NUMBER, 0);          /* Disable the internal pull up on CSACC pin */
+   DioOenPin(CSACC_PORT, CSACC_PIN_NUMBER, 1);               /* Set CSACC pin as output */
 
    SPI_Write(SOFT_RESET_REG, 0x52, SPI_WRITE_REG);  /* Soft reset accelerometer */
 
