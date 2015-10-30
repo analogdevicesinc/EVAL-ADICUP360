@@ -2,11 +2,12 @@
 ******************************************************************************
 *   @file     main.c
 *   @brief    Project main source file
-*   @version  V0.1
+*   @version  V0.2
 *   @author   ADI
 *   @date     October 2015
 *  @par Revision History:
 *  - V0.1, October 2015: initial version.
+*  - V0.2, October 2015: removed boundaries check for RTD resistance and temperature.
 *
 *******************************************************************************
 * Copyright 2015(c) Analog Devices, Inc.
@@ -57,8 +58,6 @@
 #include "CN0337.h"
 #include "Communication.h"
 
-/********************************* Definitions ********************************/
-
 
 /* Sample pragmas to cope with warnings. Please note the related line at
   the end of this function, used to pop the compiler diagnostics status. */
@@ -66,7 +65,6 @@
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 #pragma GCC diagnostic ignored "-Wreturn-type"
-
 
 
 /**
@@ -90,8 +88,8 @@ void UART_Int_Handler (void)
 **/
 int main(int argc, char *argv[])
 {
-   static uint16_t adcValue;
-   static float temp, voltage, r;
+   uint16_t adcValue;
+   float temp, voltage, r;
 
 
    /* Initialization part */
@@ -113,20 +111,9 @@ int main(int argc, char *argv[])
 
          voltage = AD7091R_ConvertToVolts(adcValue, VREF);        /* Convert ADC output value to voltage */
 
-         if(adcValue < ADC_MIN) {                      /* Check valid boundaries for ADC value */
+         r = CN0337_CalculateResistance(adcValue, voltage);        /* Calculate RTD resistance */
 
-            r = temp = VALUE_TO_SMALL;                /* RTD resistance and temperature are under range */
-
-         } else if (adcValue > ADC_MAX) {
-
-            r = temp = VALUE_TO_BIG;                /* RTD resistance and temperature are over range */
-
-         } else {
-
-            r = CN0337_CalculateResistance(adcValue);        /* Calculate RTD resistance */
-
-            temp = CN0337_CalculateTemp(r);                  /* Calculate RTD temperature */
-         }
+         temp = CN0337_CalculateTemp(r);                  /* Calculate RTD temperature */
       }
 
       CN0337_WriteData(temp, r, voltage, adcValue);            /* Write data to UART */

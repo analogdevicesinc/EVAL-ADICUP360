@@ -2,11 +2,12 @@
 ******************************************************************************
 *   @file     AD7091R.h
 *   @brief    Header file for AD7091R converter
-*   @version  V0.1
+*   @version  V0.2
 *   @author   ADI
 *   @date     October 2015
 *  @par Revision History:
 *  - V0.1, October 2015: initial version.
+*  - V0.2, October 2015: removed enOpModes and used defines.
 *
 *******************************************************************************
 * Copyright 2015(c) Analog Devices, Inc.
@@ -53,14 +54,6 @@
 extern uint8_t u8StartCounter;                           /* Declaration of start counter variable */
 
 
-/****************************** Internal types *********************************/
-/* Converter operation modes */
-typedef enum {
-   NORMAL = 1,
-   POWER_DOWN
-} enOpModes;
-
-
 /*************************** Functions prototypes *****************************/
 
 void AD7091R_Init(void);
@@ -72,13 +65,15 @@ float AD7091R_ConvertToVolts(uint16_t u16adcValue, float f32VRef);
 /********************************* Internal defines ********************************/
 
 #define ADC_RESOLUTION       (1 << 12)          /* ADC resolution = 12 bits */
+#define NORMAL          1                   /* Converter normal mode */
+#define  POWER_DOWN         2                   /* Converter power-down mode */
 
 
 /**************************** Configuration parameters **********************/
 
-#define AD7091R_OPERATION_MODE      POWER_DOWN           /* Select converter operation mode */
+#define AD7091R_OPERATION_MODE      POWER_DOWN           /* Select converter operation mode: NORMAL or POWER_DOWN */
 
-#define SCAN_TIME                500               /* Select how often to read ADC conversion result -> in [msec] */
+#define SCAN_TIME                500              /* Select how often to read ADC conversion result -> in [msec] */
 
 #define VREF                     2.5            /* Select reference voltage -> in [V] */
 

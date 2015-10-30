@@ -2,11 +2,12 @@
 ******************************************************************************
 *   @file     CN0337.c
 *   @brief    Source file for CN0337 application
-*   @version  V0.1
+*   @version  V0.2
 *   @author   ADI
 *   @date     October 2015
 *  @par Revision History:
 *  - V0.1, October 2015: initial version.
+*  - V0.2, October 2015: added second method to calculate RTD resistance.
 *
 *******************************************************************************
 * Copyright 2015(c) Analog Devices, Inc.
@@ -59,6 +60,14 @@
 #include "Communication.h"
 #include "Timer.h"
 
+/********************************* Definitions ********************************/
+
+#if(RTD_FORMULA == TWO_POINT_CALIBRATION)
+#define GF         ((RMAX - RMIN)/(ADC_MAX - ADC_MIN))      /* Gain factor formula */
+#elif(RTD_FORMULA == TRANSFER_FUNCTION)
+#define GF         0.02053                                  /* Gain value from data sheet -> [A] */
+#define V_OFFSET   0.1                                      /* Voltage offset of the circuit from data sheet -> [V] */
+#endif
 
 /********************************* Global data ********************************/
 
@@ -98,15 +107,51 @@ void CN0337_Init(void)
    @return float - resistance value
 
 **/
-float CN0337_CalculateResistance(uint16_t u16adc)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic ignored "-Wreturn-type"
+
+float CN0337_CalculateResistance(uint16_t u16adc, float f32voltage)
 {
    float f32r;
 
-   f32r = RMIN + (GF * (float)(u16adc - ADC_MIN));             /* Calculate RTD resistance */
+#if(RTD_FORMULA == TWO_POINT_CALIBRATION)         /* Check which method for calculation was selected */
 
-   return f32r;
+   if(u16adc < ADC_MIN) {                      /* Check valid boundaries for ADC value */
+
+      f32r = VALUE_TO_SMALL;                /* RTD resistance and temperature are under range */
+
+   } else if (u16adc > ADC_MAX) {
+
+      f32r = VALUE_TO_BIG;                /* RTD resistance and temperature are over range */
+
+   } else {
+
+      f32r = RMIN + (GF * (float)(u16adc - ADC_MIN));             /* Calculate RTD resistance */
+   }
+
+#elif(RTD_FORMULA == TRANSFER_FUNCTION)
+
+   if (f32voltage < V_OFFSET) {
+
+      f32r = VALUE_TO_SMALL;                /* RTD resistance and temperature are under range */
+
+   } else if (f32voltage > (VREF - V_OFFSET)) {
+
+      f32r = VALUE_TO_BIG;                /* RTD resistance and temperature are over range */
+
+   } else {
+
+      f32r = RMIN + ((f32voltage - V_OFFSET) / GF);          /* Calculate RTD resistance */
+   }
+
+#endif
+
+   return f32r;       /* Return RTD resistance value  */
 }
 
+#pragma GCC diagnostic pop
 
 /**
    @brief Calculate RTD temperature
@@ -121,10 +166,16 @@ float CN0337_CalculateTemp(float r)
    float t;
    int i = 0;
 
+   if((r == VALUE_TO_SMALL) || (r == VALUE_TO_BIG) ) {
 
-   i = (r - RMIN) / RSEG;                          /* Calculate which coefficient to use from look-up table */
+      t = r;                         /* Set temperature value as under or over range */
 
-   t = C_rtd[i] + (r - (RMIN + RSEG * i)) * (C_rtd[i + 1] - C_rtd[i]) / RSEG; /* Calculate RTD temperature */
+   } else {
+
+      i = (r - RMIN) / RSEG;                          /* Calculate which coefficient to use from look-up table */
+
+      t = C_rtd[i] + (r - (RMIN + RSEG * i)) * (C_rtd[i + 1] - C_rtd[i]) / RSEG; /* Calculate RTD temperature */
+   }
 
    return t;
 
