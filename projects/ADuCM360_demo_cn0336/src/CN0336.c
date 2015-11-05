@@ -2,11 +2,13 @@
 ******************************************************************************
 *   @file     CN0336.c
 *   @brief    Source file for CN0336 application
-*   @version  V0.1
+*   @version  V0.2
 *   @author   ADI
 *   @date     November 2015
 *  @par Revision History:
 *  - V0.1, November 2015: initial version.
+*  - V0.2, November 2015: - CN0336_WriteData() function was changed in order to write data only when input is changed
+*                         - changed UART baud rate to 115200
 *
 *******************************************************************************
 * Copyright 2015(c) Analog Devices, Inc.
@@ -77,7 +79,7 @@
 **/
 void CN0336_Init(void)
 {
-   UART_Init(B19200, COMLCR_WLS_8BITS);  /* UART initialization */
+   UART_Init(B115200, COMLCR_WLS_8BITS);  /* UART initialization */
 }
 
 /**
@@ -92,15 +94,20 @@ void CN0336_Init(void)
 **/
 void CN0336_WriteData(float f32current, float f32voltage, uint16_t u16adc)
 {
+   static  uint16_t u16adcOld = 0;
+   uint8_t u8start = 0;
 
-   if (uart_cmd == UART_TRUE) {            /* Check if ENTER key was pressed */
+   if ((uart_cmd == UART_TRUE) && (u8StartCounter == 0)) {            /* Check if ENTER key was pressed */
 
-      if(u8StartCounter == 0) {                 /* Check if initialization us done */
+      printf("\tCheck CN0336 data:\n ");     /* Send welcome message */
+      printf("\n");
+      u8StartCounter++;                  /* Increase counter */
+      uart_cmd = UART_FALSE;             /* Prepare for reset */
+      u8start++;
 
-         printf("\tCheck CN0336 data:\n ");     /* Send welcome message */
-         printf("\n");
-         u8StartCounter++;                  /* Increase counter */
-      }
+   }
+
+   if(( u8start != 0) || ( (((u16adcOld - 2) > u16adc) || ((u16adcOld + 2) < u16adc)) && (u8StartCounter != 0)) ) {
 
       if(u16adc == INVALID_DATA) {                 /* Check if ADC value is invalid */
 
@@ -110,32 +117,33 @@ void CN0336_WriteData(float f32current, float f32voltage, uint16_t u16adc)
       } else {
 
          printf("\n");
-         printf("\033[4mInput\033[24m:\n");
 
          if (f32current == VALUE_TO_SMALL) {   /* Check if current value is under range */
 
-            printf("Current  = Check settings: I < %d[mA]\n", IMIN);      /* Send under range message */
+            printf("Input Current = Check settings: I < %d[mA]\n", IMIN);      /* Send under range message */
 
          } else if (f32current == VALUE_TO_BIG) {    /* Check if current value is over range */
 
-            printf("Current  = Check settings: I > %d[mA]\n", IMAX);      /* Send over range message */
+            printf("Input Current = Check settings: I > %d[mA]\n", IMAX);      /* Send over range message */
 
          } else {
 
-            printf("Current  = %.6f[mA]\n", f32current);     /* Send valid current value */
+            printf("Input Current = %.2f[mA]\n", f32current);     /* Send valid current value */
          }
 
          printf("\n");
-         printf("\033[4mOutput\033[24m:\n");
-         printf("Voltage  = %.6f[V]\n", f32voltage);     /* Send valid voltage value */
+         printf("Output Voltage = %.2f[V]\n", f32voltage);     /* Send valid voltage value */
          printf("ADC Code = %d (%#05x)\n", u16adc, u16adc);          /* Send valid ADC code */
 
       }
 
       printf("\n");
-      printf("----------------------\n");
-      uart_cmd = UART_FALSE;            /* Reset flag */
+      printf("-------------------------\n");
+
    }
+
+   u16adcOld = u16adc;
+
 }
 
 
