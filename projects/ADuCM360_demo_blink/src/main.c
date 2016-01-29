@@ -8,7 +8,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+#ifdef __GNUC__
 #include "diag/Trace.h"
+#endif
 #include "blink.h"
 #include "Timer.h"
 
@@ -28,11 +31,12 @@
 
 // Sample pragmas to cope with warnings. Please note the related line at
 // the end of this function, used to pop the compiler diagnostics status.
+#ifdef __GNUC__
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 #pragma GCC diagnostic ignored "-Wreturn-type"
-
+#endif
 const unsigned use_irq = 1;
 
 void GP_Tmr0_Int_Handler(void)
@@ -68,6 +72,8 @@ int main (int argc, char *argv[])
    }
 }
 
+#ifdef __GNUC__
 #pragma GCC diagnostic pop
+#endif
 
 // ----------------------------------------------------------------------------

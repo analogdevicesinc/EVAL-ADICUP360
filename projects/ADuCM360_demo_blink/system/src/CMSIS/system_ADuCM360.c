@@ -34,7 +34,11 @@
 /*----------------------------------------------------------------------------
   Clock Variable definitions
  *----------------------------------------------------------------------------*/
+#ifndef __GNUC__
+__no_init uint32_t SystemCoreClock;  /*!< System Clock Frequency (Core Clock)*/
+#else
 uint32_t SystemCoreClock;  /*!< System Clock Frequency (Core Clock)*/
+#endif
 uint32_t uClk;             /* Undivided System Clock Frequency (UCLK)   */
 
 /* Frequency of the external clock source connected to P1.0 */
