@@ -194,8 +194,10 @@ void Lcd_Init(void)
    DioPulPin(INTACC_PORT, INTACC_PIN_NUMBER, 0);           /* Disable the internal pull up on INTACC pin */
    DioOenPin(INTACC_PORT, INTACC_PIN_NUMBER, 0);         /* Set INTACC pin as input */
 
-   DioPul(A0_BL_LCD_PORT, (~(A0LCD_PIN | BLLCD_PIN )));    /* Disable the internal pull up on A0LCD and BLLCD_PIN pins*/
-   DioOen(A0_BL_LCD_PORT, (A0LCD_PIN | BLLCD_PIN ));       /* Set A0LCD and BLLCD_PIN pins as output */
+   DioPulPin(A0LCD_PORT, PIN3 , 0);        /* Disable the internal pull up on A0LCD pin */
+   DioOenPin(A0LCD_PORT, PIN3, 1);         /* Set A0_LCD pin as output */
+   DioPulPin(BLLCD_PORT, PIN5, 0);         /* Disable the internal pull up on BLLCD pin */
+   DioOenPin(BLLCD_PORT, PIN5, 1);         /* Set BLLCD_PORT pin as output */
 
    SPI_Write(ADDR_NOT_USE, CMD_DISPLAY_OFF, SPI_WRITE_COMMAND);            /* Display OFF */
 

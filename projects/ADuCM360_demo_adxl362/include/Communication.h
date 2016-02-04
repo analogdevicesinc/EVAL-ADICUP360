@@ -97,30 +97,30 @@ uint16_t SPI_Read(uint8_t ui8address, enRegsNum enRegs);
 
 /*** LCD pin configuration ***/
 
-/* CSLCD - P0.5 - output */
-#define CSLCD_PORT      pADI_GP0
-#define CSLCD_PIN       0x20
+/* CSLCD - P2.2 - output */
+#define CSLCD_PORT      pADI_GP2
+#define CSLCD_PIN       0x04
 
-/* A0 - P1.1 - output */
+/* A0 - P1.3 - output */
 #define A0LCD_PORT      pADI_GP1
-#define A0LCD_PIN       0x02
+#define A0LCD_PIN       0x08
 
-/* BL - P1.0 - output */
-#define BLLCD_PORT      pADI_GP1
-#define BLLCD_PIN       0x01
+/* BL - P0.5 - output */
+#define BLLCD_PORT      pADI_GP0
+#define BLLCD_PIN       0x20
 
 
 /*** ACC pin configuration ***/
 
-/* CSADXL362 - P2.2- output */
-#define CSACC_PORT         pADI_GP2
-#define CSACC_PIN          0x04
-#define CSACC_PIN_NUMBER   0x02
+/* CSADXL362 - P0.3- output */
+#define CSACC_PORT         pADI_GP0
+#define CSACC_PIN          0x80
+#define CSACC_PIN_NUMBER   0x03
 
-/* INT - P0.4 - input */
-#define INTACC_PORT        pADI_GP0
-#define INTACC_PIN         0x10
-#define INTACC_PIN_NUMBER  0x04
+/* INT - P1.0 - input */
+#define INTACC_PORT        pADI_GP1
+#define INTACC_PIN         0x01
+#define INTACC_PIN_NUMBER  0x01
 
 #define A0_BL_LCD_PORT      pADI_GP1
 
