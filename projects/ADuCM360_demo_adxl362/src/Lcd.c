@@ -2,12 +2,13 @@
 ******************************************************************************
 *   @file     Lcd.c
 *   @brief    Source file for ST7565R LCD control.
-*   @version  V0.2
+*   @version  V0.3
 *   @author   ADI
-*   @date     October 2015
+*   @date     March 2016
 *  @par Revision History:
 *  - V0.1, September 2015: initial version.
 *  - V0.2, October 2015: reconfigured LCD pins and added revision history.
+*  - V0.3, March 2016: added RST pin initialization and removed INT pin initialization.
 *
 *******************************************************************************
 * Copyright 2015(c) Analog Devices, Inc.
@@ -188,16 +189,21 @@ static void Lcd_SetCursor(uint8_t ui8PA, uint8_t ui8CA);
 void Lcd_Init(void)
 {
 
-   DioPul(CSLCD_PORT, (~CSLCD_PIN));          /* Disable the internal pull up on CSLCD pin */
-   DioOen(CSLCD_PORT, CSLCD_PIN);               /* Set CSLCD pin as output */
+#if(LDC_RST_SEL == RSLCD_PIN_P1_1)
+   DioPulPin(RSLCD_PORT, RSLCD_PIN_NUMBER, 0);         /* Disable the internal pull up on RS LCD pin */
+   DioOenPin(RSLCD_PORT, RSLCD_PIN_NUMBER, 1);         /* Set RS LCD pin as output */
+   DioSet(RSLCD_PORT, RSLCD_PIN);                      /* Set RS LCD pin high  */
+#endif
 
-   DioPulPin(INTACC_PORT, INTACC_PIN_NUMBER, 0);           /* Disable the internal pull up on INTACC pin */
-   DioOenPin(INTACC_PORT, INTACC_PIN_NUMBER, 0);         /* Set INTACC pin as input */
+   DioPulPin(CSLCD_PORT, CSLCD_PIN_NUMBER, 0);          /* Disable the internal pull up on CSLCD pin */
+   DioOenPin(CSLCD_PORT, CSLCD_PIN_NUMBER, 1);          /* Set CSLCD pin as output */
 
-   DioPulPin(A0LCD_PORT, PIN3 , 0);        /* Disable the internal pull up on A0LCD pin */
-   DioOenPin(A0LCD_PORT, PIN3, 1);         /* Set A0_LCD pin as output */
-   DioPulPin(BLLCD_PORT, PIN5, 0);         /* Disable the internal pull up on BLLCD pin */
-   DioOenPin(BLLCD_PORT, PIN5, 1);         /* Set BLLCD_PORT pin as output */
+   DioPulPin(A0LCD_PORT, A0LCD_PIN_NUMBER , 0);        /* Disable the internal pull up on A0LCD pin */
+   DioOenPin(A0LCD_PORT, A0LCD_PIN_NUMBER, 1);         /* Set A0_LCD pin as output */
+
+   DioPulPin(BLLCD_PORT, BLLCD_PIN_NUMBER, 0);         /* Disable the internal pull up on BLLCD pin */
+   DioOenPin(BLLCD_PORT, BLLCD_PIN_NUMBER, 1);         /* Set BLLCD pin as output */
+
 
    SPI_Write(ADDR_NOT_USE, CMD_DISPLAY_OFF, SPI_WRITE_COMMAND);            /* Display OFF */
 

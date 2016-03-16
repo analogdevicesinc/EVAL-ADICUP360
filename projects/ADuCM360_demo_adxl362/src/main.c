@@ -2,12 +2,13 @@
 ******************************************************************************
 *   @file     main.c
 *   @brief    Project main source file
-*   @version  V0.2
+*   @version  V0.3
 *   @author   ADI
-*   @date     October 2015
+*   @date     March 2016
 *  @par Revision History:
 *  - V0.1, September 2015: initial version.
 *  - V0.2, October 2015: removed ACC defintions and added revision history.
+*  - V0.3, March 2016: updated temperature calculation formula.
 *
 *******************************************************************************
 * Copyright 2015(c) Analog Devices, Inc.
@@ -168,7 +169,7 @@ int main(int argc, char *argv[])
          sprintf((char *)ui8s, "t = % 5d", i16SensorT);
          Lcd_DisplayString(3, 0, (int8_t *)ui8s);
 #else
-         f32temp = ((float)i16SensorT - SENS_TEMP_ADD) * SENS_TEMP_MUL;
+         f32temp = ((float)i16SensorT + ACC_TEMP_BIAS) / (1 / ACC_TEMP_SENSITIVITY);   // -34.625
          sprintf((char *)ui8s, "t = % 4.1f", f32temp);
          Lcd_DisplayString(3, 0, (int8_t *)ui8s);
 #endif

@@ -2,12 +2,13 @@
 ******************************************************************************
 *   @file     ADXL362.c
 *   @brief    Source file for ADXL362 accelerometer control.
-*   @version  V0.2
+*   @version  V0.3
 *   @author   ADI
-*   @date     October 2015
+*   @date     March 2016
 *  @par Revision History:
 *  - V0.1, September 2015: initial version.
 *  - V0.2, October 2015: removed ACC definitions, added configuration for CSACC pin and revision history.
+*  - V0.3, March 2016: added support for ADXL362 INT pin.
 *
 *******************************************************************************
 * Copyright 2015(c) Analog Devices, Inc.
@@ -85,6 +86,9 @@ void Sensor_Init(void)
    DioPulPin(CSACC_PORT, CSACC_PIN_NUMBER, 0);          /* Disable the internal pull up on CSACC pin */
    DioOenPin(CSACC_PORT, CSACC_PIN_NUMBER, 1);               /* Set CSACC pin as output */
 
+   DioPulPin(INTACC_PORT, INTACC_PIN_NUMBER, 0);         /* Disable the internal pull up on INTACC pin */
+   DioOenPin(INTACC_PORT, INTACC_PIN_NUMBER, 0);         /* Set INTACC pin as input */
+
    SPI_Write(SOFT_RESET_REG, 0x52, SPI_WRITE_REG);  /* Soft reset accelerometer */
 
    timer_sleep(100);                         /* Wait at least 0.5 ms */
@@ -105,7 +109,11 @@ void Sensor_Init(void)
 
    SPI_Write(ACT_INACT_CTL, 0x3F, SPI_WRITE_REG);         /* Set Loop mode, referenced mode for activity and inactivity, enable activity and inactivity functionality */
 
+#if(ADXL_INT_SEL == INTACC_PIN_1)
    SPI_Write(INTMAP1, 0x40, SPI_WRITE_REG);                  /* Map the awake status to INT1 pin */
+#elif(ADXL_INT_SEL == INTACC_PIN_2)
+   SPI_Write(INTMAP2, 0x40, SPI_WRITE_REG);                  /* Map the awake status to INT2 pin */
+#endif
 }
 
 /**

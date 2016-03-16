@@ -2,12 +2,13 @@
 ******************************************************************************
 *   @file     ADXL362.h
 *   @brief    Header file for ADXL362 accelerometer control.
-*   @version  V0.2
+*   @version  V0.3
 *   @author   ADI
-*   @date     October 2015
+*   @date     March 2016
 *  @par Revision History:
 *  - V0.1, September 2015: initial version.
 *  - V0.2, October 2015: moved ACC definitions and added revision history.
+*  - V0.3, March 2016: updated temperature parameters - name and value.
 *
 *******************************************************************************
 * Copyright 2015(c) Analog Devices, Inc.
@@ -76,8 +77,8 @@
 #define TEMP_ADC        1     /* Temperature display units: 1 for ADC, 0 for degrees Celsius */
 
 /* Temperature parameters */
-#define SENS_TEMP_ADD   (float)348.7
-#define SENS_TEMP_MUL   (float)0.06
+#define ACC_TEMP_BIAS             (float)350         /* Accelerometer temperature bias(in ADC codes) at 25 Deg C */
+#define ACC_TEMP_SENSITIVITY      (float)0.065       /* Accelerometer temperature sensitivity  from datasheet (DegC per Code) */
 
 #define SCAN_SENSOR_TIME   500    /* Accelerometer scan interval in ms */
 

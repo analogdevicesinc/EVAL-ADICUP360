@@ -2,12 +2,13 @@
 ******************************************************************************
 *   @file     Communication.h
 *   @brief    Header file for communication part
-*   @version  V0.2
+*   @version  V0.3
 *   @author   ADI
-*   @date     October 2015
+*   @date     March 2016
 *  @par Revision History:
 *  - V0.1, September 2015: initial version.
 *  - V0.2, October 2015: added missing comments and revision history.
+*  - V0.3, March 2016: added pin configuration based on pin selection.
 *
 *******************************************************************************
 * Copyright 2015(c) Analog Devices, Inc.
@@ -81,6 +82,21 @@ typedef enum {
 /* Unused address */
 #define ADDR_NOT_USE       0x00
 
+/* LCD_CS_SEL pins */
+#define CSLCD_PIN_P2_2           1   /* Select P2.2 */
+#define CSLCD_PIN_P1_4           2   /* Select P1.4 */
+
+/* ADXL_CS_SEL pins */
+#define CSACC_PIN_P0_3           3   /* Select P0.3 */
+#define CSACC_PIN_P0_4           4   /* Select P0.4 */
+
+/* ADXL_INT_SEL pins */
+#define INTACC_PIN_1             5   /* Select INT1 */
+#define INTACC_PIN_2             6   /* Select INT2 */
+
+/* LDC_RST_SEL pins */
+#define RSLCD_PIN_IOREF           7   /* Select IOREF */
+#define RSLCD_PIN_P1_1            8   /* Select P1.1 */
 
 /*******************************************************************************
 **************************** Functions declarations *****************************
@@ -92,37 +108,85 @@ uint16_t SPI_Read(uint8_t ui8address, enRegsNum enRegs);
 
 
 /*******************************************************************************
-**************************** Configuration settings ****************************
+******************Configuration parameters(set by the user)*********************
 ********************************************************************************/
+/* Select LCD CS pin based on jumper P8 setting.
+ * Available values:
+ *    CSLCD_PIN_P2_2
+ *    CSLCD_PIN_P1_4 */
+#define LCD_CS_SEL          CSLCD_PIN_P1_4
 
-/*** LCD pin configuration ***/
+/* Select ADXL362 CS pin based on jumper P9 setting.
+ * Available values:
+ *    CSACC_PIN_P0_3
+ *    CSACC_PIN_P0_4 */
+#define ADXL_CS_SEL         CSACC_PIN_P0_4
 
+/* Select ADXL362 INT pin based on jumper P7 setting.
+ * Available values:
+ *    INTACC_PIN_1
+ *    INTACC_PIN_2 */
+#define ADXL_INT_SEL        INTACC_PIN_1
+
+/* Select LCD RST pin based on jumper P6 setting.
+ * Available values:
+ *    RSLCD_PIN_IOREF
+ *    RSLCD_PIN_P1_1 */
+#define LDC_RST_SEL         RSLCD_PIN_IOREF
+
+
+/*********************Pins configuration (not set by the user)*******************/
+/*** LCD CS pin configuration ***/
+#if(LCD_CS_SEL == CSLCD_PIN_P1_4)
+/* CSLCD - P1.4 - output */
+#define CSLCD_PORT       pADI_GP1
+#define CSLCD_PIN        0x10
+#define CSLCD_PIN_NUMBER PIN4
+#elif(LCD_CS_SEL == CSLCD_PIN_P2_2)
 /* CSLCD - P2.2 - output */
-#define CSLCD_PORT      pADI_GP2
-#define CSLCD_PIN       0x04
+#define CSLCD_PORT       pADI_GP2
+#define CSLCD_PIN        0x04
+#define CSLCD_PIN_NUMBER PIN2
 
+#endif
+
+/*** LCD A0 pin configuration ***/
 /* A0 - P1.3 - output */
-#define A0LCD_PORT      pADI_GP1
-#define A0LCD_PIN       0x08
+#define A0LCD_PORT         pADI_GP1
+#define A0LCD_PIN          0x08
+#define A0LCD_PIN_NUMBER   PIN3
 
+/*** LCD BL pin configuration ***/
 /* BL - P0.5 - output */
-#define BLLCD_PORT      pADI_GP0
-#define BLLCD_PIN       0x20
+#define BLLCD_PORT         pADI_GP0
+#define BLLCD_PIN          0x20
+#define BLLCD_PIN_NUMBER   PIN5
 
+/*** LCD RST pin configuration ***/
+#if(LDC_RST_SEL == RSLCD_PIN_P1_1)
+/* RES - P1.1 - output */
+#define RSLCD_PORT        pADI_GP1
+#define RSLCD_PIN         0x02
+#define RSLCD_PIN_NUMBER  PIN1
+#endif
 
-/*** ACC pin configuration ***/
-
+/*** ACC CS pin configuration ***/
+#if(ADXL_CS_SEL == CSACC_PIN_P0_4)
+/* CSADXL362 - P0.4- output */
+#define CSACC_PORT         pADI_GP0
+#define CSACC_PIN          0x10
+#define CSACC_PIN_NUMBER   PIN4
+#elif(ADXL_CS_SEL == CSACC_PIN_P0_3)
 /* CSADXL362 - P0.3- output */
 #define CSACC_PORT         pADI_GP0
-#define CSACC_PIN          0x80
-#define CSACC_PIN_NUMBER   0x03
+#define CSACC_PIN          0x08
+#define CSACC_PIN_NUMBER   PIN3
+#endif
 
+/*** ACC INT pin configuration */
 /* INT - P1.0 - input */
 #define INTACC_PORT        pADI_GP1
 #define INTACC_PIN         0x01
-#define INTACC_PIN_NUMBER  0x01
-
-#define A0_BL_LCD_PORT      pADI_GP1
-
+#define INTACC_PIN_NUMBER  PIN0
 
 #endif /* _COMMUNICATION_H_ */

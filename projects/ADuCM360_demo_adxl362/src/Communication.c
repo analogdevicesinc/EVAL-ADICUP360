@@ -2,12 +2,13 @@
 ******************************************************************************
 *   @file     Communication.c
 *   @brief    Source file for communication part.
-*   @version  V0.2
+*   @version  V0.3
 *   @author   ADI
-*   @date     October 2015
+*   @date     March 2016
 *  @par Revision History:
 *  - V0.1, September 2015: initial version.
 *  - V0.2, October 2015: changed used SPI channel to SPI1 and added revision history.
+*  - V0.3, March 2016: changed SPI pins initialization.
 *
 *******************************************************************************
 * Copyright 2015(c) Analog Devices, Inc.
@@ -69,9 +70,9 @@
 void SPI_Init(void)
 {
 
-   DioPul(pADI_GP0, 0xF0);  /* Disable the internal pull ups on P0[3:0] */
+   DioPul(pADI_GP0, 0xF8);  /* Disable the internal pull ups on P0[2:0] */
 
-   DioCfg(pADI_GP0, 0x0055);    /* Configure P0[3:0] for SPI1 */
+   DioCfg(pADI_GP0, 0x0015);    /* Configure P0[2:0] for SPI1 */
 
    SpiBaud(pADI_SPI1, 9, SPIDIV_BCRST_DIS);      /* Set the SPI1 clock rate in Master mode to x kHz. */
 
