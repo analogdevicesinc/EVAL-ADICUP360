@@ -195,7 +195,7 @@ int main(int argc, char *argv[])
 
       UART_Printf("\r\n X data [G]: %.2f [g]", (float)i16SensorX / scale);
       UART_Printf("\r\n Y data [G]: %.2f [g]", (float)i16SensorY / scale);
-      UART_Printf("\r\n X data [G]: %.2f [g]", (float)i16SensorZ / scale);
+      UART_Printf("\r\n Z data [G]: %.2f [g]", (float)i16SensorZ / scale);
 
 #if TEMP_ADC == 0
       f32temp = ((float)i16SensorT + ACC_TEMP_BIAS) / (1 / ACC_TEMP_SENSITIVITY);
