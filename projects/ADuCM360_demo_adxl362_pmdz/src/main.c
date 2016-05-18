@@ -136,7 +136,7 @@ void UART_Int_Handler (void)
 
 **/
 
-#define TEMP_ADC       1     /* Temperature display units: 1 for ADC, 0 for degrees Celsius */
+#define TEMP_ADC       0     /* Temperature display units: 1 for ADC, 0 for degrees Celsius */
 #define ADXL_SENSE     2     /* ADXL362 sensitivity: 2, 4, 8 [g] */
 
 int main(int argc, char *argv[])
