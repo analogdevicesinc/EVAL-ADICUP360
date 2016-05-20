@@ -2,15 +2,15 @@
 ******************************************************************************
 *   @file     Communication.c
 *   @brief    Source file for communication part.
-*   @version  V0.2
+*   @version  V0.1
 *   @author   ADI
-*   @date     October 2015
+*   @date     May 2016
 *  @par Revision History:
-*  - V0.1, September 2015: initial version.
-*  - V0.2, October 2015: changed used SPI channel to SPI1 and added revision history.
+*  - V0.1, May 2016: initial version.
+*  
 *
 *******************************************************************************
-* Copyright 2015(c) Analog Devices, Inc.
+* Copyright 2016(c) Analog Devices, Inc.
 *
 * All rights reserved.
 *
@@ -80,17 +80,6 @@ unsigned int      uart_echo, uart_cmd, uart_ctrlc, uart_tbusy;
 **/
 void SPI_Init(void)
 {
-
-/*   DioPul(pADI_GP0, 0x00);   Disable the internal pull ups on P0[3:0]
-
-   DioCfg(pADI_GP0, 0x0055);     Configure P0[3:0] for SPI1
-
-   SpiBaud(pADI_SPI1, 9, SPIDIV_BCRST_DIS);       Set the SPI1 clock rate in Master mode to x kHz.
-
-   SpiCfg(pADI_SPI1, SPICON_MOD_TX1RX1, SPICON_MASEN_EN, SPICON_CON_EN |
-          SPICON_RXOF_EN | SPICON_ZEN_EN | SPICON_TIM_TXWR | SPICON_CPOL_LOW |
-          SPICON_CPHA_SAMPLELEADING | SPICON_ENABLE_EN);  Configure SPI1 channel */
-
       DioPul(pADI_GP1, 0x00);  // Disable the internal pull ups on P0[3:0]
 
       DioCfg(pADI_GP1, 0xAA00);    // Configure P1[7:3] for SPI1
@@ -115,29 +104,7 @@ void SPI_Init(void)
 **/
 void SPI_Write(uint8_t ui8address, uint8_t ui8Data, enWriteData enMode)
 {
-   if(enMode != SPI_WRITE_REG) {
-
-      DioClr(CSLCD_PORT, CSLCD_PIN);  /* Select LCD */
-
-      if(enMode == SPI_WRITE_DATA) {
-
-         DioSet(A0LCD_PORT, A0LCD_PIN); /* Select to send data */
-
-      } else if(enMode == SPI_WRITE_COMMAND) {
-
-         DioClr(A0LCD_PORT, A0LCD_PIN);   /* Select to send command */
-      }
-
-      SpiFifoFlush(pADI_SPI0, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);     /* Flush Tx and Rx FIFOs */
-
-      SpiTx(pADI_SPI0, ui8Data);
-
-      while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_ONEBYTE) != SPI0STA_RXFSTA_ONEBYTE);   /* Wait until 1 byte is received */
-
-      DioSet(CSLCD_PORT, CSLCD_PIN);   /* Deselect LCD */
-
-   } else {
-
+   if(enMode == SPI_WRITE_REG) {
       DioClr(CSACC_PORT, CSACC_PIN);         /* Select accelerometer */
 
       SpiFifoFlush(pADI_SPI0, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);      /* Flush Tx and Rx FIFOs */
@@ -152,7 +119,6 @@ void SPI_Write(uint8_t ui8address, uint8_t ui8Data, enWriteData enMode)
 
       DioSet(CSACC_PORT, CSACC_PIN);         /* Deselect accelerometer */
    }
-
 }
 
 /**
