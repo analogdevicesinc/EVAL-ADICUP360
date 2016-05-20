@@ -2,15 +2,14 @@
 ******************************************************************************
 *   @file     ADXL362.h
 *   @brief    Header file for ADXL362 accelerometer control.
-*   @version  V0.2
+*   @version  V0.1
 *   @author   ADI
-*   @date     October 2015
+*   @date     May 2016
 *  @par Revision History:
-*  - V0.1, September 2015: initial version.
-*  - V0.2, October 2015: moved ACC definitions and added revision history.
+*  - V0.1, May 2016: initial version.
 *
 *******************************************************************************
-* Copyright 2015(c) Analog Devices, Inc.
+* Copyright 2016(c) Analog Devices, Inc.
 *
 * All rights reserved.
 *
