@@ -2,15 +2,14 @@
 ******************************************************************************
 *   @file     main.c
 *   @brief    Project main source file
-*   @version  V0.2
+*   @version  V0.1
 *   @author   ADI
-*   @date     October 2015
+*   @date     May 2016
 *  @par Revision History:
-*  - V0.1, September 2015: initial version.
-*  - V0.2, October 2015: removed ACC defintions and added revision history.
+*  - V0.1, May 2016: initial version.
 *
 *******************************************************************************
-* Copyright 2015(c) Analog Devices, Inc.
+* Copyright 2016(c) Analog Devices, Inc.
 *
 * All rights reserved.
 *
@@ -48,20 +47,15 @@
 
 
 /***************************** Include Files **********************************/
-
-#include <stdio.h>
-
-#include <DioLib.h>
-#include <ADUCM360.h>
-#include <UrtLib.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "diag/Trace.h"
-#include "Timer.h"
 
-#include "DioLib.h"
+#include <ADUCM360.h>
+#include <UrtLib.h>
+
+#include "Timer.h"
 #include "ADXL362.h"
-#include "Lcd.h"
 #include "Communication.h"
 
 
@@ -140,22 +134,15 @@ void UART_Int_Handler (void)
 #define ADXL_SENSE     2     /* ADXL362 sensitivity: 2, 4, 8 [g] */
 
 int main(int argc, char *argv[])
+
 {
-   uint8_t ui8s[22];
-   uint8_t ui8xu;
-   uint8_t ui8xd;
-   uint8_t ui8yu;
-   uint8_t ui8yd;
-   uint8_t ui8all;
-   uint8_t ui8awake;
+
    float scale;
 
 #if TEMP_ADC == 0
    float f32temp;
 #endif
 
-
-   /* Initialize ports */
    /* Initialize SPI1 */
    SPI_Init();
 
@@ -164,9 +151,6 @@ int main(int argc, char *argv[])
 
    /* Initialize UART */
    UART_Init(B9600, COMLCR_WLS_8BITS);
-
-   /* Initialize LCD */
-   Lcd_Init();
 
    /* Initialize accelerometer */
    Sensor_Init();
@@ -193,6 +177,8 @@ int main(int argc, char *argv[])
    {
       Sensor_Scan();
 
+      if (uart_cmd == UART_TRUE) {
+
       UART_Printf("\r\n X data [G]: %.2f [g]", (float)i16SensorX / scale);
       UART_Printf("\r\n Y data [G]: %.2f [g]", (float)i16SensorY / scale);
       UART_Printf("\r\n Z data [G]: %.2f [g]", (float)i16SensorZ / scale);
@@ -204,7 +190,12 @@ int main(int argc, char *argv[])
       UART_Printf("\r\n The temp data of the ADXL362 is: %#04d", i16SensorT);
 #endif
 
-      timer_sleep(1000);
+      UART_Printf("\r\n");
+
+      uart_cmd = UART_FALSE;
+      }
+
+      timer_sleep(250);
    }
 }
 
