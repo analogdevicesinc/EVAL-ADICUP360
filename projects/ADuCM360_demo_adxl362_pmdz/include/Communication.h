@@ -2,15 +2,14 @@
 ******************************************************************************
 *   @file     Communication.h
 *   @brief    Header file for communication part
-*   @version  V0.2
+*   @version  V0.1
 *   @author   ADI
-*   @date     October 2015
+*   @date     May 2016
 *  @par Revision History:
-*  - V0.1, September 2015: initial version.
-*  - V0.2, October 2015: added missing comments and revision history.
+*  - V0.1, May 2016: initial version.
 *
 *******************************************************************************
-* Copyright 2015(c) Analog Devices, Inc.
+* Copyright 2016(c) Analog Devices, Inc.
 *
 * All rights reserved.
 *
@@ -131,55 +130,25 @@ int UART_WriteString(char *string);
 void UART_ReadChar(char *data);
 void UART_Printf(const char *fmt, ...);
 
-
-
 /*******************************************************************************
 **************************** Configuration settings ****************************
 ********************************************************************************/
 
-/*** LCD pin configuration ***/
-
-/* CSLCD - P1.4 - output */
-#define CSLCD_PORT       pADI_GP1
-  #define CSLCD_PIN        0x10
-  #define CSLCD_PIN_NUMBER PIN4
-
-/* CSLCD - P2.2 - output */
-/*#define CSLCD_PORT         pADI_GP2
-  #define CSLCD_PIN          0x04
-  #define CSLCD_PIN_NUMBER   PIN2*/
-
-/* A0 - P1.3 - output */
-#define A0LCD_PORT         pADI_GP1
-#define A0LCD_PIN          0x08
-#define A0LCD_PIN_NUMBER   PIN3
-
-/* BL - P0.5 - output */
-#define BLLCD_PORT         pADI_GP0
-#define BLLCD_PIN          0x20
-#define BLLCD_PIN_NUMBER   PIN5
-
-
 /*** ACC pin configuration ***/
 
-/* CSADXL362 - P0.3- output */
-/*#define CSACC_PORT         pADI_GP0
-  #define CSACC_PIN          0x08
-  #define CSACC_PIN_NUMBER   PIN3*/
-
-/* CSADXL362 - P0.4- output */
+/* CSADXL362 - P1.7- output */
 #define CSACC_PORT         pADI_GP1
 #define CSACC_PIN          0x80
 #define CSACC_PIN_NUMBER   PIN7
 
-/* INT - P1.0 - input */
-#define INTACC_PORT        pADI_GP1
-#define INTACC_PIN         0x01
-#define INTACC_PIN_NUMBER  PIN0
+/* INT1 - P1.0 - input */
+#define INT1ACC_PORT        pADI_GP1
+#define INT1ACC_PIN         0x01
+#define INT1ACC_PIN_NUMBER  PIN0
 
-/* RES - P1.1 - output */
-#define RESLCD_PORT        pADI_GP1
-#define RESLCD_PIN         0x02
-#define RESLCD_PIN_NUMBER  PIN1
+/* INT2 - P1.1 - input */
+#define INT2ACC_PORT        pADI_GP1
+#define INT2ACC_PIN         0x02
+#define INT2ACC_PIN_NUMBER  PIN1
 
 #endif /* _COMMUNICATION_H_ */
