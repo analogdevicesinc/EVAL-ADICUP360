@@ -2,15 +2,15 @@
 ******************************************************************************
 *   @file     ADXL362.c
 *   @brief    Source file for ADXL362 accelerometer control.
-*   @version  V0.2
+*   @version  V0.1
 *   @author   ADI
-*   @date     October 2015
+*   @date     May 2016
 *  @par Revision History:
-*  - V0.1, September 2015: initial version.
-*  - V0.2, October 2015: removed ACC definitions, added configuration for CSACC pin and revision history.
+*  - V0.1, May 2016: initial version.
+*  
 *
 *******************************************************************************
-* Copyright 2015(c) Analog Devices, Inc.
+* Copyright 2016(c) Analog Devices, Inc.
 *
 * All rights reserved.
 *
@@ -85,8 +85,11 @@ void Sensor_Init(void)
    DioPulPin(CSACC_PORT, CSACC_PIN_NUMBER, 0);          /* Disable the internal pull up on CSACC pin */
    DioOenPin(CSACC_PORT, CSACC_PIN_NUMBER, 1);          /* Set CSACC pin as output */
 
-   DioPulPin(INTACC_PORT, INTACC_PIN_NUMBER, 0);         /* Disable the internal pull up on INTACC pin */
-   DioOenPin(INTACC_PORT, INTACC_PIN_NUMBER, 0);         /* Set INTACC pin as input */
+   DioPulPin(INT1ACC_PORT, INT1ACC_PIN_NUMBER, 0);         /* Disable the internal pull up on INT1ACC pin */
+   DioOenPin(INT1ACC_PORT, INT1ACC_PIN_NUMBER, 0);         /* Set INT1ACC pin as input */
+
+   DioPulPin(INT2ACC_PORT, INT2ACC_PIN_NUMBER, 0);         /* Disable the internal pull up on INT2ACC pin */
+   DioOenPin(INT2ACC_PORT, INT2ACC_PIN_NUMBER, 0);         /* Set INT2ACC pin as input */
 
    SPI_Write(SOFT_RESET_REG, 0x52, SPI_WRITE_REG);  /* Soft reset accelerometer */
 
