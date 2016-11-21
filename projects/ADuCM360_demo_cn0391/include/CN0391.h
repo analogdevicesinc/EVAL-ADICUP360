@@ -129,5 +129,7 @@ public:
 
 #define DISPLAY_REFRESH     (1000)   //ms
 
+#define TC_OFFSET_VOLTAGE    0.00    // mV compensation for system offset
+
 
 #endif
