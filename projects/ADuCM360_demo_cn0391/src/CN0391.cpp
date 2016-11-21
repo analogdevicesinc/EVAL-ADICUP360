@@ -54,6 +54,8 @@
 int32_t adcValue0[4], adcValue1[4];
 float rRtdValue[4], temp0[4], temp1[4];
 
+float cj_Voltage[4], th_Voltage_read[4], th_Voltage[4];
+
 static const unsigned char thermocouple_type[] = { 'T', 'J', 'K', 'E', 'S', 'R', 'N', 'B' };
 uint8_t th_types[4];
 
@@ -256,7 +258,7 @@ void CN0391::init() {
       setValue &= (~(uint32_t)AD7124_CH_MAP_REG_CH_ENABLE); //Disable channel
       setValue |= AD7124_CH_MAP_REG_SETUP(1);             // Select setup0
       setValue |= AD7124_CH_MAP_REG_AINP(2*i);         // Set AIN0+, AIN2+, AIN4+, AIN6+
-      setValue |= AD7124_CH_MAP_REG_AINM(17);         //AVss
+      setValue |= AD7124_CH_MAP_REG_AINM(15);         // Set AIN15 as negative
       setValue &= 0xFFFF;
       ADC.WriteDeviceRegister(regNr, setValue);   // Write data to ADC
       timer.sleep(ms_delay);
@@ -304,9 +306,19 @@ void CN0391::display_data(void)
 
    for(i = CHANNEL_P1; i <= CHANNEL_P4; i = static_cast<channel_t>(i+1)){
 
-         printf("P%d channel (Type %c):\n", i+1, thermocouple_type[th_types[i]]);
+     /*    printf("P%d channel (Type %c):\n", i+1, thermocouple_type[th_types[i]]);
          printf("\tR%d resistance = %f ohmi\n",i+1, rRtdValue[i]);
          printf("\tRTD Temperature = %f°C\n",temp0[i]);
+         printf("\tLinearized Temperature = %f°C\n",temp1[i]);*/
+
+         printf("P%d channel (Type %c):\n", i+1, thermocouple_type[th_types[i]]);
+         printf("\tADC CJ code = %10d (%#010x)\n",(int)adcValue0[i], (int)adcValue0[i]);
+         printf("\tR_rtd = %f ohmi\n", rRtdValue[i]);
+         printf("\tcj_Temp = %f°C\n",temp0[i]);
+         printf("\tcj_Voltage = %f mV\n",cj_Voltage[i]);
+         printf("\tADC TC code = %10d (%#010x)\n",(int)adcValue1[i], (int)adcValue1[i]);
+         printf("\tth_Voltage_read = %f mV\n",th_Voltage_read[i]);
+         printf("\tth_Voltage = %f mV\n",th_Voltage[i]);
 
          if(errFlag[i] == ERR_UNDER_RANGE){
             printf("\n");
@@ -322,7 +334,7 @@ void CN0391::display_data(void)
                   errFlag[i] = NO_ERR;
                 }
                 else{
-                      printf("\tLinearized Temperature = %f°C\n",temp1[i]);
+                   printf("\tth_temp = %f°C\n",temp1[i]);
                 }
           }
 
@@ -359,7 +371,9 @@ void CN0391::calc_th_temperature(channel_t ch, float cjTemp, float *buffer)
 
     thCoeff = &thPolyCoeff[th_types[ch]];
 
-    thVoltage = (VREF_INT*(adcValue1[ch] - _2_23))/(_2_23*GAIN_TH);
+    thVoltage = ((VREF_INT*(adcValue1[ch] - _2_23))/(_2_23*GAIN_TH)) + TC_OFFSET_VOLTAGE;
+
+    th_Voltage_read[ch]= thVoltage;
 
       if(cjTemp < cjTempRange[th_types[ch]][1]) {
          POLY_CALC(cjVoltage, cjTemp, thCoeff->neg_temp);
@@ -375,8 +389,12 @@ void CN0391::calc_th_temperature(channel_t ch, float cjTemp, float *buffer)
           POLY_CALC(cjVoltage, cjTemp, thCoeff->pos_temp2);
         }
       }
+      cj_Voltage[ch] = cjVoltage;
 
       thVoltage += cjVoltage;
+
+      th_Voltage[ch] = thVoltage;
+
 
       if(thVoltage < thVoltageRange[th_types[ch]][0]) {
             errFlag[ch] = ERR_UNDER_RANGE;
