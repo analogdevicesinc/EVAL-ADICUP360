@@ -128,11 +128,8 @@ void AD7988_SetOperationMode(enAD7988OpMode mode)
       DioSet(ADG758_PORT, IO6ADG758_PIN); // enable master power on IO6
       DioClr(IN1ADG884_PORT, IN1ADG884_PIN); // reset IN1
 
-     // timer_sleep(50); // delay 50ms
-
       AD7988_SensorRangeSelect(mode);
    }
-  // timer_sleep(50); // delay 50ms
 }
 
 /**

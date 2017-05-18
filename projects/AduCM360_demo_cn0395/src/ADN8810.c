@@ -86,7 +86,7 @@ uint32_t ADN8810_FactoryCalibration(void)
    float fGainCorrectionFactor;
    uint8_t ui8UpperByte = 0;       // Data byte MSB
    uint8_t ui8LowerByte = 0;       // Data byte LSB
-   uint16_t ui16DacInputCode = 4095; // Full Scale for 50mA
+   uint16_t ui16DacInputCode = ADN8810_FULL_SCALE_OUT; // Full Scale for 9.9mA
 
    // build 12 bits of data + 4 bits of device address
    ui8UpperByte = (uint8_t)(((ui16DacInputCode & 0xF00) >> 8) | (ADN8810_ADR << 4)); // 4 address and 4 data bits
@@ -101,7 +101,7 @@ uint32_t ADN8810_FactoryCalibration(void)
    timer_sleep(50);                                            // delay 50ms
    AD7988_ReadData(&ui16AdcData);                              // Read heater voltage ADC data
 
-   fGainCorrectionFactor = (57200.00 / ui16AdcData) * 10000;   // Calculate gain correction factor
+   fGainCorrectionFactor = (ADC_CODE_CALIBRATION / ui16AdcData) * 10000;   // Calculate gain correction factor
 
    return (uint32_t)fGainCorrectionFactor;
 }
@@ -121,7 +121,7 @@ int ADN8810_SetOutput(float fDesiredOutputCurrent, sMeasurementVariables *sMeasV
    // Adjust the current with the gain correction factor
    fDesiredOutputCurrent *= sMeasVar->K1;
 
-   if(fDesiredOutputCurrent > 50) {
+   if(fDesiredOutputCurrent > ADN8810_IFS) {
          return -1;
    }
    else {
@@ -144,7 +144,7 @@ int ADN8810_SetOutput(float fDesiredOutputCurrent, sMeasurementVariables *sMeasV
 /**
   @brief Calculates the input code for ADN8810 IDAC, given a desired output current
 
-  @param fCurrent - desired output current between 12.2uA and 50mA (0.00122 to 50)
+  @param fCurrent - desired output current between 2.4uA and 9.9mA
 
   @return fCode - the value that will be received as input by the IDAC.
 **/

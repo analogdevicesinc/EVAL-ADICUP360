@@ -255,6 +255,9 @@ void CN0395_PowerOn(sMeasurementVariables *sMeasVar)
       // In the case that Factory Calibration has never been performed before, use gain calibration factor of 1
       sMeasVar->K1 = 1;
    }
+
+   timer_sleep(50);
+
    // Set default heater current to 8mA
    sMeasVar->fHeaterCurrent = 8;
    ADN8810_SetOutput(sMeasVar->fHeaterCurrent, sMeasVar);
@@ -550,7 +553,7 @@ void CN0395_CmdSetHeaterCurrent(uint8_t *args, sMeasurementVariables *sMeasVar)
    }
    else {
          AppPrintf("\n");
-         AppPrintf("Cannot set heater current (IH) to %f. Maximum full scale current is 50 mA!", fDesiredHeaterCurrent);
+         AppPrintf("Cannot set heater current (IH) to %f. Maximum full scale current is %.2f mA!", fDesiredHeaterCurrent, ADN8810_IFS);
          AppPrintf("\n");
    }
 }
@@ -603,7 +606,7 @@ static void CN0395_CorrectError(sMeasurementVariables *sMeasVar,
          }
          else {
                AppPrintf("\n");
-               AppPrintf("Cannot set heater current (IH) to %f. Maximum full scale current is 50 mA!", fInputCurrent);
+               AppPrintf("Cannot set heater current (IH) to %f. Maximum full scale current is %.2f mA!", fInputCurrent, ADN8810_IFS);
                AppPrintf("\n");
                break;
          }
