@@ -152,8 +152,6 @@ uint16_t SPI_Read(void)
    uint8_t ui8AdcLowerCodes = 0;        /* Data register read LSB */
    uint16_t ui16Result = 0;
 
-   //for(uint32_t i = 0; i < 4194303; i++)
-
    /* Start conversion by briefly setting the CNV pin high*/
    DioSet(CSAD7988_PORT, CSAD7988_PIN);
    /* Set AD7988 CS low */
