@@ -195,7 +195,7 @@ static void CN0395_ComputeHeaterRPT(sMeasurementVariables *sMeasVar)
    float    fHeaterPower;
    float    fHeaterTemp;
 
-   const float fHeaterNomimanRes = 110; // RH_0 = 110Ω @ 20°C
+   const float fHeaterNomimalRes = 110; // RH_0 = 110Ω @ 20°C
 
    fHeaterVoltage = sMeasVar->fHeaterVoltage;
    fHeaterCurrent = sMeasVar->fHeaterCurrent;
@@ -208,8 +208,10 @@ static void CN0395_ComputeHeaterRPT(sMeasurementVariables *sMeasVar)
    // Read T_A and HUM from temperature/humidity sensor
    SHT30_Update(&fAmbientHeaterTemp, &fAmbientHeaterHum);
 
-   // T out of RH_T = RH_A [ 1 + ALPHA*(RH_0/RH_A)*(T – T_A)]
-   fHeaterTemp = (fHeaterRes - sMeasVar->fAmbientHeaterRes) / (ALPHA * fHeaterNomimanRes) + fAmbientHeaterTemp;
+   /* RH_T = RH_A [ 1 + ALPHA*(RH_0/RH_A)*(T – T_A)] - solve for T as a function of RH_T:
+    * T =  (RH_T – RH_A) / (ALPHA * RH_0) + T_A
+    */
+   fHeaterTemp = (fHeaterRes - sMeasVar->fAmbientHeaterRes) / (ALPHA * fHeaterNomimalRes) + fAmbientHeaterTemp;
 
    sMeasVar->fHeaterRes = fHeaterRes;
    sMeasVar->fAmbientHeaterTemp = fAmbientHeaterTemp;
@@ -235,7 +237,6 @@ void CN0395_PowerOn(sMeasurementVariables *sMeasVar)
    float    fAmbientHeaterRes;
    float    fAmbientHeaterTemp;
    float    fAmbientHeaterHum;
-   float    fRo;
    uint32_t ui32CalibrationData[2];
 
    // Enable master power on IO5 and reset DAC
@@ -282,8 +283,11 @@ void CN0395_PowerOn(sMeasurementVariables *sMeasVar)
    CN0395_ComputeHeaterRPT(sMeasVar); // Compute RH, PH and TH
 
    // At power up, perform a Ro measurement and store it for future use
-   fRo = CN0395_MeasureSensorResistance(sMeasVar);
-   sMeasVar->fSensorResCleanAir = fRo;
+   sMeasVar->fSensorResCleanAir = CN0395_MeasureSensorResistance(sMeasVar);
+   while (sMeasVar->fSensorResCleanAir < 0) { // in case of error, repeat measurement
+         timer_sleep(500);
+         sMeasVar->fSensorResCleanAir = CN0395_MeasureSensorResistance(sMeasVar);
+   }
 }
 
 /**
@@ -303,12 +307,12 @@ float CN0395_MeasureSensorResistance(sMeasurementVariables *sMeasVar)
    uint16_t ui16AdcData;
    uint32_t ui32RgValue = 0;
    int8_t  i8GainRangingIndex = AD7988_RS_RAMGE_5;
-   uint32_t GainRangingTh[5][2] = {
-            {442, 8870},
-            {393, 39200},
-            {3468, 110000},
-            {3492, 2740000},
-            {6226, 38300000}
+   uint32_t GainRangingTh[5][4] = {
+            {442, 8870, 1922, 132},
+            {393, 39200, 10263, 3330},
+            {3468, 110000, 56753, 84000},
+            {3492, 2740000, 57175, 2119971},
+            {6226, 33300000, 57572, 1909999}
    };
 
    // Gain ranging algorithm, needs to be run with every sensor measurement
@@ -316,17 +320,11 @@ float CN0395_MeasureSensorResistance(sMeasurementVariables *sMeasVar)
 
          AD7988_SetOperationMode(i8GainRangingIndex);
          sMeasVar->OpMode = i8GainRangingIndex;
-         timer_sleep_5uS(60);
+
          ui16AdcData = CN0395_ReadAdc(sMeasVar);
 
-         if((i8GainRangingIndex == AD7988_RS_RAMGE_5) && (ui16AdcData > 57572)) {
-               AppPrintf("\rADC Data Error  = %d ", ui16AdcData);
-
-               return -1;
-         }
-         else if ((i8GainRangingIndex == AD7988_RS_RAMGE_1) && (ui16AdcData < 442)) {
-               AppPrintf("\rADC Data Error  = %d ", ui16AdcData);
-
+         if(ui16AdcData > GainRangingTh[i8GainRangingIndex][2]) {
+               AppPrintf("\r\nADC Data Error  = %d ", ui16AdcData);
                return -1;
          }
          // ADC Data is bellow the threshold switch to the next gain
@@ -342,6 +340,10 @@ float CN0395_MeasureSensorResistance(sMeasurementVariables *sMeasVar)
                sMeasVar->ui32GainResistance = ui32RgValue;
                sMeasVar->fSensorRes = fRS;
                sMeasVar->fPPM = CN0395_CalculatePPM(sMeasVar);
+
+               if (fRS > GainRangingTh[i8GainRangingIndex][3]) { // RS exceeds max value
+                     return -1;
+               }
 
                return fRS;
          }
@@ -548,6 +550,10 @@ void CN0395_CmdSetHeaterCurrent(uint8_t *args, sMeasurementVariables *sMeasVar)
          CN0395_ComputeHeaterRPT(sMeasVar); // Compute RH, PH and TH
          // Update Ro value
          sMeasVar->fSensorResCleanAir = CN0395_MeasureSensorResistance(sMeasVar);
+         while (sMeasVar->fSensorResCleanAir < 0) { // in case of error, repeat measurement
+               timer_sleep(500);
+               sMeasVar->fSensorResCleanAir = CN0395_MeasureSensorResistance(sMeasVar);
+         }
          sMeasVar->OpMode = AD7988_RH_MODE;
          CN0395_DisplayData(sMeasVar);
    }
@@ -647,6 +653,10 @@ void CN0395_CmdSetHeaterVoltage(uint8_t *args, sMeasurementVariables *sMeasVar)
 
    // Update Ro value
    sMeasVar->fSensorResCleanAir = CN0395_MeasureSensorResistance(sMeasVar);
+   while (sMeasVar->fSensorResCleanAir < 0) { // in case of error, repeat measurement
+         timer_sleep(500);
+         sMeasVar->fSensorResCleanAir = CN0395_MeasureSensorResistance(sMeasVar);
+   }
    sMeasVar->OpMode = AD7988_RH_MODE;
    CN0395_DisplayData(sMeasVar);
 }
@@ -683,6 +693,10 @@ void CN0395_CmdSetHeaterRes(uint8_t *args, sMeasurementVariables *sMeasVar)
 
    // Update Ro value
    sMeasVar->fSensorResCleanAir = CN0395_MeasureSensorResistance(sMeasVar);
+   while (sMeasVar->fSensorResCleanAir < 0) { // in case of error, repeat measurement
+         timer_sleep(500);
+         sMeasVar->fSensorResCleanAir = CN0395_MeasureSensorResistance(sMeasVar);
+   }
    sMeasVar->OpMode = AD7988_RH_MODE;
    CN0395_DisplayData(sMeasVar);
 }
@@ -729,6 +743,10 @@ void CN0395_CmdSetHeaterTemp(uint8_t *args, sMeasurementVariables *sMeasVar)
    CN0395_ComputeHeaterRPT(sMeasVar); // Compute RH, PH and TH
    // Update Ro value
    sMeasVar->fSensorResCleanAir = CN0395_MeasureSensorResistance(sMeasVar);
+   while (sMeasVar->fSensorResCleanAir < 0) { // in case of error, repeat measurement
+         timer_sleep(500);
+         sMeasVar->fSensorResCleanAir = CN0395_MeasureSensorResistance(sMeasVar);
+   }
    sMeasVar->OpMode = AD7988_RH_MODE;
    CN0395_DisplayData(sMeasVar);
 }
@@ -744,7 +762,9 @@ uint16_t CN0395_ReadAdc(sMeasurementVariables *sMeasVar)
 {
    uint16_t ui16Adcdata;
 
-   AD7988_ReadData(&ui16Adcdata); // Read ADC data
+   for (uint8_t i = 0; i < 5; i++){ // Ignore the first readings until the voltage stabilizes
+      AD7988_ReadData(&ui16Adcdata); // Read ADC data
+   }
 
    sMeasVar->ui16LastAdcDataRead = ui16Adcdata;
 
@@ -763,7 +783,7 @@ float CN0395_CalculateRs(uint16_t ui16Adcdata, uint32_t ui32RgValue)
 {
    float fRsValue;
 
-   fRsValue = ((float)ui16Adcdata * 0.5 * ui32RgValue ) / (65536 - 0.5 * (float)ui16Adcdata);
+   fRsValue = ((float)ui16Adcdata * 0.5 * (float)ui32RgValue ) / ((float)65536 - 0.5 * (float)ui16Adcdata);
 
    return fRsValue;
 }
