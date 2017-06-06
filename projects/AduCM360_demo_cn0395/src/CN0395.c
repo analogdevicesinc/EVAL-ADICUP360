@@ -312,7 +312,7 @@ float CN0395_MeasureSensorResistance(sMeasurementVariables *sMeasVar)
             {393, 39200, 10263, 3330},
             {3468, 110000, 56753, 84000},
             {3492, 2740000, 57175, 2119971},
-            {6226, 33300000, 57572, 1909999}
+            {7171, 33300000, 62415, 1909936}
    };
 
    // Gain ranging algorithm, needs to be run with every sensor measurement
