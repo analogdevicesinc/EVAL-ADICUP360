@@ -807,7 +807,7 @@ float CN0395_CalculatePPM(sMeasurementVariables *sMeasVar)
    if( ((fRs/fRo) >= 0.25) && ((fRs/fRo) <= 0.6) ) {
          fConcentration = 2.61 * pow((fRs/fRo), -2.63);
    }
-   else if( ((fRs/fRo) > 0.6) && ((fRs/fRo) <= 0.9) ) {
+   else if((fRs/fRo) > 0.6) {
          fConcentration = 0.550 * pow((fRs/fRo), -5.68);
    }
 
