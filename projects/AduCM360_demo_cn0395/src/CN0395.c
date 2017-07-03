@@ -185,7 +185,7 @@ int CN0395_CmdPrompt(void)
 
    @return None.
 **/
-static void CN0395_ComputeHeaterRPT(sMeasurementVariables *sMeasVar)
+void CN0395_ComputeHeaterRPT(sMeasurementVariables *sMeasVar)
 {
    float    fHeaterVoltage;
    float    fHeaterRes;
@@ -383,6 +383,9 @@ void CN0395_DisplayData(sMeasurementVariables *sMeasVar)
          AppPrintf("\r\nSensor Resistance Air:  Ro    = %.2f [Ohms]", sMeasVar->fSensorResCleanAir);
          AppPrintf("\r\nGas Concentration       C     = %.2f [PPM]", sMeasVar->fPPM);
          AppPrintf("\r\nSensor Voltage:         Vs    = %.4f [V]", sMeasVar->fSensorVoltage);
+         AppPrintf("\r\nHeater Voltage:         VH    = %.4f [V]", sMeasVar->fHeaterVoltage);
+         AppPrintf("\r\nAmbient Heater Temp:    T_A   = %.2f [C]", sMeasVar->fAmbientHeaterTemp);
+         AppPrintf("\r\nAmbient Heater Hum:     HUM   = %.2f [%s]", sMeasVar->fAmbientHeaterHum, percent);
    }
    UART_WriteString("\r\n");
 }

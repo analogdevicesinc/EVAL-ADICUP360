@@ -121,6 +121,18 @@ int main(int argc, char* argv[])
               CN0395_CmdPrompt();
         }
         if(ui8ContinousRsMeasurement) {
+
+              uint16_t ui16AdcData = 0;
+              float    fHeaterVoltage = 0;
+
+              AD7988_SetOperationMode(AD7988_RH_MODE);
+              ui16AdcData = CN0395_ReadAdc(sMeasVar);
+              fHeaterVoltage = AD7988_DataToVoltage(ui16AdcData);
+              timer_sleep(50); // delay 50ms
+
+              sMeasVar->fHeaterVoltage = fHeaterVoltage;
+              CN0395_ComputeHeaterRPT(sMeasVar); // Compute RH, PH and TH
+
               CN0395_MeasureSensorResistance(sMeasVar);
               timer_sleep(998);
               CN0395_DisplayData(sMeasVar);
