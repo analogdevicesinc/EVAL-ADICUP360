@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xmlns:xs="http://www.w3.org/2001/XMLSchema-instance">
+<packages/>
+<device Dclock="16000000" Dcore="Cortex-M3" DcoreVersion="r2p0" Dendian="Little-endian" Dfamily="ADuCM36x Series" Dfpu="NO_FPU" Dmpu="NO_MPU" Dname="ADuCM360" Dvendor="Analog Devices:1" Pname="">
+<url>http://www.keil.com/dd2/analogdevices/aducm360</url>
+<package name="ADuCM36x_DFP" url="http://download.analog.com/tools/EZBoards/CM36x/Releases" vendor="AnalogDevices" version="1.0.2"/>
+</device>
+<toolchain Tcompiler="GCC" Toutput="exe"/>
+<components>
+<component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.0.2">
+<package name="CMSIS" url="http://www.keil.com/pack/" vendor="ARM" version="5.1.0"/>
+<file category="doc" name="CMSIS/Documentation/Core/html/index.html"/>
+<file category="include" name="CMSIS/Include/"/>
+</component>
+<component Cclass="Device" Cgroup="Drivers" Csub="CLK" Cvendor="AnalogDevices" Cversion="1.0.2" deviceDependent="1">
+<package name="ADuCM36x_DFP" url="http://download.analog.com/tools/EZBoards/CM36x/Releases" vendor="AnalogDevices" version="1.0.2"/>
+<file category="source" deviceDependent="1" name="Device/Source/drivers/ClkLib.c"/>
+<file attr="config" category="header" deviceDependent="1" name="Device/Include/drivers/ClkLib.h" version="1.0.2"/>
+<file category="doc" deviceDependent="1" name="Docs/html/group__clk.html"/>
+</component>
+<component Cclass="Device" Cgroup="Drivers" Csub="DIO" Cvendor="AnalogDevices" Cversion="1.0.2" deviceDependent="1">
+<package name="ADuCM36x_DFP" url="http://download.analog.com/tools/EZBoards/CM36x/Releases" vendor="AnalogDevices" version="1.0.2"/>
+<file category="source" deviceDependent="1" name="Device/Source/drivers/DioLib.c"/>
+<file attr="config" category="header" deviceDependent="1" name="Device/Include/drivers/DioLib.h" version="1.0.2"/>
+<file category="doc" deviceDependent="1" name="Docs/html/group__dio.html"/>
+</component>
+<component Cclass="Device" Cgroup="Drivers" Csub="DMA" Cvendor="AnalogDevices" Cversion="1.0.2" deviceDependent="1">
+<package name="ADuCM36x_DFP" url="http://download.analog.com/tools/EZBoards/CM36x/Releases" vendor="AnalogDevices" version="1.0.2"/>
+<file category="source" deviceDependent="1" name="Device/Source/drivers/DmaLib.c"/>
+<file attr="config" category="header" deviceDependent="1" name="Device/Include/drivers/DmaLib.h" version="1.0.2"/>
+<file category="doc" deviceDependent="1" name="Docs/html/group__dma.html"/>
+</component>
+<component Cclass="Device" Cgroup="Drivers" Csub="I2C" Cvendor="AnalogDevices" Cversion="1.0.2" deviceDependent="1">
+<package name="ADuCM36x_DFP" url="http://download.analog.com/tools/EZBoards/CM36x/Releases" vendor="AnalogDevices" version="1.0.2"/>
+<file category="source" deviceDependent="1" name="Device/Source/drivers/I2cLib.c"/>
+<file attr="config" category="header" deviceDependent="1" name="Device/Include/drivers/I2cLib.h" version="1.0.2"/>
+<file category="doc" deviceDependent="1" name="Docs/html/group__i2c.html"/>
+</component>
+<component Cclass="Device" Cgroup="Drivers" Csub="INT" Cvendor="AnalogDevices" Cversion="1.0.2" deviceDependent="1">
+<package name="ADuCM36x_DFP" url="http://download.analog.com/tools/EZBoards/CM36x/Releases" vendor="AnalogDevices" version="1.0.2"/>
+<file category="source" deviceDependent="1" name="Device/Source/drivers/IntLib.c"/>
+<file attr="config" category="header" deviceDependent="1" name="Device/Include/drivers/IntLib.h" version="1.0.2"/>
+<file category="doc" deviceDependent="1" name="Docs/html/group__int.html"/>
+</component>
+<component Cclass="Device" Cgroup="Drivers" Csub="SPI" Cvendor="AnalogDevices" Cversion="1.0.2" deviceDependent="1">
+<package name="ADuCM36x_DFP" url="http://download.analog.com/tools/EZBoards/CM36x/Releases" vendor="AnalogDevices" version="1.0.2"/>
+<file category="source" deviceDependent="1" name="Device/Source/drivers/SpiLib.c"/>
+<file attr="config" category="header" deviceDependent="1" name="Device/Include/drivers/SpiLib.h" version="1.0.2"/>
+<file category="doc" deviceDependent="1" name="Docs/html/group__spi.html"/>
+</component>
+<component Cclass="Device" Cgroup="Drivers" Csub="URT" Cvendor="AnalogDevices" Cversion="1.0.2" deviceDependent="1">
+<package name="ADuCM36x_DFP" url="http://download.analog.com/tools/EZBoards/CM36x/Releases" vendor="AnalogDevices" version="1.0.2"/>
+<file category="source" deviceDependent="1" name="Device/Source/drivers/UrtLib.c"/>
+<file attr="config" category="header" deviceDependent="1" name="Device/Include/drivers/UrtLib.h" version="1.0.2"/>
+<file category="doc" deviceDependent="1" name="Docs/html/group__urt.html"/>
+</component>
+<component Cclass="Device" Cgroup="Startup" Cvendor="AnalogDevices" Cversion="1.0.0" deviceDependent="1">
+<package name="ADuCM36x_DFP" url="http://download.analog.com/tools/EZBoards/CM36x/Releases" vendor="AnalogDevices" version="1.0.2"/>
+<file category="include" deviceDependent="1" name="Device/Include/"/>
+<file attr="config" category="source" condition="ADuCM360_GCC" deviceDependent="1" name="Device/Source/GCC/startup_ADuCM360.c" version="1.0.2"/>
+<file attr="config" category="source" condition="ADuCM360" deviceDependent="1" name="Device/Source/system_ADuCM360.c" version="1.0.2"/>
+<file attr="config" category="linkerScript" condition="ADuCM360_GCC" deviceDependent="1" name="Device/Source/GCC/ADuCM360.ld" version="1.0.2"/>
+</component>
+</components>
+<apis/>
+</configuration>
