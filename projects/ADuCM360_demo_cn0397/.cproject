@@ -203,7 +203,7 @@
 								<option id="arm.linker.option.sirevision.1635571154" name="-msi-revision" superClass="arm.linker.option.sirevision" value=" none" valueType="string"/>
 								<option id="arm.toolchain.gcc.c.linker.option.fpu.abi.190928998" name="Float ABI" superClass="arm.toolchain.gcc.c.linker.option.fpu.abi" value="" valueType="enumerated"/>
 								<option id="arm.linker.option.ldprocessing.ldfile.948183455" name="Custom linker script (-T)" superClass="arm.linker.option.ldprocessing.ldfile" value="${workspace_loc:/${ProjName}}/RTE/Device/ADuCM360/ADuCM360.ld" valueType="string"/>
-								<option id="arm.toolchain.gcc.c.linker.option.specs.1710677621" superClass="arm.toolchain.gcc.c.linker.option.specs" value="arm.toolchain.gcc.c.linker.option.specs.nosys" valueType="enumerated"/>
+								<option id="arm.toolchain.gcc.c.linker.option.specs.1710677621" name="Semihosting support" superClass="arm.toolchain.gcc.c.linker.option.specs" value="arm.toolchain.gcc.c.linker.option.specs.nosys" valueType="enumerated"/>
 								<inputType id="arm.linker.input.367030080" superClass="arm.linker.input">
 									<additionalInput kind="additionaldependency" paths="$(USER_OBJS)"/>
 								</inputType>
@@ -307,4 +307,5 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 	</storageModule>
+	<storageModule moduleId="refreshScope"/>
 </cproject>

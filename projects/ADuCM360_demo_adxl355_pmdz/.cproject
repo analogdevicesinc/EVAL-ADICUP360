@@ -62,7 +62,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}/RTE&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}/RTE/Device/ADuCM360&quot;"/>
 								</option>
-								<option id="arm.base.compiler.option.additionaloptions.1058187450" name="Additional options:" superClass="arm.base.compiler.option.additionaloptions" valueType="stringList"/>
+								<option id="arm.base.compiler.option.additionaloptions.1058187450" name="Additional options:" superClass="arm.base.compiler.option.additionaloptions"/>
 								<inputType id="arm.toolchain.gcc.c.input.326994825" superClass="arm.toolchain.gcc.c.input"/>
 							</tool>
 							<tool id="arm.toolchain.gcc.c.linker.1119118954" name="CrossCore GCC ARM Embedded C Linker" superClass="arm.toolchain.gcc.c.linker">

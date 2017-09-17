@@ -126,8 +126,8 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="system" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="system"/>
+						<entry excluding="RTE/Device/ADuCM360/.DS_Store|RTE/Device/.DS_Store|RTE/.DS_Store|system" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -202,7 +202,7 @@
 								<option id="arm.linker.option.sirevision.1693820924" name="-msi-revision" superClass="arm.linker.option.sirevision" value=" none" valueType="string"/>
 								<option id="arm.toolchain.gcc.c.linker.option.fpu.abi.1421758538" name="Float ABI" superClass="arm.toolchain.gcc.c.linker.option.fpu.abi" value="" valueType="enumerated"/>
 								<option id="arm.linker.option.ldprocessing.ldfile.1865680489" name="Custom linker script (-T)" superClass="arm.linker.option.ldprocessing.ldfile" value="${workspace_loc:/${ProjName}}/RTE/Device/ADuCM360/ADuCM360.ld" valueType="string"/>
-								<option id="arm.toolchain.gcc.c.linker.option.specs.1116078233" superClass="arm.toolchain.gcc.c.linker.option.specs" value="arm.toolchain.gcc.c.linker.option.specs.nosys" valueType="enumerated"/>
+								<option id="arm.toolchain.gcc.c.linker.option.specs.1116078233" name="Semihosting support" superClass="arm.toolchain.gcc.c.linker.option.specs" value="arm.toolchain.gcc.c.linker.option.specs.nosys" valueType="enumerated"/>
 								<inputType id="arm.linker.input.1217833863" superClass="arm.linker.input">
 									<additionalInput kind="additionaldependency" paths="$(USER_OBJS)"/>
 								</inputType>
@@ -258,8 +258,8 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="system" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="system"/>
+						<entry excluding="RTE/Device/ADuCM360/.DS_Store|RTE/Device/.DS_Store|RTE/.DS_Store|system" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -307,4 +307,5 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 	</storageModule>
+	<storageModule moduleId="refreshScope"/>
 </cproject>

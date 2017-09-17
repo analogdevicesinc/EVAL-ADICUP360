@@ -203,7 +203,7 @@
 								<option id="arm.linker.option.sirevision.1701402076" name="-msi-revision" superClass="arm.linker.option.sirevision" value=" none" valueType="string"/>
 								<option id="arm.toolchain.gcc.c.linker.option.fpu.abi.825221772" name="Float ABI" superClass="arm.toolchain.gcc.c.linker.option.fpu.abi" value="" valueType="enumerated"/>
 								<option id="arm.linker.option.ldprocessing.ldfile.588692441" name="Custom linker script (-T)" superClass="arm.linker.option.ldprocessing.ldfile" value="${workspace_loc:/${ProjName}}/RTE/Device/ADuCM360/ADuCM360.ld" valueType="string"/>
-								<option id="arm.toolchain.gcc.c.linker.option.specs.1639843299" superClass="arm.toolchain.gcc.c.linker.option.specs" value="arm.toolchain.gcc.c.linker.option.specs.nosys" valueType="enumerated"/>
+								<option id="arm.toolchain.gcc.c.linker.option.specs.1639843299" name="Semihosting support" superClass="arm.toolchain.gcc.c.linker.option.specs" value="arm.toolchain.gcc.c.linker.option.specs.nosys" valueType="enumerated"/>
 								<inputType id="arm.linker.input.1566491688" superClass="arm.linker.input">
 									<additionalInput kind="additionaldependency" paths="$(USER_OBJS)"/>
 								</inputType>
@@ -306,4 +306,5 @@
 		</scannerConfigBuildInfo>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="refreshScope"/>
 </cproject>
