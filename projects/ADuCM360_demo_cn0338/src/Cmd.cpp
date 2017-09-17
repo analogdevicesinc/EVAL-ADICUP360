@@ -64,6 +64,8 @@
 #include <ADC.h>
 #include <Flash.h>
 
+#include <stdio.h>
+
 /****************************** Global variables *****************************/
 
 time_t start_time;

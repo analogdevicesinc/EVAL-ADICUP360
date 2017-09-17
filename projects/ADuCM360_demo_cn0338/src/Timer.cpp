@@ -49,7 +49,6 @@
 /***************************** Include Files **********************************/
 
 #include "Timer.h"
-#include "cortexm/ExceptionHandlers.h"
 
 #include <cassert>
 
@@ -103,7 +102,8 @@ void Timer_del(void (*pF)(void))
 
 void Timer_start(void)
 {
-   SysTick_Config(SystemCoreClock / TICK_CLK);
+	SystemCoreClockUpdate();
+    SysTick_Config(SystemCoreClock / TICK_CLK);
 }
 
 #ifdef __cplusplus

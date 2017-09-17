@@ -150,7 +150,7 @@ uint32_t SPI_Read(uint8_t ui8address, enRegsNum enRegs)
    uint32_t ui32Result = 0;
 
    uint32_t ui32valueL = 0;
-   uint32_t ui32valueM = 0;
+   uint32_t ui32valueM __attribute__((unused)) = 0;
    uint32_t ui32valueH = 0;
 
    uint8_t ui8writeAddress;

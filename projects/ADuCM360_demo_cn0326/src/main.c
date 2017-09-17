@@ -51,7 +51,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "diag/Trace.h"
 #include "Timer.h"
 
 #include "AD7793.h"

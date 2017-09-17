@@ -49,7 +49,6 @@
 /***************************** Include Files **********************************/
 #include <stdio.h>
 #include <stdlib.h>
-#include "diag/Trace.h"
 
 #include <ADuCM360.h>
 #include <UrtLib.h>

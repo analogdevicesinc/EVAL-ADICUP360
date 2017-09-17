@@ -6,8 +6,8 @@
 #ifndef TIMER_H_
 #define TIMER_H_
 
-#include "cmsis_device.h"
-
+#include "ADuCM360.h"
+#include <stdio.h>
 // ----------------------------------------------------------------------------
 
 #define TIMER_FREQUENCY_HZ (1000u)

@@ -36,8 +36,9 @@ timer_start (void)
 void
 timer_start_us (void)
 {
-   // Use SysTick for 5uS delays
-   SysTick_Config (SystemCoreClock / 180000);
+	SystemCoreClockUpdate();
+    // Use SysTick for 5uS delays
+    SysTick_Config (SystemCoreClock / 180000);
 }
 
 void

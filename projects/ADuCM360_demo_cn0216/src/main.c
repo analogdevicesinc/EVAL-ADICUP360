@@ -58,7 +58,6 @@
 #include "AD7791.h"
 #include "Communication.h"
 
-#include "diag/Trace.h"
 #include "Timer.h"
 
 // ----------------------------------------------------------------------------

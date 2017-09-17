@@ -6,7 +6,7 @@
 #ifndef TIMER_H_
 #define TIMER_H_
 
-#include "cmsis_device.h"
+#include "ADuCM360.h"
 
 // ----------------------------------------------------------------------------
 
@@ -26,8 +26,9 @@ public:
   inline void
   start(void)
   {
-    // Use SysTick as reference for the delay loops.
-    SysTick_Config(SystemCoreClock / FREQUENCY_HZ);
+	  SystemCoreClockUpdate();
+     // Use SysTick as reference for the delay loops.
+     SysTick_Config(SystemCoreClock / FREQUENCY_HZ);
   }
 
   static void

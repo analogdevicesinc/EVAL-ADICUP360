@@ -258,7 +258,8 @@ void SPI_Write(unsigned char* data, unsigned char bytesNumber)
 
     if(convFlag == 0)
        DioClr(CN0397_CS_PORT, CN0397_CS_BIT);
-       timer_sleep(5);
+
+    timer_sleep(5);
 
     /* Flush Tx and Rx FIFOs */
     SpiFifoFlush(pADI_SPI1, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);
@@ -269,11 +270,13 @@ void SPI_Write(unsigned char* data, unsigned char bytesNumber)
     }
 
     /* Wait until x bytes are received */
-    while ((SpiSta(pADI_SPI1) & ui16fifo_status) != ui16fifo_status);
+    while ((SpiSta(pADI_SPI1) & ui16fifo_status) != ui16fifo_status) {
+    	;
+    }
 
     if(convFlag == 0)
        DioSet(CN0397_CS_PORT, CN0397_CS_BIT);
-       timer_sleep(5);
+    timer_sleep(5);
 
 }
 

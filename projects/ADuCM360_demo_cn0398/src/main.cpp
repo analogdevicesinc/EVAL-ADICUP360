@@ -7,7 +7,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "diag/Trace.h"
 
 #include "Communication.h"
 #include "Timer.h"

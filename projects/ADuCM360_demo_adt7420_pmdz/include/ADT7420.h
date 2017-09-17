@@ -114,7 +114,7 @@ uint16_t ADT7420_Read_Two_Reg (uint8_t ui8regAddress);
 void ADT7420_Write_One_Reg (uint8_t ui8regAddress, uint8_t ui8Data);
 void ADT7420_Write_Two_Reg (uint8_t ui8regAddress, uint8_t ui8Data, uint8_t ui8Data2);
 uint16_t ADT7420_Convert_Degrees_To_Hex (int16_t i16degrees);
-float ADT7420_Convert_Hex_To_Degrees (ui16tempResults);
+float ADT7420_Convert_Hex_To_Degrees (uint16_t ui16tempResults);
 void ADT7420_Power_Down ();
 void ADT7420_Power_Up ();
 

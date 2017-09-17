@@ -63,32 +63,32 @@ void SPIClass::Write(unsigned char slaveDeviceId, unsigned char* data, unsigned 
     if(slaveDeviceId == 0)
        DioClr(CS_PORT, CS_PIN);
 
-       /* Flush Tx and Rx FIFOs */
-       SpiFifoFlush(pADI_SPI1, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);
+   /* Flush Tx and Rx FIFOs */
+   SpiFifoFlush(pADI_SPI1, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);
 
-       for(byte = 0;byte < bytesNumber;byte++)
-       {
-             SpiTx(pADI_SPI1, data[byte]);
-       }
+   for(byte = 0;byte < bytesNumber;byte++)
+   {
+		 SpiTx(pADI_SPI1, data[byte]);
+   }
 
-       /* Wait until x bytes are received */
-       while ((SpiSta(pADI_SPI1) & ui16fifo_status) != ui16fifo_status);
+   /* Wait until x bytes are received */
+   while ((SpiSta(pADI_SPI1) & ui16fifo_status) != ui16fifo_status);
 
-       if(reset == 1){
+   if(reset == 1){
 
-             SpiFifoFlush(pADI_SPI1, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);
+		 SpiFifoFlush(pADI_SPI1, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);
 
-             for(byte = 0;byte < bytesNumber;byte++)
-             {
-                   SpiTx(pADI_SPI1, data[byte]);
-             }
+		 for(byte = 0;byte < bytesNumber;byte++)
+		 {
+			   SpiTx(pADI_SPI1, data[byte]);
+		 }
 
 
-             while ((SpiSta(pADI_SPI1) & ui16fifo_status) != ui16fifo_status);
-       }
+		 while ((SpiSta(pADI_SPI1) & ui16fifo_status) != ui16fifo_status);
+   }
 
-       if(slaveDeviceId == 0)
-         DioSet(CS_PORT, CS_PIN);
+   if(slaveDeviceId == 0)
+	 DioSet(CS_PORT, CS_PIN);
 
 }
 

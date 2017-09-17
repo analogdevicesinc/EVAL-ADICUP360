@@ -4,7 +4,6 @@
 //
 
 #include "Timer.h"
-#include "cortexm/ExceptionHandlers.h"
 
 // ----------------------------------------------------------------------------
 
@@ -22,6 +21,7 @@ volatile timer_ticks_t timer_delayCount;
 void
 timer_start (void)
 {
+	SystemCoreClockUpdate();
    // Use SysTick as reference for the delay loops.
    SysTick_Config (SystemCoreClock / TIMER_FREQUENCY_HZ);
 }

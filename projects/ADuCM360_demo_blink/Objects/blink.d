@@ -1,9 +1,0 @@
-.\objects\blink.o: src\blink.c
-.\objects\blink.o: .\system\include\CMSIS\ADuCM360.h
-.\objects\blink.o: .\system\include\CMSIS\core_cm3.h
-.\objects\blink.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-.\objects\blink.o: .\system\include\CMSIS\core_cmInstr.h
-.\objects\blink.o: .\system\include\CMSIS\core_cmFunc.h
-.\objects\blink.o: .\system\include\CMSIS\system_ADuCM360.h
-.\objects\blink.o: .\include\blink.h
-.\objects\blink.o: .\system\include\ADuCM360\DioLib.h

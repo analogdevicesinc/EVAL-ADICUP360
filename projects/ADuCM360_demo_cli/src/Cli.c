@@ -113,7 +113,8 @@ int Cli_CmdVersion(uint8_t *args)
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 int Cli_CmdReset(uint8_t *args)
 {
-   exit(1);
+   //exit(1);
+   NVIC_SystemReset();
    return UART_SUCCESS;
 }
 #pragma GCC diagnostic pop

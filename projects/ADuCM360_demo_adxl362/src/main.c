@@ -54,7 +54,6 @@
 
 #include <DioLib.h>
 
-#include "diag/Trace.h"
 #include "Timer.h"
 
 #include "ADXL362.h"

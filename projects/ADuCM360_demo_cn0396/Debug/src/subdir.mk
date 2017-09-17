@@ -12,7 +12,7 @@ C_SRCS += \
 ../src/Timer.c \
 ../src/main.c 
 
-OBJS += \
+SRC_OBJS += \
 ./src/AD5270.o \
 ./src/AD7798.o \
 ./src/ADT7310.o \
@@ -34,8 +34,8 @@ C_DEPS += \
 # Each subdirectory must supply rules for building sources it contributes
 src/%.o: ../src/%.c
 	@echo 'Building file: $<'
-	@echo 'Invoking: Cross ARM C Compiler'
-	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/aducm360" -std=gnu11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -c -o "$@" "$<"
+	@echo 'Invoking: CrossCore GCC ARM Embedded C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -D_RTE_ -DADuCM360 -I"/Users/amclach/Work/BitBucket/eval-adicup360/projects/ADuCM360_demo_cn0396/system" -I"/Users/amclach/Work/BitBucket/eval-adicup360/projects/ADuCM360_demo_cn0396/include" -I"/Users/amclach/Applications/CrossCore Embedded Studio.app/Contents/ARM/packs/ARM/CMSIS/5.1.0/CMSIS/Include" -I"/Users/amclach/Applications/CrossCore Embedded Studio.app/Contents/ARM/packs/AnalogDevices/ADuCM36x_DFP/1.0.2/Device/Include" -I"/Users/amclach/Work/BitBucket/eval-adicup360/projects/ADuCM360_demo_cn0396/RTE" -I"/Users/amclach/Work/BitBucket/eval-adicup360/projects/ADuCM360_demo_cn0396/RTE/Device/ADuCM360" -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

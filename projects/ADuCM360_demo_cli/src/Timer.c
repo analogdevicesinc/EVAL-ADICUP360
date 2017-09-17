@@ -4,14 +4,13 @@
 //
 
 #include "Timer.h"
-#include "cortexm/ExceptionHandlers.h"
-
 // ----------------------------------------------------------------------------
 
 // Forward declarations.
 
 void
 timer_tick (void);
+extern uint32_t SystemCoreClock;  /*!< System Clock Frequency (Core Clock)*/
 
 // ----------------------------------------------------------------------------
 

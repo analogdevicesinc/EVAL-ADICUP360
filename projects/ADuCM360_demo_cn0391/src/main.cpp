@@ -42,7 +42,6 @@
 
 #include <stdlib.h>
 
-#include "diag/Trace.h"
 
 #include "ADuCM360.h"
 #include "UrtLib.h"
@@ -90,6 +89,7 @@ void UART_Int_Handler (void)
 
 int main(int argc, char *argv[])
 {
+   SystemCoreClockUpdate();
    timer.start();
 
    UART.Init();

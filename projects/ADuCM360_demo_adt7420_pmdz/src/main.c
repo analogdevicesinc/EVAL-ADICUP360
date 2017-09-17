@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "diag/Trace.h"
 #include <ADuCM360.h>
 #include <Communication.h>
 #include "ADT7420.h"

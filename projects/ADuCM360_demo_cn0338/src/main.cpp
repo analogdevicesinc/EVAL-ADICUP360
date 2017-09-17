@@ -53,7 +53,6 @@
 #include <cassert>
 #include <cstdio>
 
-#include "diag/Trace.h"
 #include "Timer.h"
 
 #include <ADuCM360.h>

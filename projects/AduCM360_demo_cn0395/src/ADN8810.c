@@ -138,6 +138,8 @@ int ADN8810_SetOutput(float fDesiredOutputCurrent, sMeasurementVariables *sMeasV
 
          return 1;
    }
+
+   return -1;
 }
 
 

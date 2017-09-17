@@ -62,7 +62,7 @@
 #define UART_RX_INT_MODE      3 /* Enables using RX interrupts */
 
 
-#define UART_PINS    UART_PINS_67
+#define UART_PINS    UART_PINS_12
 
 /* The serial port may be used in polling or interrupt mode */
 #define UART_MODE UART_INT_MODE

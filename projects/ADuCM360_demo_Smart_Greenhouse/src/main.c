@@ -4,7 +4,6 @@
 #include <ADuCM360.h>
 
 /***************************** Source Include Files ***************************/
-#include "diag/Trace.h"
 #include "Timer.h"
 #include "Communication.h"
 #include "I2cLib.h"

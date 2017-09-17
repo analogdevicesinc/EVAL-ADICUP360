@@ -237,7 +237,7 @@ uint16_t ADT7420_Convert_Degrees_To_Hex (int16_t i16degrees)
 
 **/
 
-float ADT7420_Convert_Hex_To_Degrees (ui16tempResults){
+float ADT7420_Convert_Hex_To_Degrees (uint16_t ui16tempResults){
 
    float fTemp = 0.0;
 
