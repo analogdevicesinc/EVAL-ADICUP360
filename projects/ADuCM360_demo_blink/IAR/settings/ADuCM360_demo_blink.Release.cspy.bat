@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\IAR Systems\Embedded Workbench 7.4\common\bin\cspybat" -f "C:\BitBucket\cortex-m\eval-adicup360\projects\ADuCM360_demo_blink\IAR\settings\ADuCM360_demo_blink.Debug.general.xcl" --backend -f "C:\BitBucket\cortex-m\eval-adicup360\projects\ADuCM360_demo_blink\IAR\settings\ADuCM360_demo_blink.Debug.driver.xcl" 
+"C:\IAR Systems\Embedded Workbench 7.4\common\bin\cspybat" -f "C:\BitBucket\cortex-m\eval-adicup360\projects\ADuCM360_demo_blink\IAR\settings\ADuCM360_demo_blink.Release.general.xcl" --backend -f "C:\BitBucket\cortex-m\eval-adicup360\projects\ADuCM360_demo_blink\IAR\settings\ADuCM360_demo_blink.Release.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\IAR Systems\Embedded Workbench 7.4\common\bin\cspybat" -f "C:\BitBucket\cortex-m\eval-adicup360\projects\ADuCM360_demo_blink\IAR\settings\ADuCM360_demo_blink.Debug.general.xcl" "--debug_file=%~1" --backend -f "C:\BitBucket\cortex-m\eval-adicup360\projects\ADuCM360_demo_blink\IAR\settings\ADuCM360_demo_blink.Debug.driver.xcl" 
+"C:\IAR Systems\Embedded Workbench 7.4\common\bin\cspybat" -f "C:\BitBucket\cortex-m\eval-adicup360\projects\ADuCM360_demo_blink\IAR\settings\ADuCM360_demo_blink.Release.general.xcl" "--debug_file=%~1" --backend -f "C:\BitBucket\cortex-m\eval-adicup360\projects\ADuCM360_demo_blink\IAR\settings\ADuCM360_demo_blink.Release.driver.xcl" 
 
 @echo off 
 :end

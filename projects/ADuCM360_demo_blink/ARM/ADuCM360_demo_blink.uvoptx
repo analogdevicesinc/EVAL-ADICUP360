@@ -82,17 +82,17 @@
         <Book>
           <Number>0</Number>
           <Title>Layout (EVAL-ADuCM360MKZ)</Title>
-          <Path>C:\Keil_v5\ARM\PACK\AnalogDevices\ADuCM36x_DFP\1.0.1\Documents\ADuCM360_361_board_outline.pdf</Path>
+          <Path>C:\Keil_v5\ARM\PACK\AnalogDevices\ADuCM36x_DFP\1.0.2\Documents\ADuCM360_361_board_outline.pdf</Path>
         </Book>
         <Book>
           <Number>1</Number>
           <Title>Schematic (EVAL-ADuCM360MKZ)</Title>
-          <Path>C:\Keil_v5\ARM\PACK\AnalogDevices\ADuCM36x_DFP\1.0.1\Documents\ADuCM360_361_schematic.PDF</Path>
+          <Path>C:\Keil_v5\ARM\PACK\AnalogDevices\ADuCM36x_DFP\1.0.2\Documents\ADuCM360_361_schematic.PDF</Path>
         </Book>
         <Book>
           <Number>2</Number>
           <Title>ADuCM360 Development Systems Getting Started Tutorial (EVAL-ADuCM360MKZ)</Title>
-          <Path>C:\Keil_v5\ARM\PACK\AnalogDevices\ADuCM36x_DFP\1.0.1\Documents\UG-457.pdf</Path>
+          <Path>C:\Keil_v5\ARM\PACK\AnalogDevices\ADuCM36x_DFP\1.0.2\Documents\UG-457.pdf</Path>
         </Book>
       </Books>
       <DebugOpt>
@@ -117,6 +117,7 @@
         <tRSysVw>1</tRSysVw>
         <sRunDeb>0</sRunDeb>
         <sLrtime>0</sLrtime>
+        <bEvRecOn>1</bEvRecOn>
         <nTsel>12</nTsel>
         <sDll></sDll>
         <sDllPa></sDllPa>
@@ -212,6 +213,11 @@
       <LintExecutable></LintExecutable>
       <LintConfigFile></LintConfigFile>
       <bLintAuto>0</bLintAuto>
+      <Lin2Executable></Lin2Executable>
+      <Lin2ConfigFile></Lin2ConfigFile>
+      <bLin2Auto>0</bLin2Auto>
+      <bAutoGenD>0</bAutoGenD>
+      <bAuto2GenD>0</bAuto2GenD>
     </TargetOption>
   </Target>
 
@@ -226,7 +232,6 @@
       <FileNumber>1</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\blink.c</PathWithFileName>
@@ -239,7 +244,6 @@
       <FileNumber>2</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\main.c</PathWithFileName>
@@ -252,71 +256,10 @@
       <FileNumber>3</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\Timer.c</PathWithFileName>
       <FilenameWithoutPath>Timer.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-  </Group>
-
-  <Group>
-    <GroupName>system</GroupName>
-    <tvExp>1</tvExp>
-    <tvExpOptDlg>0</tvExpOptDlg>
-    <cbSel>0</cbSel>
-    <RteFlg>0</RteFlg>
-    <File>
-      <GroupNumber>2</GroupNumber>
-      <FileNumber>4</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>.\system\src\ADuCM360\ClkLib.c</PathWithFileName>
-      <FilenameWithoutPath>ClkLib.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>2</GroupNumber>
-      <FileNumber>5</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>.\system\src\ADuCM360\DioLib.c</PathWithFileName>
-      <FilenameWithoutPath>DioLib.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>2</GroupNumber>
-      <FileNumber>6</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>.\system\src\ADuCM360\GptLib.c</PathWithFileName>
-      <FilenameWithoutPath>GptLib.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>2</GroupNumber>
-      <FileNumber>7</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>.\system\src\ADuCM360\WdtLib.c</PathWithFileName>
-      <FilenameWithoutPath>WdtLib.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

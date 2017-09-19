@@ -6,7 +6,7 @@
 
 "-p" 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\CONFIG\debugger\AnalogDevices\ADuCM360.ddf" 
+"C:\IAR Systems\Embedded Workbench 7.4\arm\CONFIG\debugger\AnalogDevices\ADuCM360.ddf" 
 
 "--semihosting" 
 
@@ -16,7 +16,7 @@
 
 "--jet_probe=cmsisdap" 
 
-"--jet_script_file=C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\config\debugger\AnalogDevices\ADuCM3xx.ProbeScript" 
+"--jet_script_file=C:\IAR Systems\Embedded Workbench 7.4\arm\config\debugger\AnalogDevices\ADuCM3xx.ProbeScript" 
 
 "--jet_standard_reset=7,0,0" 
 
