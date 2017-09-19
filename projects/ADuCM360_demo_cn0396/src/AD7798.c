@@ -160,7 +160,9 @@ void AD7798_SetRegisterValue(uint8_t regAddress, uint16_t regValue,
 unsigned char AD7798_Ready(void)
 {
 
-    while((AD7798_GetRegisterValue( AD7798_REG_STAT,1) & 0x80) != 0x80);
+    while((AD7798_GetRegisterValue( AD7798_REG_STAT,1) & 0x80) != 0x80) {
+    	;
+    }
 	
 	return(1);
 }

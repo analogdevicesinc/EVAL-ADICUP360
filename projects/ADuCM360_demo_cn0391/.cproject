@@ -62,9 +62,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}/RTE&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}/RTE/Device/ADuCM360&quot;"/>
 								</option>
-								<option id="arm.base.compiler.option.additionaloptions.1151133255" name="Additional options:" superClass="arm.base.compiler.option.additionaloptions" useByScannerDiscovery="false" valueType="stringList">
-									<listOptionValue builtIn="false" value="-std=gnu++11"/>
-								</option>
+								<option id="arm.base.compiler.option.additionaloptions.1151133255" name="Additional options:" superClass="arm.base.compiler.option.additionaloptions" useByScannerDiscovery="false" valueType="stringList"/>
 								<inputType id="arm.toolchain.gcc.c.input.1997718163" superClass="arm.toolchain.gcc.c.input"/>
 							</tool>
 							<tool id="arm.toolchain.gcc.c.linker.273491757" name="CrossCore GCC ARM Embedded C Linker" superClass="arm.toolchain.gcc.c.linker">
@@ -251,6 +249,7 @@
 								<option id="arm.toolchain.gcc.cpp.linker.option.fpu.abi.569081715" name="Float ABI" superClass="arm.toolchain.gcc.cpp.linker.option.fpu.abi" value="" valueType="enumerated"/>
 								<option id="arm.linker.option.ldprocessing.ldfile.1173242689" name="Custom linker script (-T)" superClass="arm.linker.option.ldprocessing.ldfile" value="${workspace_loc:/${ProjName}}/RTE/Device/ADuCM360/ADuCM360.ld" valueType="string"/>
 								<option id="arm.toolchain.gcc.cpp.linker.option.specs.610795225" name="Link against the system library" superClass="arm.toolchain.gcc.cpp.linker.option.specs" value="arm.toolchain.gcc.c.linker.option.specs.nosys" valueType="enumerated"/>
+								<option id="arm.c.linker.mathslib.1016445096" name="Link against system maths library (-lm)" superClass="arm.c.linker.mathslib" value="false" valueType="boolean"/>
 								<inputType id="arm.linker.input.805581666" superClass="arm.linker.input">
 									<additionalInput kind="additionaldependency" paths="$(USER_OBJS)"/>
 								</inputType>
@@ -271,7 +270,9 @@
 							<tool id="arm.toolchain.gcc.c.compiler.2012434899" name="CrossCore GCC ARM Embedded C Compiler" superClass="arm.toolchain.gcc.c.compiler.1769655382">
 								<inputType id="arm.toolchain.gcc.c.input.575527927" superClass="arm.toolchain.gcc.c.input"/>
 							</tool>
-							<tool id="arm.toolchain.gcc.c.linker.1189421073" name="CrossCore GCC ARM Embedded C Linker" superClass="arm.toolchain.gcc.c.linker.805182357"/>
+							<tool id="arm.toolchain.gcc.c.linker.1189421073" name="CrossCore GCC ARM Embedded C Linker" superClass="arm.toolchain.gcc.c.linker.805182357">
+								<option id="arm.c.linker.mathslib.220463698" name="Link against system maths library (-lm)" superClass="arm.c.linker.mathslib" value="false" valueType="boolean"/>
+							</tool>
 							<tool id="arm.toolchain.gcc.cpp.compiler.1627513034" name="CrossCore GCC ARM Embedded C++ Compiler" superClass="arm.toolchain.gcc.cpp.compiler.586266399">
 								<inputType id="arm.toolchain.gcc.cpp.input.845249175" superClass="arm.toolchain.gcc.cpp.input"/>
 							</tool>
