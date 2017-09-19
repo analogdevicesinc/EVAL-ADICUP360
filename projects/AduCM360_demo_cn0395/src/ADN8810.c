@@ -101,7 +101,7 @@ uint32_t ADN8810_FactoryCalibration(void)
    timer_sleep(50);                                            // delay 50ms
    AD7988_ReadData(&ui16AdcData);                              // Read heater voltage ADC data
 
-   fGainCorrectionFactor = (ADC_CODE_CALIBRATION / ui16AdcData) * 10000;   // Calculate gain correction factor
+   fGainCorrectionFactor = (57200.00 / ui16AdcData) * 10000;   // Calculate gain correction factor
 
    return (uint32_t)fGainCorrectionFactor;
 }
@@ -121,7 +121,7 @@ int ADN8810_SetOutput(float fDesiredOutputCurrent, sMeasurementVariables *sMeasV
    // Adjust the current with the gain correction factor
    fDesiredOutputCurrent *= sMeasVar->K1;
 
-   if(fDesiredOutputCurrent > ADN8810_IFS) {
+   if(fDesiredOutputCurrent > 50) {
          return -1;
    }
    else {

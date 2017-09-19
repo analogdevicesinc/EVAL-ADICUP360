@@ -80,6 +80,8 @@
 
 extern uint8_t ui8ContinousRsMeasurement;
 
+extern void CN0395_ComputeHeaterRPT(sMeasurementVariables *sMeasVar);
+
 int main(int argc, char* argv[])
 {
    static uint8_t count = 0;

@@ -562,7 +562,7 @@ void CN0395_CmdSetHeaterCurrent(uint8_t *args, sMeasurementVariables *sMeasVar)
    }
    else {
          AppPrintf("\n");
-         AppPrintf("Cannot set heater current (IH) to %f. Maximum full scale current is %.2f mA!", fDesiredHeaterCurrent, ADN8810_IFS);
+         AppPrintf("Cannot set heater current (IH) to %f. Maximum full scale current is %.2f mA!", fDesiredHeaterCurrent, 50);
          AppPrintf("\n");
    }
 }
@@ -615,7 +615,7 @@ static void CN0395_CorrectError(sMeasurementVariables *sMeasVar,
          }
          else {
                AppPrintf("\n");
-               AppPrintf("Cannot set heater current (IH) to %f. Maximum full scale current is %.2f mA!", fInputCurrent, ADN8810_IFS);
+               AppPrintf("Cannot set heater current (IH) to %f. Maximum full scale current is %.2f mA!", fInputCurrent, 50);
                AppPrintf("\n");
                break;
          }
