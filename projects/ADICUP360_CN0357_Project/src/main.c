@@ -55,7 +55,6 @@
 #include <DioLib.h>
 #include <ADuCM360.h>
 
-#include "diag/Trace.h"
 #include "CN0357.h"
 #include "AD5270.h"
 #include "AD7790.h"
@@ -98,7 +97,7 @@ int main(int argc, char *argv[])
    // Main Variables
    char status = -1, send_location = 1, init_system = 1, send_appinfo = 1;
    connection state = STATE_WIFI_CONNECT;
-   error_log error = NONE;
+   error_log error __attribute__((unused)) = NONE;
 
    float fAdcVoltage = 0, fConcentration = 0, fRDACvalue = 0,fsensitivity = 0;
    uint8_t ui8Status_Reg = 0;
