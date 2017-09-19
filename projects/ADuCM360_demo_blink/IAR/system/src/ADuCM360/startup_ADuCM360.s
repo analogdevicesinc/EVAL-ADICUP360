@@ -189,7 +189,7 @@ Reset_Handler
 
 
         THUMB
-        SECTION .text:CODE:NOROOT(1)
+        SECTION .text:CODE:REORDER:NOROOT(1)
 Nmi_Handler
 Fault_Handler
 MemManage_Handler

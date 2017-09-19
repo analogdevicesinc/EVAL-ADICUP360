@@ -43,7 +43,7 @@
             <Session/>
           </Tab>
         </Tabs>
-        <SelectedTab>1</SelectedTab>
+        <SelectedTab>0</SelectedTab>
       </Wnd2>
       <Wnd3>
         <Tabs>
@@ -54,6 +54,7 @@
             <Session>
               <NodeDict>
                 <ExpandedNode>ADuCM360_demo_blink</ExpandedNode>
+                <ExpandedNode>ADuCM360_demo_blink/startup</ExpandedNode>
               </NodeDict>
             </Session>
           </Tab>
@@ -62,7 +63,21 @@
       </Wnd3>
     </Windows>
     <Editor>
-      <Pane/>
+      <Pane>
+        <Tab>
+          <Factory>TextEditor</Factory>
+          <Filename>$WS_DIR$\system\src\ADuCM360\startup_ADuCM360.s</Filename>
+          <XPos>0</XPos>
+          <YPos>0</YPos>
+          <SelStart>0</SelStart>
+          <SelEnd>0</SelEnd>
+          <XPos2>0</XPos2>
+          <YPos2>179</YPos2>
+          <SelStart2>9827</SelStart2>
+          <SelEnd2>9827</SelEnd2>
+        </Tab>
+        <ActiveTab>0</ActiveTab>
+      </Pane>
       <ActivePane>0</ActivePane>
       <Sizes>
         <Pane>
