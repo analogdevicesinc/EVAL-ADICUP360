@@ -1,11 +1,11 @@
-/* File: startup_ADuCM60.c
- * Startup file for Analog Devices ADuCM360 processor
- *
- * Based on startup_ARMCM3.c
+/* File: startup_ADuCM360.c
+ * Purpose: startup file for Cortex-M3 devices.
+ *          Should be used with GCC 'GNU Tools ARM Embedded'
+ * Version: V1.01
+ * Date: 12 June 2014
  *
  */
 /* Copyright (c) 2011 - 2014 ARM LIMITED
-   Copyright (c) 2017 Analog Devices, Inc.
 
    All rights reserved.
    Redistribution and use in source and binary forms, with or without
@@ -30,6 +30,8 @@
    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
    POSSIBILITY OF SUCH DAMAGE.
+
+   Portions Copyright (c) 2017 Analog Devices, Inc.
    ---------------------------------------------------------------------------*/
 
 #include <stdint.h>

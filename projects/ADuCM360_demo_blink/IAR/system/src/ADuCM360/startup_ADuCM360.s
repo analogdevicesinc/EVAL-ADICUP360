@@ -1,25 +1,57 @@
-;/*
-;THIS SOFTWARE IS PROVIDED BY ANALOG DEVICES INC. ``AS IS'' AND ANY EXPRESS OR
-;IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-;MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT, ARE
-;DISCLAIMED. IN NO EVENT SHALL ANALOG DEVICES INC. BE LIABLE FOR ANY DIRECT,
-;INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-;ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-;POSSIBILITY OF SUCH DAMAGE.
+;/**************************************************************************//**
+; * @file     startup_ADuCM360.s
+; * @brief    CMSIS Cortex-M3 Core Device Startup File for
+; *           Device ADuCM360
+; * @version  V3.10
+; * @date     23. November 2012
+; *
+; * @note
+; *
+; ******************************************************************************/
+;/* Copyright (c) 2012 ARM LIMITED
 ;
-;YOU ASSUME ANY AND ALL RISK FROM THE USE OF THIS CODE OR SUPPORT FILE.
+;   All rights reserved.
+;   Redistribution and use in source and binary forms, with or without
+;   modification, are permitted provided that the following conditions are met:
+;   - Redistributions of source code must retain the above copyright
+;     notice, this list of conditions and the following disclaimer.
+;   - Redistributions in binary form must reproduce the above copyright
+;     notice, this list of conditions and the following disclaimer in the
+;     documentation and/or other materials provided with the distribution.
+;   - Neither the name of ARM nor the names of its contributors may be used
+;     to endorse or promote products derived from this software without
+;     specific prior written permission.
+;   *
+;   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+;   ARE DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDERS AND CONTRIBUTORS BE
+;   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+;   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+;   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+;   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+;   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+;   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+;   POSSIBILITY OF SUCH DAMAGE.
 ;
-;IT IS THE RESPONSIBILITY OF THE PERSON INTEGRATING THIS CODE INTO AN APPLICATION
-;TO ENSURE THAT THE RESULTING APPLICATION PERFORMS AS REQUIRED AND IS SAFE.
-;
-;    Module       : startup_ADuCM360.s
-;    Description  : Cortex-M3 startup file - ADuCM360 - EWARM Version
-;    Date         : 12 July 2012
-;    Version      : v1.00
-;    Changelog    : v1.00 Initial
-;*/
+;   Portions Copyright (c) 2017 Analog Devices, Inc.
+;   ---------------------------------------------------------------------------*/
 
-
+;
+; The modules in this file are included in the libraries, and may be replaced
+; by any user-defined modules that define the PUBLIC symbol _program_start or
+; a user defined start symbol.
+; To override the cstartup defined in the library, simply add your modified
+; version to the workbench project.
+;
+; The vector table is normally located at address 0.
+; When debugging in RAM, it can be located in RAM, aligned to at least 2^6.
+; The name "__vector_table" has special meaning for C-SPY:
+; it is where the SP start value is found, and the NVIC vector
+; table register (VTOR) is initialized to this address if != 0.
+;
+; Cortex-M version
+;
 
         MODULE  ?cstartup
 
@@ -29,14 +61,13 @@
         SECTION .intvec:CODE:NOROOT(2)
 
         EXTERN  __iar_program_start
-        EXTERN  SystemInit
         PUBLIC  __vector_table
 
         DATA
 __vector_table
         DCD     sfe(CSTACK)
         DCD     Reset_Handler
-        
+
         DCD     Nmi_Handler                                 ; The NMI handler        
         DCD     Fault_Handler                              ; The hard fault handler 
         DCD     MemManage_Handler                     ; The MPU fault handler  
@@ -94,13 +125,18 @@ __vector_table
 	        DCD     PWM1_Int_Handler          ; PWM1                       [37]
 	        DCD     PWM2_Int_Handler          ; PWM2                       [38]
 	        DCD     0                         ;                            [39]
-                
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Default interrupt handlers.
-;;        
-            PUBWEAK Reset_Handler                         
+;;
+Reset_Handler
+            IMPORT  SystemInit
+            LDR         R0, =SystemInit
+            BLX         R0
+            LDR         R0, =__iar_program_start
+            BX          R0
+            
 	    PUBWEAK SysTick_Handler
 	    PUBWEAK Nmi_Handler
 	    PUBWEAK Fault_Handler
@@ -151,14 +187,9 @@ __vector_table
 	    PUBWEAK UnUsed_Handler
 
 
+
         THUMB
-        SECTION .text:CODE:REORDER:NOROOT(2)
-  
-Reset_Handler
-  LDR     R0, =SystemInit
-  BLX     R0
-  LDR     R0, =__iar_program_start
-  BX      R0 
+        SECTION .text:CODE:REORDER(1)
 Nmi_Handler
 Fault_Handler
 MemManage_Handler
@@ -208,4 +239,5 @@ PWM1_Int_Handler
 PWM2_Int_Handler        
 UnUsed_Handler
         B UnUsed_Handler
+
         END
