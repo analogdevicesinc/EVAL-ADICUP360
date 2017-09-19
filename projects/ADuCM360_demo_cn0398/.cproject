@@ -107,7 +107,7 @@
 								<option id="arm.linker.option.sirevision.1422707223" name="-msi-revision" superClass="arm.linker.option.sirevision" useByScannerDiscovery="false" value=" none" valueType="string"/>
 								<option id="arm.toolchain.gcc.cpp.linker.option.fpu.abi.885578737" name="Float ABI" superClass="arm.toolchain.gcc.cpp.linker.option.fpu.abi" useByScannerDiscovery="false" value="" valueType="enumerated"/>
 								<option id="arm.linker.option.ldprocessing.ldfile.425086986" name="Custom linker script (-T)" superClass="arm.linker.option.ldprocessing.ldfile" useByScannerDiscovery="false" value="${workspace_loc:/${ProjName}}/RTE/Device/ADuCM360/ADuCM360.ld" valueType="string"/>
-								<option id="arm.toolchain.gcc.cpp.linker.option.specs.1553187733" superClass="arm.toolchain.gcc.cpp.linker.option.specs" useByScannerDiscovery="false" value="arm.toolchain.gcc.c.linker.option.specs.nosys" valueType="enumerated"/>
+								<option id="arm.toolchain.gcc.cpp.linker.option.specs.1553187733" name="Link against the system library" superClass="arm.toolchain.gcc.cpp.linker.option.specs" useByScannerDiscovery="false" value="arm.toolchain.gcc.c.linker.option.specs.nosys" valueType="enumerated"/>
 								<inputType id="arm.linker.input.1507476128" superClass="arm.linker.input">
 									<additionalInput kind="additionaldependency" paths="$(USER_OBJS)"/>
 								</inputType>
