@@ -55,7 +55,6 @@
 #include <DioLib.h>
 #include <ADuCM360.h>
 
-#include "diag/Trace.h"
 #include "Communication.h"
 #include "Timer.h"
 #include "ISM43340.h"
@@ -95,7 +94,7 @@ int main(int argc, char *argv[])
 {
    char status = -1, send_location = 1, init_system = 1, send_appinfo = 1;
    connection state = STATE_WIFI_CONNECT;
-   error_log error = NONE;
+   error_log error __attribute__((unused)) = NONE;
    convFlag = 0;
 
    // Initialize components of the system

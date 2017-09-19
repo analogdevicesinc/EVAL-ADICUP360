@@ -161,7 +161,9 @@ void CN0397_ConvertToVoltage(uint16_t adcValue, float *voltage)
 
 void CN0397_Init(void)
 {
+#if(USE_CALIBRATION == YES)
    uint8_t channel;
+#endif
 
    SPI_Init();
    AD7798_Reset();
