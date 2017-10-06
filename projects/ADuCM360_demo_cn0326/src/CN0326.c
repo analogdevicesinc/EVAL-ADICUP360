@@ -116,7 +116,7 @@ void CN0326_Init(void)
 #if(USE_IOUT2 == YES)
    ui32result = AD7793_Scan(SINGLE_CONV, AD7793_CH_AIN3P_AIN3M);
    i32voltage = AD7793_ConvertToVolts(ui32result);
-   iout2_calibration = u32voltage / (float)5000;
+   iout2_calibration = i32voltage / (float)5000;
 #endif
 }
 
@@ -129,10 +129,10 @@ void CN0326_Init(void)
 float CN0326_CalculateTemp(void)
 {
 
-   static float temp, res, f32current;
+   static float temp, res, f32current, f32voltage;
 
    uint32_t ui32adcValue;
-   int32_t i32voltage;
+
 
 #if(USE_IOUT2 == YES)                           /* Check which excitation current to use */
    f32current = iout2_calibration;
@@ -142,9 +142,9 @@ float CN0326_CalculateTemp(void)
 
    ui32adcValue = AD7793_Scan(SINGLE_CONV, AD7793_CH_AIN2P_AIN2M);         /* Read ADC output value */
 
-   i32voltage = AD7793_ConvertToVolts(ui32adcValue);        /* Convert ADC output value to voltage */
+   f32voltage = AD7793_ConvertToVolts(ui32adcValue);        /* Convert ADC output value to voltage */
 
-   res = i32voltage / (float)f32current;                    /* Calculate RTD resistance */
+   res = f32voltage / f32current;                    /* Calculate RTD resistance */
 
    temp = ((res - RMIN) / (TEMP_COEFF * RMIN));             /* Calculate temperature value */
 

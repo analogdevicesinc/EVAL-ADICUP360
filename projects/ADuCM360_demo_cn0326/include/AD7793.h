@@ -72,7 +72,7 @@ void AD7793_WriteRegister( uint8_t ui8address, uint32_t ui32data);
 void AD7793_SelectChannel(uint8_t ui8channel);
 uint32_t AD7793_Scan(enMode mode,  uint8_t channel);
 void AD7793_Calibrate(uint8_t ui8channel, enMode mode);
-int32_t AD7793_ConvertToVolts(uint32_t u32adcValue);
+float AD7793_ConvertToVolts(uint32_t u32adcValue);
 
 /********************************* Internal defines ********************************/
 

@@ -82,11 +82,11 @@ void SPI_Init(void)
 
    DioCfg(pADI_GP1, 0xAA00);    /* Configure P1[7:4] for SPI0 */
 
-   SpiBaud(pADI_SPI0, 1, SPIDIV_BCRST_DIS);      /* Set the SPI0 clock rate in Master mode to 4MHz. */
+   SpiBaud(pADI_SPI0, 2, SPIDIV_BCRST_DIS);      /* Set the SPI0 clock rate in Master mode to 4MHz. */
 
    SpiCfg(pADI_SPI0, SPICON_MOD_TX2RX2, SPICON_MASEN_EN, SPICON_CON_EN |
-          SPICON_RXOF_EN | SPICON_ZEN_EN | SPICON_TIM_TXWR | SPICON_CPOL_LOW |
-          SPICON_CPHA_SAMPLELEADING | SPICON_ENABLE_EN); /* Configure SPI0 channel */
+          SPICON_RXOF_EN | SPICON_ZEN_EN | SPICON_TIM_TXWR | SPICON_CPOL_HIGH |
+          SPICON_CPHA_SAMPLETRAILING | SPICON_ENABLE_EN); /* Configure SPI0 channel */
 
 }
 
@@ -104,42 +104,53 @@ uint32_t SPI_Read(uint8_t ui8address, uint8_t ui8bytes)
 
    uint32_t ui32AdcCodes = 0;
 
-   uint8_t ui8counter;
-   static uint8_t ui8read_rx;
-
-   uint16_t ui16fifo_status = ((ui8bytes + 1) << 8);             /* Set FIFO status correct value */
-
    DioClr(CS_PORT, CS_PIN);
 
-   if(ui8address != READ_DATA_REG) {                             /* Check if read command is not for DATA register */
+   /*  Flush Tx and Rx FIFOs */
+   SpiFifoFlush(pADI_SPI0, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);
 
-      SpiFifoFlush(pADI_SPI0, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);
+   /*  Send read command */
+   SpiTx(pADI_SPI0, ui8address);
 
-      SpiTx(pADI_SPI0, ui8address);                              /* Write read command to COMM register */
-
-      for(ui8counter = 1; ui8counter <= ui8bytes; ui8counter++) {
-
-         SpiTx(pADI_SPI0, 0xAA);                               /* Write dummy bytes */
+   /*  Send dummy byte in order to receive the register value */
+   for (uint8_t i = 0; i < ui8bytes; i++)
+      {
+         SpiTx(pADI_SPI0, 0xAA);
       }
 
-      while ((SpiSta(pADI_SPI0) & ui16fifo_status) != ui16fifo_status);
-
-      ui8read_rx = SpiRx(pADI_SPI0);           /* Dummy read, not needed value */
-
+   switch(ui8bytes)
+   {
+      case 1:
+      {
+         /*  Wait until 2 bytes are received */
+         while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_TWOBYTES) != SPI0STA_RXFSTA_TWOBYTES);
+         break;
+      }
+      case 2:
+      {
+         /*  Wait until 3 bytes are received */
+         while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_THREEBYTES) != SPI0STA_RXFSTA_THREEBYTES);
+         break;
+      }
+      case 3:
+      {
+         /*  Wait until 4 bytes are received */
+         while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_FOURBYTES) != SPI0STA_RXFSTA_FOURBYTES);
+         break;
+      }
    }
 
-   for(ui8counter = 1; ui8counter <= ui8bytes; ui8counter++) {
+   SpiRx(pADI_SPI0);
 
-      ui8read_rx = SpiRx(pADI_SPI0);                         /* Read the correct 1 byte value */
-
-      ui32AdcCodes = (uint32_t)((ui32AdcCodes << 8) | ui8read_rx);              /* Move read value into 4 bytes value */
-   }
+   for (uint8_t i = 0; i < ui8bytes; i++)
+      {
+         ui32AdcCodes = SpiRx(pADI_SPI0) << (ui8bytes - ( i+ 1)) * 8 | ui32AdcCodes;
+      }
 
    DioSet(CS_PORT, CS_PIN);
 
    return ui32AdcCodes;
 }
-
 /**
    @brief Writes a register to the Converter via SPI.
 
