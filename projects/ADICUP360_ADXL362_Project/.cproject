@@ -109,6 +109,19 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="arm.toolchain.gcc.target.exe.debug.705378722.267114899" name="DacLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/DacLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.debug.705378722.701982640" name="IntLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/IntLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.debug.705378722.949885106" name="GptLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/GptLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.debug.705378722.233429966" name="IexcLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/IexcLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.debug.705378722.563676914" name="RstLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/RstLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.debug.705378722.2116125735" name="AdcLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/AdcLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.debug.705378722.1888329883" name="FeeLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/FeeLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.debug.705378722.1232218705" name="I2cLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/I2cLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.debug.705378722.1304628323" name="PwrLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/PwrLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.debug.705378722.865121035" name="WutLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/WutLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.debug.705378722.1525243987" name="PwmLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/PwmLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.debug.705378722.259388648" name="ClkLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/ClkLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.debug.705378722.33733510" name="WdtLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/WdtLib.h" toolsToInvoke=""/>
 					<folderInfo id="arm.toolchain.gcc.target.exe.debug.705378722.system" name="system" resourcePath="system">
 						<toolChain id="arm.gcc.toolchain.1124950111" name="CrossCore GCC ARM Embedded Toolchain" superClass="arm.gcc.toolchain" unusedChildren="">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="arm.toolchain.platform.base" name="Development Platform" osList="all" superClass="arm.toolchain.platform.base"/>
@@ -126,9 +139,9 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
+						<entry excluding="RTE/Device/ADuCM360/.DS_Store|RTE/Device/.DS_Store|RTE/.DS_Store|system|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="system"/>
-						<entry excluding="RTE/Device/ADuCM360/.DS_Store|RTE/Device/.DS_Store|RTE/.DS_Store|RTE/Device/ADuCM360/WutLib.h|RTE/Device/ADuCM360/WdtLib.h|RTE/Device/ADuCM360/RstLib.h|RTE/Device/ADuCM360/PwrLib.h|RTE/Device/ADuCM360/PwmLib.h|RTE/Device/ADuCM360/IntLib.h|RTE/Device/ADuCM360/IexcLib.h|RTE/Device/ADuCM360/I2cLib.h|RTE/Device/ADuCM360/GptLib.h|RTE/Device/ADuCM360/FeeLib.h|RTE/Device/ADuCM360/DacLib.h|RTE/Device/ADuCM360/ClkLib.h|RTE/Device/ADuCM360/AdcLib.h|system|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -242,6 +255,19 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="arm.toolchain.gcc.target.exe.release.1844008086.1023123550" name="DacLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/DacLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.release.1844008086.1064430740" name="IntLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/IntLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.release.1844008086.1360379572" name="GptLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/GptLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.release.1844008086.1922566348" name="IexcLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/IexcLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.release.1844008086.820212965" name="RstLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/RstLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.release.1844008086.961418070" name="AdcLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/AdcLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.release.1844008086.1242514303" name="FeeLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/FeeLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.release.1844008086.2019590753" name="I2cLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/I2cLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.release.1844008086.1511883132" name="PwrLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/PwrLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.release.1844008086.1731636993" name="WutLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/WutLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.release.1844008086.891132083" name="PwmLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/PwmLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.release.1844008086.990890672" name="ClkLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/ClkLib.h" toolsToInvoke=""/>
+					<fileInfo id="arm.toolchain.gcc.target.exe.release.1844008086.793982448" name="WdtLib.h" rcbsApplicability="disable" resourcePath="RTE/Device/ADuCM360/WdtLib.h" toolsToInvoke=""/>
 					<folderInfo id="arm.toolchain.gcc.target.exe.release.1844008086.system" name="system" resourcePath="system">
 						<toolChain id="arm.gcc.toolchain.1986983077" name="CrossCore GCC ARM Embedded Toolchain" superClass="arm.gcc.toolchain" unusedChildren="">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="arm.toolchain.platform.base" name="Development Platform" osList="all" superClass="arm.toolchain.platform.base"/>
@@ -259,9 +285,9 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
+						<entry excluding="RTE/Device/ADuCM360/.DS_Store|RTE/Device/.DS_Store|RTE/.DS_Store|system|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="system"/>
-						<entry excluding="RTE/Device/ADuCM360/.DS_Store|RTE/Device/.DS_Store|RTE/.DS_Store|RTE/Device/ADuCM360/WutLib.h|RTE/Device/ADuCM360/WdtLib.h|RTE/Device/ADuCM360/RstLib.h|RTE/Device/ADuCM360/PwrLib.h|RTE/Device/ADuCM360/PwmLib.h|RTE/Device/ADuCM360/IntLib.h|RTE/Device/ADuCM360/IexcLib.h|RTE/Device/ADuCM360/I2cLib.h|RTE/Device/ADuCM360/GptLib.h|RTE/Device/ADuCM360/FeeLib.h|RTE/Device/ADuCM360/DacLib.h|RTE/Device/ADuCM360/ClkLib.h|RTE/Device/ADuCM360/AdcLib.h|system|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
