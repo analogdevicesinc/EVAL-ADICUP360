@@ -139,9 +139,9 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="RTE/Device/ADuCM360/.DS_Store|RTE/Device/.DS_Store|RTE/.DS_Store|system|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="system"/>
+						<entry excluding="RTE/Device/ADuCM360/WutLib.h|RTE/Device/ADuCM360/WdtLib.h|RTE/Device/ADuCM360/RstLib.h|RTE/Device/ADuCM360/PwrLib.h|RTE/Device/ADuCM360/PwmLib.h|RTE/Device/ADuCM360/IntLib.h|RTE/Device/ADuCM360/IexcLib.h|RTE/Device/ADuCM360/I2cLib.h|RTE/Device/ADuCM360/GptLib.h|RTE/Device/ADuCM360/FeeLib.h|RTE/Device/ADuCM360/DacLib.h|RTE/Device/ADuCM360/ClkLib.h|RTE/Device/ADuCM360/AdcLib.h|RTE/Device/ADuCM360/.DS_Store|RTE/Device/.DS_Store|RTE/.DS_Store|system|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -285,9 +285,9 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="RTE/Device/ADuCM360/.DS_Store|RTE/Device/.DS_Store|RTE/.DS_Store|system|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="system"/>
+						<entry excluding="RTE/Device/ADuCM360/WutLib.h|RTE/Device/ADuCM360/WdtLib.h|RTE/Device/ADuCM360/RstLib.h|RTE/Device/ADuCM360/PwrLib.h|RTE/Device/ADuCM360/PwmLib.h|RTE/Device/ADuCM360/IntLib.h|RTE/Device/ADuCM360/IexcLib.h|RTE/Device/ADuCM360/I2cLib.h|RTE/Device/ADuCM360/GptLib.h|RTE/Device/ADuCM360/FeeLib.h|RTE/Device/ADuCM360/DacLib.h|RTE/Device/ADuCM360/ClkLib.h|RTE/Device/ADuCM360/AdcLib.h|RTE/Device/ADuCM360/.DS_Store|RTE/Device/.DS_Store|RTE/.DS_Store|system|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -344,5 +344,12 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/ADICUP360_ADXL362_Project"/>
+		</configuration>
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/ADICUP360_ADXL362_Project"/>
+		</configuration>
+	</storageModule>
 </cproject>

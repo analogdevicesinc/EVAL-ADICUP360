@@ -33,7 +33,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 
 // ----------------------------------------------------------------------------
-// Gloabal data
+// Global data
 volatile uint32_t ui32timer_counter = 0;
 
 // Forward declarations.

@@ -51,11 +51,13 @@
 #define __HFOSC           (16000000UL)    /* Oscillator frequency             */
 #define __XTAL               (32768UL)    /* 32kHz Frequency                  */
 
+#define SYSTEM_CLOCK (__HFOSC)
+
 /*----------------------------------------------------------------------------
   Clock Variable definitions
  *----------------------------------------------------------------------------*/
-uint32_t SystemCoreClock;  /*!< System Clock Frequency (Core Clock)*/
-uint32_t uClk;             /* Undivided System Clock Frequency (UCLK)   */
+uint32_t SystemCoreClock = SYSTEM_CLOCK;  /*!< System Clock Frequency (Core Clock)*/
+uint32_t uClk;                            /* Undivided System Clock Frequency (UCLK)   */
 
 /* Frequency of the external clock source connected to P1.0 */
 uint32_t SystemExtClock;
