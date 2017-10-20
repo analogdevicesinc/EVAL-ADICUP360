@@ -103,6 +103,8 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    extern void UART_WriteChar(char c);
    extern char UART_ReadChar(void);
    extern int _write (int fd, char *ptr, int len);
+   extern int _read(int fd, char *ptr, int len);
+   extern void UART_Int_Handler(void);
 
    extern void SPI_Init(void);
    extern void SPI1_Disable(void);

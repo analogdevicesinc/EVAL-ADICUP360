@@ -168,6 +168,50 @@ int _read(int fd, char *ptr, int len)
    return 1;
 }
 
+void UART_Int_Handler(void)
+{
+   unsigned short  status;
+   char c;
+
+   status = UrtIntSta(pADI_UART);
+
+   if (status & COMIIR_NINT)
+   {
+      return;
+   }
+
+   switch (status & COMIIR_STA_MSK)
+   {
+      case COMIIR_STA_RXBUFFULL:
+         c = UART_ReadChar();
+         switch (c)
+         {
+            case _CR:
+               uart_cmd = UART_TRUE;
+               break;
+
+            case _LF:
+               uart_cmd = UART_TRUE;
+               break;
+
+            default:
+               uart_rx_buffer[uart_rcnt++] = c;
+               uart_rx_char = c;
+               uart_read_ch = 1;
+               break;
+         }
+         uart_rx_buffer[uart_rcnt] = '\0';
+         break;
+
+      case COMIIR_STA_TXBUFEMPTY:
+         uart_rdy = 1;
+         break;
+
+      default:
+         break;
+   }
+}
+
 void SPI_Init(void)
 {
    // CN0397 Chip Select
@@ -229,7 +273,7 @@ void SPI_Init(void)
    // SPI 0 BAUD RATE (115200)
    SpiBaud(pADI_SPI0, 1, SPIDIV_BCRST_DIS);
    // SPI 1 BAUD RATE (115200)
-   SpiBaud(pADI_SPI1, 1, SPIDIV_BCRST_DIS);
+   SpiBaud(pADI_SPI1, 3, SPIDIV_BCRST_DIS);
 
    /* SPI configuration*/
    SpiCfg(pADI_SPI1, SPICON_MOD_TX4RX4, SPICON_MASEN_EN, SPICON_CON_EN | SPICON_SOEN_EN |

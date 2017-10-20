@@ -83,6 +83,10 @@ int main(int argc, char* argv[])
    while(uart_cmd == UART_FALSE);
    uart_cmd = UART_FALSE;
 
+   printf("CftL Demo v0\n");
+   printf("Requires: CN0370, CN0397, and CN0398\n");
+   printf("Type help for a list of commands\n");
+
    CN0397_Init();
    timer_sleep(500);
 
@@ -94,10 +98,6 @@ int main(int argc, char* argv[])
 
    //CN0397_StartCal();
    //CN0398_calibrate();
-
-   printf("CftL Demo v0\n");
-   printf("Requires: CN0370, CN0397, and CN0398\n");
-   printf("Type help for a list of commands\n");
 
    Command_Prompt();
 
@@ -134,50 +134,6 @@ int main(int argc, char* argv[])
          CN0397_DisplayData();
          CN0398_display_data();
       }
-   }
-}
-
-void UART_Int_Handler(void)
-{
-   unsigned short  status;
-   char c;
-
-   status = UrtIntSta(pADI_UART);
-
-   if (status & COMIIR_NINT)
-   {
-      return;
-   }
-
-   switch (status & COMIIR_STA_MSK)
-   {
-      case COMIIR_STA_RXBUFFULL:
-         c = UART_ReadChar();
-         switch (c)
-         {
-            case _CR:
-               uart_cmd = UART_TRUE;
-               break;
-
-            case _LF:
-               uart_cmd = UART_TRUE;
-               break;
-
-            default:
-               uart_rx_buffer[uart_rcnt++] = c;
-               uart_rx_char = c;
-               uart_read_ch = 1;
-               break;
-         }
-         uart_rx_buffer[uart_rcnt] = '\0';
-         break;
-
-      case COMIIR_STA_TXBUFEMPTY:
-         uart_rdy = 1;
-         break;
-
-      default:
-         break;
    }
 }
 
