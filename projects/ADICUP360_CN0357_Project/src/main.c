@@ -76,7 +76,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /********************************** Macros ****************************************************************************/
 #define FEEDBACK_RESISTOR (1.2 /(float)(SENSOR_RANGE * SENSOR_SENSITIVITY *  0.000000001))
-#define BUFFER_SIZE 1000
+#define BUFFER_SIZE 950
 
 /********************************** Variables ************************************************************************/
 char ISM43340_ResponseBuffer[BUFFER_SIZE];

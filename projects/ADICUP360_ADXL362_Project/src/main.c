@@ -74,7 +74,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma GCC diagnostic ignored "-Wreturn-type"
 
 /********************************** Macros ****************************************************************************/
-#define BUFFER_SIZE 1000
+#define BUFFER_SIZE 950
 
 /******************************************Variables*******************************************************************/
 char ISM43340_ResponseBuffer[BUFFER_SIZE];

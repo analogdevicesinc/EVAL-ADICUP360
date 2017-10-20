@@ -59,6 +59,7 @@ char security_type[] = "";                                                // Ent
 /* Enter Cloud Instance Information */
 char instance_url[] = "";                                                 // Enter Cloud Instance URL
 char app_key[] = "";                                                      // Enter Application Key
+
 char Thing_Name[] = "ADICUP360_ADXL362_Thing";                            // Enter Thing Name
 char Thing_Description[] = "Thing created by Device";                     // Enter Thing Description
 
