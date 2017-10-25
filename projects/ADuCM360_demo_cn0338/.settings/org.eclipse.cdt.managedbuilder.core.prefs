@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+environment/buildEnvironmentInclude/arm.toolchain.gcc.target.exe.release.1091124485/CPATH/delimiter=\:
+environment/buildEnvironmentInclude/arm.toolchain.gcc.target.exe.release.1091124485/CPATH/operation=remove
+environment/buildEnvironmentInclude/arm.toolchain.gcc.target.exe.release.1091124485/CPLUS_INCLUDE_PATH/delimiter=\:
+environment/buildEnvironmentInclude/arm.toolchain.gcc.target.exe.release.1091124485/CPLUS_INCLUDE_PATH/operation=remove
+environment/buildEnvironmentInclude/arm.toolchain.gcc.target.exe.release.1091124485/C_INCLUDE_PATH/delimiter=\:
+environment/buildEnvironmentInclude/arm.toolchain.gcc.target.exe.release.1091124485/C_INCLUDE_PATH/operation=remove
+environment/buildEnvironmentInclude/arm.toolchain.gcc.target.exe.release.1091124485/append=true
+environment/buildEnvironmentInclude/arm.toolchain.gcc.target.exe.release.1091124485/appendContributed=true
+environment/buildEnvironmentLibrary/arm.toolchain.gcc.target.exe.release.1091124485/LIBRARY_PATH/delimiter=\:
+environment/buildEnvironmentLibrary/arm.toolchain.gcc.target.exe.release.1091124485/LIBRARY_PATH/operation=remove
+environment/buildEnvironmentLibrary/arm.toolchain.gcc.target.exe.release.1091124485/append=true
+environment/buildEnvironmentLibrary/arm.toolchain.gcc.target.exe.release.1091124485/appendContributed=true

@@ -1,0 +1,15 @@
+"C:\IAR Systems\Embedded Workbench 7.4\arm\bin\armproc.dll" 
+
+"C:\IAR Systems\Embedded Workbench 7.4\arm\bin\armJET.dll" 
+
+"C:\BitBucket\cortex-m\eval-adicup360\projects\ADuCM360_demo_blink\IAR\Debug\Exe\ADuCM360_demo_blink.out" 
+
+--plugin "C:\IAR Systems\Embedded Workbench 7.4\arm\bin\armbat.dll" 
+
+--device_macro "C:\IAR Systems\Embedded Workbench 7.4\arm\config\debugger\AnalogDevices\ADuCM36x.dmac" 
+
+--flash_loader "C:\IAR Systems\Embedded Workbench 7.4\arm\config\flashloader\AnalogDevices\FlashADUCM3xx128K_8K.board" 
+
+
+
+

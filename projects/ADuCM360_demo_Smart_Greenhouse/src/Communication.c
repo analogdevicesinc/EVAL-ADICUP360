@@ -1,3 +1,50 @@
+/*!
+ *****************************************************************************
+ * @file:    Communication.c
+ * @brief:
+ * @version: $Revision$
+ * @date:    $Date$
+ *-----------------------------------------------------------------------------
+ *
+Copyright (c) 2015-2017 Analog Devices, Inc.
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+  - Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+  - Modified versions of the software must be conspicuously marked as such.
+  - This software is licensed solely and exclusively for use with processors
+    manufactured by or for Analog Devices, Inc.
+  - This software may not be combined or merged with other code in any manner
+    that would cause the software to become subject to terms and conditions
+    which differ from those listed here.
+  - Neither the name of Analog Devices, Inc. nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+  - The use of this software may or may not infringe the patent rights of one
+    or more patent holders.  This license does not release you from the
+    requirement that you obtain separate licenses from these patent holders
+    to use this software.
+
+THIS SOFTWARE IS PROVIDED BY ANALOG DEVICES, INC. AND CONTRIBUTORS "AS IS" AND ANY
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, NON-INFRINGEMENT,
+TITLE, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+NO EVENT SHALL ANALOG DEVICES, INC. OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, PUNITIVE OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, DAMAGES ARISING OUT OF CLAIMS OF INTELLECTUAL
+PROPERTY RIGHTS INFRINGEMENT; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ *****************************************************************************/
+
 /***************************** Library Include Files **************************/
 #include <stdio.h>
 #include <stdint.h>
@@ -121,6 +168,50 @@ int _read(int fd, char *ptr, int len)
    return 1;
 }
 
+void UART_Int_Handler(void)
+{
+   unsigned short  status;
+   char c;
+
+   status = UrtIntSta(pADI_UART);
+
+   if (status & COMIIR_NINT)
+   {
+      return;
+   }
+
+   switch (status & COMIIR_STA_MSK)
+   {
+      case COMIIR_STA_RXBUFFULL:
+         c = UART_ReadChar();
+         switch (c)
+         {
+            case _CR:
+               uart_cmd = UART_TRUE;
+               break;
+
+            case _LF:
+               uart_cmd = UART_TRUE;
+               break;
+
+            default:
+               uart_rx_buffer[uart_rcnt++] = c;
+               uart_rx_char = c;
+               uart_read_ch = 1;
+               break;
+         }
+         uart_rx_buffer[uart_rcnt] = '\0';
+         break;
+
+      case COMIIR_STA_TXBUFEMPTY:
+         uart_rdy = 1;
+         break;
+
+      default:
+         break;
+   }
+}
+
 void SPI_Init(void)
 {
    // CN0397 Chip Select
@@ -182,7 +273,7 @@ void SPI_Init(void)
    // SPI 0 BAUD RATE (115200)
    SpiBaud(pADI_SPI0, 1, SPIDIV_BCRST_DIS);
    // SPI 1 BAUD RATE (115200)
-   SpiBaud(pADI_SPI1, 1, SPIDIV_BCRST_DIS);
+   SpiBaud(pADI_SPI1, 3, SPIDIV_BCRST_DIS);
 
    /* SPI configuration*/
    SpiCfg(pADI_SPI1, SPICON_MOD_TX4RX4, SPICON_MASEN_EN, SPICON_CON_EN | SPICON_SOEN_EN |
@@ -258,7 +349,8 @@ void SPI_Write(unsigned char* data, unsigned char bytesNumber)
 
     if(convFlag == 0)
        DioClr(CN0397_CS_PORT, CN0397_CS_BIT);
-       timer_sleep(5);
+
+    timer_sleep(5);
 
     /* Flush Tx and Rx FIFOs */
     SpiFifoFlush(pADI_SPI1, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);
@@ -269,11 +361,13 @@ void SPI_Write(unsigned char* data, unsigned char bytesNumber)
     }
 
     /* Wait until x bytes are received */
-    while ((SpiSta(pADI_SPI1) & ui16fifo_status) != ui16fifo_status);
+    while ((SpiSta(pADI_SPI1) & ui16fifo_status) != ui16fifo_status) {
+    	;
+    }
 
     if(convFlag == 0)
        DioSet(CN0397_CS_PORT, CN0397_CS_BIT);
-       timer_sleep(5);
+    timer_sleep(5);
 
 }
 
