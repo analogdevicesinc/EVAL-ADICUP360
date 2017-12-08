@@ -1,50 +1,49 @@
-/**
-******************************************************************************
-*   @file     AD7793.c
-*   @brief    Source file for AD7793 converter
-*   @version  V0.1
-*   @author   ADI
-*   @date     December 2015
-*  @par Revision History:
-*  - V0.1, December 2015: initial version.
-*
-*******************************************************************************
-* Copyright 2015(c) Analog Devices, Inc.
-*
-* All rights reserved.
-*
-* Redistribution and use in source and binary forms, with or without modification,
-* are permitted provided that the following conditions are met:
-*  - Redistributions of source code must retain the above copyright
-*    notice, this list of conditions and the following disclaimer.
-*  - Redistributions in binary form must reproduce the above copyright
-*    notice, this list of conditions and the following disclaimer in
-*    the documentation and/or other materials provided with the
-*    distribution.
-*  - Neither the name of Analog Devices, Inc. nor the names of its
-*    contributors may be used to endorse or promote products derived
-*    from this software without specific prior written permission.
-*  - The use of this software may or may not infringe the patent rights
-*    of one or more patent holders.  This license does not release you
-*    from the requirement that you obtain separate licenses from these
-*    patent holders to use this software.
-*  - Use of the software either in source or binary form, must be run
-*    on or directly connected to an Analog Devices Inc. component.
-*
-* THIS SOFTWARE IS PROVIDED BY ANALOG DEVICES "AS IS" AND ANY EXPRESS OR IMPLIED
-* WARRANTIES, INCLUDING, BUT NOT LIMITED TO, NON-INFRINGEMENT, MERCHANTABILITY
-* AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-* IN NO EVENT SHALL ANALOG DEVICES BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-* SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-* INTELLECTUAL PROPERTY RIGHTS, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-* ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-* (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*
-*******************************************************************************
-**/
+/*!
+ *****************************************************************************
+ * @file:    AD7793.c
+ * @brief:   AD7793 converter
+ * @version: $Revision$
+ * @date:    $Date$
+ *-----------------------------------------------------------------------------
+ *
+Copyright (c) 2015-2017 Analog Devices, Inc.
 
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+  - Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+  - Modified versions of the software must be conspicuously marked as such.
+  - This software is licensed solely and exclusively for use with processors
+    manufactured by or for Analog Devices, Inc.
+  - This software may not be combined or merged with other code in any manner
+    that would cause the software to become subject to terms and conditions
+    which differ from those listed here.
+  - Neither the name of Analog Devices, Inc. nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+  - The use of this software may or may not infringe the patent rights of one
+    or more patent holders.  This license does not release you from the
+    requirement that you obtain separate licenses from these patent holders
+    to use this software.
+
+THIS SOFTWARE IS PROVIDED BY ANALOG DEVICES, INC. AND CONTRIBUTORS "AS IS" AND ANY
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, NON-INFRINGEMENT,
+TITLE, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+NO EVENT SHALL ANALOG DEVICES, INC. OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, PUNITIVE OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, DAMAGES ARISING OUT OF CLAIMS OF INTELLECTUAL
+PROPERTY RIGHTS INFRINGEMENT; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ *****************************************************************************/
 /***************************** Include Files **********************************/
 
 #include <ADuCM360.h>
@@ -82,6 +81,10 @@ void AD7793_Init(void)
    ui32reg_value |= (uint32_t)AD7793_BUF;                /* Configure buffered mode of operation */
 
    AD7793_WriteRegister(AD7793_REG_CONF, ui32reg_value);  /* Set configuration options */
+
+   ui32reg_value = AD7793_ReadRegister(AD7793_REG_CONF);
+
+   AD7793_WriteRegister(AD7793_REG_CONF, ui32reg_value);
 
    AD7793_WriteRegister(AD7793_REG_IO, 0x02);           /* Set IOUT2 to 210 uA */
 
@@ -150,7 +153,7 @@ uint32_t AD7793_Scan(enMode mode,  uint8_t ui8channel)
 {
    static  uint32_t ui32result, ui32reg_value;
 
-   uint8_t ui8reg_adrr = (AD7793_COMM_READ | AD7793_COMM_ADR(AD7793_REG_DATA));   /* Set value (read command + DATA register address) to write in COMM register */
+   AD7793_Calibrate(ui8channel, CAL_INT_FULL_MODE);
 
    AD7793_SelectChannel(ui8channel);       /* Select channel to scan */
 
@@ -173,11 +176,9 @@ uint32_t AD7793_Scan(enMode mode,  uint8_t ui8channel)
       DioClr(CS_PORT, CS_PIN);
    }
 
-   while ((AD7793_ReadRegister(AD7793_REG_STAT)& RDY_BIT) != RDY_BIT);
+   while ((AD7793_ReadRegister(AD7793_REG_STAT)& RDY_BIT) == RDY_BIT);
 
-   SPI_Write(0xAA, 0xAAAA, 2);
-
-   ui32result =  SPI_Read(ui8reg_adrr,  reg_size[AD7793_REG_DATA]);
+   ui32result = AD7793_ReadRegister(AD7793_REG_DATA);
 
    DioSet(CS_PORT, CS_PIN);
 
@@ -227,7 +228,7 @@ void AD7793_Calibrate(uint8_t ui8channel, enMode mode)
 
    AD7793_WriteRegister(AD7793_REG_MODE, ui32reg_value);          /* Write MODE register */
 
-   while ((AD7793_ReadRegister(AD7793_REG_STAT)& RDY_BIT) != RDY_BIT);             /* Wait until RDY bit from STATUS register is high */
+   while ((AD7793_ReadRegister(AD7793_REG_STAT)& RDY_BIT) == RDY_BIT);             /* Wait until RDY bit from STATUS register is high */
 
    DioSet(CS_PORT, CS_PIN);
 
@@ -241,12 +242,12 @@ void AD7793_Calibrate(uint8_t ui8channel, enMode mode)
 
    @return int32_t - converted voltage
 **/
-int32_t AD7793_ConvertToVolts(uint32_t u32adcValue)
+float AD7793_ConvertToVolts(uint32_t u32adcValue)
 {
-   int32_t i32voltage;
+   float f32voltage;
 
-   i32voltage = ((int64_t)(u32adcValue - 0x800000) * 1170) / (int32_t)0x800000; /* Vref = 1170 [mV]    */        /* Calculate voltage */
+   f32voltage = ((float)(u32adcValue - 0x800000) * 1170) / (float)0x800000; /* Vref = 1170 [mV]    */        /* Calculate voltage */
 
-   return i32voltage;
+   return f32voltage;
 }
 

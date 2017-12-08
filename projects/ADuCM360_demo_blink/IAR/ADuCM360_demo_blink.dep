@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project>
+  <fileVersion>2</fileVersion>
+  <fileChecksum>305500434</fileChecksum>
+  <configuration>
+    <name>Debug</name>
+    <outputs>
+      <file>$PROJ_DIR$\system\include\CMSIS\core_cm3.h</file>
+      <file>$PROJ_DIR$\system\include\CMSIS\system_ADuCM360.h</file>
+      <file>$PROJ_DIR$\system\include\ADuCM360\DioLib.h</file>
+      <file>$PROJ_DIR$\system\include\CMSIS\core_cmInstr.h</file>
+      <file>$PROJ_DIR$\system\include\CMSIS\core_cmFunc.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\cmsis_iar.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
+      <file>$PROJ_DIR$\system\include\CMSIS\cmsis_device.h</file>
+      <file>$PROJ_DIR$\include\Timer.h</file>
+      <file>$PROJ_DIR$\system\include\ADuCM360\WdtLib.h</file>
+      <file>$PROJ_DIR$\system\include\ADuCM360\GptLib.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\GptLib.o</file>
+      <file>$PROJ_DIR$\Debug\List\ADuCM360_demo_blink.map</file>
+      <file>$PROJ_DIR$\Debug\Obj\ClkLib.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\Trace.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\DioLib.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\WdtLib.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\WdtLib.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\GptLib.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\Trace.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\Trace.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\system_ADuCM360.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\DioLib.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\ADuCM360_demo_blink.pbd</file>
+      <file>$PROJ_DIR$\Debug\Obj\blink.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
+      <file>$PROJ_DIR$\Debug\Exe\ADuCM360_demo_blink.out</file>
+      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
+      <file>$PROJ_DIR$\include\blink.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\Timer.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\Timer.__cstat.et</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\blink.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\startup_ADuCM360.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\ClkLib.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\system_ADuCM360.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\WdtLib.__cstat.et</file>
+      <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+      <file>$PROJ_DIR$\Debug\Obj\ClkLib.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\DioLib.o</file>
+      <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+      <file>$TOOLKIT_DIR$\config\linker\AnalogDevices\ADuCM360.icf</file>
+      <file>$PROJ_DIR$\Debug\Obj\GptLib.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\system_ADuCM360.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\blink.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\Timer.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+      <file>$PROJ_DIR$\system\include\CMSIS\ADuCM360.h</file>
+      <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
+      <file>$PROJ_DIR$\src\main.c</file>
+      <file>$PROJ_DIR$\src\Timer.c</file>
+      <file>$PROJ_DIR$\src\blink.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\ystdio.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\system\src\CMSIS\system_ADuCM360.c</file>
+      <file>$PROJ_DIR$\system\include\cortexm\ExceptionHandlers.h</file>
+      <file>$PROJ_DIR$\system\src\ADuCM360\DioLib.c</file>
+      <file>$PROJ_DIR$\system\src\ADuCM360\ClkLib.c</file>
+      <file>$PROJ_DIR$\system\src\ADuCM360\WdtLib.c</file>
+      <file>$PROJ_DIR$\system\src\diag\Trace.c</file>
+      <file>$PROJ_DIR$\system\src\ADuCM360\GptLib.c</file>
+      <file>$PROJ_DIR$\system\include\ADuCM360\ClkLib.h</file>
+      <file>$PROJ_DIR$\system\src\ADuCM360\startup_ADuCM360.s</file>
+      <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
+    </outputs>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\ADuCM360_demo_blink.out</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 13</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 48 27 41 46 12 59 40 50 52 21 18 71 44 55 47</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\main.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 59</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 61</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 24</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 35 39 11 36 28 37 31 29 53 60 72 32 8 7 54 0 16 3 5 6 4 1 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 29 11 54 39 7 32 60 53 1 3 6 5 72 8 36 31 28 37 10 0 16 4 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\Timer.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 52</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 33</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 34</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 8 7 54 0 16 39 11 36 28 37 31 29 3 5 6 4 1 10 63 32</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 29 1 31 6 5 32 10 63 7 54 0 3 39 36 11 16 8 4 28 37</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\blink.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 27</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 38</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 51</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 54 0 16 39 11 36 28 37 31 29 3 5 6 4 1 32 2</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 6 2 1 3 39 31 28 32 0 16 4 36 37 54 11 29 5</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 13 30</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\system\src\CMSIS\system_ADuCM360.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 50</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 42</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 23</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 16 39 11 36 28 37 31 29 54 0 3 5 6 4 1</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 11 39 29 0 54 36 31 28 37 16 4 5 1 3 6</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\system\src\ADuCM360\DioLib.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 46</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 17</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 25</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 54 0 16 39 11 36 28 37 31 29 3 5 6 4 1 2</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 0 36 39 4 16 37 2 1 31 28 6 54 3 11 29 5</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\system\src\ADuCM360\ClkLib.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 45</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 69 54 0 16 39 11 36 28 37 31 29 3 5 6 4 1</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 16 1 4 11 28 54 0 39 37 5 69 3 36 31 29 6</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\system\src\ADuCM360\WdtLib.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 18</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 19</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 43</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 9 54 0 16 39 11 36 28 37 31 29 3 5 6 4 1</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 16 0 4 11 28 54 1 39 37 5 9 3 36 31 29 6</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\system\src\diag\Trace.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 21</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 22</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\system\src\ADuCM360\GptLib.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 12</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 20</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 49</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 10 54 0 16 39 11 36 28 37 31 29 3 5 6 4 1</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 16 1 4 11 28 54 0 39 37 5 10 3 36 31 29 6</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\system\src\ADuCM360\startup_ADuCM360.s</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 40</file>
+        </tool>
+      </outputs>
+    </file>
+    <forcedrebuild>
+      <name>[REBUILD_ALL]</name>
+    </forcedrebuild>
+  </configuration>
+  <configuration>
+    <name>Release</name>
+    <outputs>
+      <file>$PROJ_DIR$\system\include\CMSIS\core_cm3.h</file>
+      <file>$PROJ_DIR$\system\include\CMSIS\system_ADuCM360.h</file>
+      <file>$PROJ_DIR$\system\include\ADuCM360\DioLib.h</file>
+      <file>$PROJ_DIR$\system\include\CMSIS\core_cmInstr.h</file>
+      <file>$PROJ_DIR$\system\include\CMSIS\core_cmFunc.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\cmsis_iar.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
+      <file>$PROJ_DIR$\system\include\CMSIS\cmsis_device.h</file>
+      <file>$PROJ_DIR$\include\Timer.h</file>
+      <file>$PROJ_DIR$\system\include\ADuCM360\WdtLib.h</file>
+      <file>$PROJ_DIR$\system\include\ADuCM360\GptLib.h</file>
+      <file>$PROJ_DIR$\Release\Obj\system_ADuCM360.o</file>
+      <file>$PROJ_DIR$\Release\Obj\DioLib.o</file>
+      <file>$PROJ_DIR$\Release\Obj\main.o</file>
+      <file>$PROJ_DIR$\Release\Obj\ClkLib.o</file>
+      <file>$PROJ_DIR$\Release\Obj\Timer.o</file>
+      <file>$PROJ_DIR$\Release\Obj\blink.o</file>
+      <file>$PROJ_DIR$\Release\Obj\GptLib.o</file>
+      <file>$PROJ_DIR$\Release\Obj\GptLib.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\system_ADuCM360.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\DioLib.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\Trace.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
+      <file>$PROJ_DIR$\include\blink.h</file>
+      <file>$PROJ_DIR$\Release\Obj\WdtLib.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\ADuCM360_demo_blink.pbd</file>
+      <file>$PROJ_DIR$\Release\Obj\WdtLib.o</file>
+      <file>$PROJ_DIR$\Release\Obj\startup_ADuCM360.o</file>
+      <file>$PROJ_DIR$\Release\Obj\Trace.o</file>
+      <file>$PROJ_DIR$\Release\Obj\blink.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\Timer.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\ClkLib.pbi</file>
+      <file>$PROJ_DIR$\Release\Exe\ADuCM360_demo_blink.out</file>
+      <file>$PROJ_DIR$\Release\List\ADuCM360_demo_blink.map</file>
+      <file>$TOOLKIT_DIR$\config\generic_cortex.icf</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+      <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+      <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+      <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+      <file>$PROJ_DIR$\system\include\CMSIS\ADuCM360.h</file>
+      <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
+      <file>$PROJ_DIR$\src\main.c</file>
+      <file>$PROJ_DIR$\src\Timer.c</file>
+      <file>$PROJ_DIR$\src\blink.c</file>
+      <file>$TOOLKIT_DIR$\inc\c\ystdio.h</file>
+      <file>$PROJ_DIR$\Release\Obj\Timer.__cstat.et</file>
+      <file>$PROJ_DIR$\Release\Obj\main.__cstat.et</file>
+      <file>$PROJ_DIR$\Release\Obj\blink.__cstat.et</file>
+      <file>$PROJ_DIR$\Release\Obj\ClkLib.__cstat.et</file>
+      <file>$PROJ_DIR$\Release\Obj\DioLib.__cstat.et</file>
+      <file>$PROJ_DIR$\Release\Obj\GptLib.__cstat.et</file>
+      <file>$PROJ_DIR$\Release\Obj\system_ADuCM360.__cstat.et</file>
+      <file>$PROJ_DIR$\Release\Obj\Trace.__cstat.et</file>
+      <file>$PROJ_DIR$\Release\Obj\WdtLib.__cstat.et</file>
+      <file>$PROJ_DIR$\system\src\CMSIS\system_ADuCM360.c</file>
+      <file>$PROJ_DIR$\system\include\cortexm\ExceptionHandlers.h</file>
+      <file>$PROJ_DIR$\system\src\ADuCM360\DioLib.c</file>
+      <file>$PROJ_DIR$\system\src\ADuCM360\ClkLib.c</file>
+      <file>$PROJ_DIR$\system\src\ADuCM360\WdtLib.c</file>
+      <file>$PROJ_DIR$\system\src\diag\Trace.c</file>
+      <file>$PROJ_DIR$\system\src\ADuCM360\GptLib.c</file>
+      <file>$PROJ_DIR$\system\include\ADuCM360\ClkLib.h</file>
+      <file>$PROJ_DIR$\system\src\ADuCM360\startup_ADuCM360.s</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
+    </outputs>
+    <file>
+      <name>$PROJ_DIR$\Release\Exe\ADuCM360_demo_blink.out</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 38</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 39 16 14 12 17 13 31 11 15 32 30 44 48 45</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\main.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 13</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 54</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 40 43 22 41 24 42 26 25 46 52 71 27 8 7 47 0 23 3 5 6 4 1 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 25 22 47 43 7 27 52 46 1 3 6 5 71 8 41 26 24 42 10 0 23 4 40</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\Timer.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 35</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 53</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 8 7 47 0 23 43 22 41 24 42 26 25 3 5 6 4 1 10 63 27</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 25 1 26 6 5 27 10 63 7 47 0 3 43 41 22 23 8 4 24 42</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\blink.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 16</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 33</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 55</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 47 0 23 43 22 41 24 42 26 25 3 5 6 4 1 27 2</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 6 2 1 3 43 26 24 27 0 23 4 41 42 47 22 25 5</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 37 38</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\system\src\CMSIS\system_ADuCM360.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 11</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 19</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 59</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 23 43 22 41 24 42 26 25 47 0 3 5 6 4 1</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 22 43 25 0 47 41 26 24 42 23 4 5 1 3 6</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\system\src\ADuCM360\DioLib.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 12</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 20</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 57</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 47 0 23 43 22 41 24 42 26 25 3 5 6 4 1 2</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 0 41 43 4 23 42 2 1 26 24 6 47 3 22 25 5</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\system\src\ADuCM360\ClkLib.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 36</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 56</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 69 47 0 23 43 22 41 24 42 26 25 3 5 6 4 1</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 23 1 4 22 24 47 0 43 42 5 69 3 41 26 25 6</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\system\src\ADuCM360\WdtLib.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 30</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 28</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 61</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 9 47 0 23 43 22 41 24 42 26 25 3 5 6 4 1</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 23 0 4 22 24 47 1 43 42 5 9 3 41 26 25 6</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\system\src\diag\Trace.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 32</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 21</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 60</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\system\src\ADuCM360\GptLib.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 17</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 58</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 10 47 0 23 43 22 41 24 42 26 25 3 5 6 4 1</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 23 1 4 22 24 47 0 43 42 5 10 3 41 26 25 6</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\system\src\ADuCM360\startup_ADuCM360.s</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 31</file>
+        </tool>
+      </outputs>
+    </file>
+    <forcedrebuild>
+      <name>[REBUILD_ALL]</name>
+    </forcedrebuild>
+  </configuration>
+</project>
+
+

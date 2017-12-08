@@ -1,75 +1,0 @@
-Dependencies for Project 'ADuCM360_demo_blink', Target 'Target 1': (DO NOT MODIFY !)
-F (.\src\blink.c)(0x562097A1)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\include -I.\system\include\ADuCM360 -I.\system\include -I.\system\include\CMSIS-I C:\Users\vlupei\aducm360_test_all\ADuCM360_demo_blink\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\AnalogDevices\ADuCM36x_DFP\1.0.1\Device\Include-D__UVISION_VERSION="516" -D_RTE_ -DADuCM360-o .\objects\blink.o --omf_browse .\objects\blink.crf --depend .\objects\blink.d)
-I (.\system\include\CMSIS\ADuCM360.h)(0x56261121)
-I (.\system\include\CMSIS\core_cm3.h)(0x55E6AE0D)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AF3C42)
-I (.\system\include\CMSIS\core_cmInstr.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\core_cmFunc.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\system_ADuCM360.h)(0x56A9E6C0)
-I (.\include\blink.h)(0x56AB4FD8)
-I (.\system\include\ADuCM360\DioLib.h)(0x56261121)
-F (.\src\main.c)(0x56AB4FE8)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\include -I.\system\include\ADuCM360 -I.\system\include -I.\system\include\CMSIS-I C:\Users\vlupei\aducm360_test_all\ADuCM360_demo_blink\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\AnalogDevices\ADuCM36x_DFP\1.0.1\Device\Include-D__UVISION_VERSION="516" -D_RTE_ -DADuCM360-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AF3C42)
-I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x55AF3C42)
-I (.\include\blink.h)(0x56AB4FD8)
-I (.\include\Timer.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\cmsis_device.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\ADuCM360.h)(0x56261121)
-I (.\system\include\CMSIS\core_cm3.h)(0x55E6AE0D)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AF3C42)
-I (.\system\include\CMSIS\core_cmInstr.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\core_cmFunc.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\system_ADuCM360.h)(0x56A9E6C0)
-I (.\system\include\ADuCM360\GptLib.h)(0x56261121)
-F (.\src\Timer.c)(0x56AB4FF4)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\include -I.\system\include\ADuCM360 -I.\system\include -I.\system\include\CMSIS-I C:\Users\vlupei\aducm360_test_all\ADuCM360_demo_blink\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\AnalogDevices\ADuCM36x_DFP\1.0.1\Device\Include-D__UVISION_VERSION="516" -D_RTE_ -DADuCM360-o .\objects\timer.o --omf_browse .\objects\timer.crf --depend .\objects\timer.d)
-I (.\include\Timer.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\cmsis_device.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\ADuCM360.h)(0x56261121)
-I (.\system\include\CMSIS\core_cm3.h)(0x55E6AE0D)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AF3C42)
-I (.\system\include\CMSIS\core_cmInstr.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\core_cmFunc.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\system_ADuCM360.h)(0x56A9E6C0)
-I (.\system\include\ADuCM360\GptLib.h)(0x56261121)
-I (.\system\include\cortexm/ExceptionHandlers.h)(0x55E6AE0D)
-I (.\include\blink.h)(0x56AB4FD8)
-F (.\system\src\ADuCM360\ClkLib.c)(0x56261121)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\include -I.\system\include\ADuCM360 -I.\system\include -I.\system\include\CMSIS-I C:\Users\vlupei\aducm360_test_all\ADuCM360_demo_blink\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\AnalogDevices\ADuCM36x_DFP\1.0.1\Device\Include-D__UVISION_VERSION="516" -D_RTE_ -DADuCM360-o .\objects\clklib.o --omf_browse .\objects\clklib.crf --depend .\objects\clklib.d)
-I (.\system\include\ADuCM360\ClkLib.h)(0x56261121)
-I (.\system\include\CMSIS\ADuCM360.h)(0x56261121)
-I (.\system\include\CMSIS\core_cm3.h)(0x55E6AE0D)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AF3C42)
-I (.\system\include\CMSIS\core_cmInstr.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\core_cmFunc.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\system_ADuCM360.h)(0x56A9E6C0)
-F (.\system\src\ADuCM360\DioLib.c)(0x56261121)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\include -I.\system\include\ADuCM360 -I.\system\include -I.\system\include\CMSIS-I C:\Users\vlupei\aducm360_test_all\ADuCM360_demo_blink\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\AnalogDevices\ADuCM36x_DFP\1.0.1\Device\Include-D__UVISION_VERSION="516" -D_RTE_ -DADuCM360-o .\objects\diolib.o --omf_browse .\objects\diolib.crf --depend .\objects\diolib.d)
-I (.\system\include\CMSIS\ADuCM360.h)(0x56261121)
-I (.\system\include\CMSIS\core_cm3.h)(0x55E6AE0D)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AF3C42)
-I (.\system\include\CMSIS\core_cmInstr.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\core_cmFunc.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\system_ADuCM360.h)(0x56A9E6C0)
-I (.\system\include\ADuCM360\DioLib.h)(0x56261121)
-F (.\system\src\ADuCM360\GptLib.c)(0x56261121)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\include -I.\system\include\ADuCM360 -I.\system\include -I.\system\include\CMSIS-I C:\Users\vlupei\aducm360_test_all\ADuCM360_demo_blink\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\AnalogDevices\ADuCM36x_DFP\1.0.1\Device\Include-D__UVISION_VERSION="516" -D_RTE_ -DADuCM360-o .\objects\gptlib.o --omf_browse .\objects\gptlib.crf --depend .\objects\gptlib.d)
-I (.\system\include\ADuCM360\GptLib.h)(0x56261121)
-I (.\system\include\CMSIS\ADuCM360.h)(0x56261121)
-I (.\system\include\CMSIS\core_cm3.h)(0x55E6AE0D)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AF3C42)
-I (.\system\include\CMSIS\core_cmInstr.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\core_cmFunc.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\system_ADuCM360.h)(0x56A9E6C0)
-F (.\system\src\ADuCM360\WdtLib.c)(0x56261121)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\include -I.\system\include\ADuCM360 -I.\system\include -I.\system\include\CMSIS-I C:\Users\vlupei\aducm360_test_all\ADuCM360_demo_blink\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\AnalogDevices\ADuCM36x_DFP\1.0.1\Device\Include-D__UVISION_VERSION="516" -D_RTE_ -DADuCM360-o .\objects\wdtlib.o --omf_browse .\objects\wdtlib.crf --depend .\objects\wdtlib.d)
-I (.\system\include\ADuCM360\WdtLib.h)(0x56261121)
-I (.\system\include\CMSIS\ADuCM360.h)(0x56261121)
-I (.\system\include\CMSIS\core_cm3.h)(0x55E6AE0D)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AF3C42)
-I (.\system\include\CMSIS\core_cmInstr.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\core_cmFunc.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\system_ADuCM360.h)(0x56A9E6C0)
-F (RTE\Device\ADuCM360\startup_ADuCM360.s)(0x51C7E7EE)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Users\vlupei\aducm360_test_all\ADuCM360_demo_blink\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\AnalogDevices\ADuCM36x_DFP\1.0.1\Device\Include--pd "__UVISION_VERSION SETA 516" --pd "_RTE_ SETA 1" --pd "ADuCM360 SETA 1"--list .\listings\startup_aducm360.lst --xref -o .\objects\startup_aducm360.o --depend .\objects\startup_aducm360.d)
-F (RTE\Device\ADuCM360\system_ADuCM360.c)(0x51C7E7EE)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\include -I.\system\include\ADuCM360 -I.\system\include -I.\system\include\CMSIS-I C:\Users\vlupei\aducm360_test_all\ADuCM360_demo_blink\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\AnalogDevices\ADuCM36x_DFP\1.0.1\Device\Include-D__UVISION_VERSION="516" -D_RTE_ -DADuCM360-o .\objects\system_aducm360_1.o --omf_browse .\objects\system_aducm360_1.crf --depend .\objects\system_aducm360_1.d)
-I (.\system\include\CMSIS\ADuCM360.h)(0x56261121)
-I (.\system\include\CMSIS\core_cm3.h)(0x55E6AE0D)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AF3C42)
-I (.\system\include\CMSIS\core_cmInstr.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\core_cmFunc.h)(0x55E6AE0D)
-I (.\system\include\CMSIS\system_ADuCM360.h)(0x56A9E6C0)

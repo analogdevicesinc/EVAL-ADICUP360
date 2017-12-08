@@ -1,50 +1,49 @@
-/**
-******************************************************************************
-*   @file     Communication.c
-*   @brief    Source file for communication part.
-*   @version  V0.1
-*   @author   ADI
-*   @date     December 2015
-*  @par Revision History:
-*  - V0.1, December 2015: initial version.
-*
-*******************************************************************************
-* Copyright 2015(c) Analog Devices, Inc.
-*
-* All rights reserved.
-*
-* Redistribution and use in source and binary forms, with or without modification,
-* are permitted provided that the following conditions are met:
-*  - Redistributions of source code must retain the above copyright
-*    notice, this list of conditions and the following disclaimer.
-*  - Redistributions in binary form must reproduce the above copyright
-*    notice, this list of conditions and the following disclaimer in
-*    the documentation and/or other materials provided with the
-*    distribution.
-*  - Neither the name of Analog Devices, Inc. nor the names of its
-*    contributors may be used to endorse or promote products derived
-*    from this software without specific prior written permission.
-*  - The use of this software may or may not infringe the patent rights
-*    of one or more patent holders.  This license does not release you
-*    from the requirement that you obtain separate licenses from these
-*    patent holders to use this software.
-*  - Use of the software either in source or binary form, must be run
-*    on or directly connected to an Analog Devices Inc. component.
-*
-* THIS SOFTWARE IS PROVIDED BY ANALOG DEVICES "AS IS" AND ANY EXPRESS OR IMPLIED
-* WARRANTIES, INCLUDING, BUT NOT LIMITED TO, NON-INFRINGEMENT, MERCHANTABILITY
-* AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-* IN NO EVENT SHALL ANALOG DEVICES BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-* SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-* INTELLECTUAL PROPERTY RIGHTS, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-* ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-* (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*
-*******************************************************************************
-**/
+/*!
+ *****************************************************************************
+ * @file:    Communication.c
+ * @brief:
+ * @version: $Revision$
+ * @date:    $Date$
+ *-----------------------------------------------------------------------------
+ *
+Copyright (c) 2015-2017 Analog Devices, Inc.
 
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+  - Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+  - Modified versions of the software must be conspicuously marked as such.
+  - This software is licensed solely and exclusively for use with processors
+    manufactured by or for Analog Devices, Inc.
+  - This software may not be combined or merged with other code in any manner
+    that would cause the software to become subject to terms and conditions
+    which differ from those listed here.
+  - Neither the name of Analog Devices, Inc. nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+  - The use of this software may or may not infringe the patent rights of one
+    or more patent holders.  This license does not release you from the
+    requirement that you obtain separate licenses from these patent holders
+    to use this software.
+
+THIS SOFTWARE IS PROVIDED BY ANALOG DEVICES, INC. AND CONTRIBUTORS "AS IS" AND ANY
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, NON-INFRINGEMENT,
+TITLE, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+NO EVENT SHALL ANALOG DEVICES, INC. OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, PUNITIVE OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, DAMAGES ARISING OUT OF CLAIMS OF INTELLECTUAL
+PROPERTY RIGHTS INFRINGEMENT; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ *****************************************************************************/
 
 /***************************** Include Files **********************************/
 #include <stdio.h>
@@ -83,11 +82,11 @@ void SPI_Init(void)
 
    DioCfg(pADI_GP1, 0xAA00);    /* Configure P1[7:4] for SPI0 */
 
-   SpiBaud(pADI_SPI0, 1, SPIDIV_BCRST_DIS);      /* Set the SPI0 clock rate in Master mode to 4MHz. */
+   SpiBaud(pADI_SPI0, 2, SPIDIV_BCRST_DIS);      /* Set the SPI0 clock rate in Master mode to 4MHz. */
 
    SpiCfg(pADI_SPI0, SPICON_MOD_TX2RX2, SPICON_MASEN_EN, SPICON_CON_EN |
-          SPICON_RXOF_EN | SPICON_ZEN_EN | SPICON_TIM_TXWR | SPICON_CPOL_LOW |
-          SPICON_CPHA_SAMPLELEADING | SPICON_ENABLE_EN); /* Configure SPI0 channel */
+          SPICON_RXOF_EN | SPICON_ZEN_EN | SPICON_TIM_TXWR | SPICON_CPOL_HIGH |
+          SPICON_CPHA_SAMPLETRAILING | SPICON_ENABLE_EN); /* Configure SPI0 channel */
 
 }
 
@@ -105,42 +104,53 @@ uint32_t SPI_Read(uint8_t ui8address, uint8_t ui8bytes)
 
    uint32_t ui32AdcCodes = 0;
 
-   uint8_t ui8counter;
-   static uint8_t ui8read_rx;
-
-   uint16_t ui16fifo_status = ((ui8bytes + 1) << 8);             /* Set FIFO status correct value */
-
    DioClr(CS_PORT, CS_PIN);
 
-   if(ui8address != READ_DATA_REG) {                             /* Check if read command is not for DATA register */
+   /*  Flush Tx and Rx FIFOs */
+   SpiFifoFlush(pADI_SPI0, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);
 
-      SpiFifoFlush(pADI_SPI0, SPICON_TFLUSH_EN, SPICON_RFLUSH_EN);
+   /*  Send read command */
+   SpiTx(pADI_SPI0, ui8address);
 
-      SpiTx(pADI_SPI0, ui8address);                              /* Write read command to COMM register */
-
-      for(ui8counter = 1; ui8counter <= ui8bytes; ui8counter++) {
-
-         SpiTx(pADI_SPI0, 0xAA);                               /* Write dummy bytes */
+   /*  Send dummy byte in order to receive the register value */
+   for (uint8_t i = 0; i < ui8bytes; i++)
+      {
+         SpiTx(pADI_SPI0, 0xAA);
       }
 
-      while ((SpiSta(pADI_SPI0) & ui16fifo_status) != ui16fifo_status);
-
-      ui8read_rx = SpiRx(pADI_SPI0);           /* Dummy read, not needed value */
-
+   switch(ui8bytes)
+   {
+      case 1:
+      {
+         /*  Wait until 2 bytes are received */
+         while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_TWOBYTES) != SPI0STA_RXFSTA_TWOBYTES);
+         break;
+      }
+      case 2:
+      {
+         /*  Wait until 3 bytes are received */
+         while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_THREEBYTES) != SPI0STA_RXFSTA_THREEBYTES);
+         break;
+      }
+      case 3:
+      {
+         /*  Wait until 4 bytes are received */
+         while ((SpiSta(pADI_SPI0) & SPI0STA_RXFSTA_FOURBYTES) != SPI0STA_RXFSTA_FOURBYTES);
+         break;
+      }
    }
 
-   for(ui8counter = 1; ui8counter <= ui8bytes; ui8counter++) {
+   SpiRx(pADI_SPI0);
 
-      ui8read_rx = SpiRx(pADI_SPI0);                         /* Read the correct 1 byte value */
-
-      ui32AdcCodes = (uint32_t)((ui32AdcCodes << 8) | ui8read_rx);              /* Move read value into 4 bytes value */
-   }
+   for (uint8_t i = 0; i < ui8bytes; i++)
+      {
+         ui32AdcCodes = SpiRx(pADI_SPI0) << (ui8bytes - ( i+ 1)) * 8 | ui32AdcCodes;
+      }
 
    DioSet(CS_PORT, CS_PIN);
 
    return ui32AdcCodes;
 }
-
 /**
    @brief Writes a register to the Converter via SPI.
 
