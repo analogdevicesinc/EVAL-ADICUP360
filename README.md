@@ -4,7 +4,7 @@
 The EVAL-ADICUP360 is about an open source prototyping platform that can be used in combination with hardware and software to achieve application level goals.  The platform is pin compatible with Arduino Uno shields and PMOD expansion modules.  The EVAL-ADICUP360 has dual 24-bit sigma deltas analog to digital converters inside an ARM Cortex-M3, which has I2C, SPI, and UART peripherals available.
 
 ## User Guide & Downloads ##
-A Detailed User Guide for the EVAL-ADICUP360, showing how to set up the hardware and use the software in combination, can be found on the Analog Devices wiki site (https://wiki.analog.com/resources/eval/user-guides/eval-adicup360).  Links on where to download the Analog Devices Eclipse IDE and how to install the software can also be found using that link.  A step by step understanding of the tool, from how to import projects, to creating debug sessions, and creating your own projects is outlined on the wiki.
+A Detailed User Guide for the EVAL-ADICUP360, showing how to set up the hardware and use the software in combination, can be found on the Analog Devices wiki site (https://wiki.analog.com/resources/eval/user-guides/eval-adicup360).  Links on where to download the CrossCore Embedded Studio IDE and how to install the software can also be found using that link.  A step by step understanding of the tool, from how to import projects, to creating debug sessions, and creating your own projects is outlined on the wiki.
 
 ## Purchase ##
 For details on where and how to purchase the EVAL-ADICUP360, please visit the Analog Devices website (http://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/EVAL-ADICUP360.html ) or any of Analog Devices authorized distribution partners.
