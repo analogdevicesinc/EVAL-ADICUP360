@@ -6,7 +6,7 @@
  * @date:    $Date$
  *-----------------------------------------------------------------------------
  *
-Copyright (c) 2016-2017 Analog Devices, Inc.
+Copyright (c) 2016-2018 Analog Devices, Inc.
 
 All rights reserved.
 
@@ -207,6 +207,19 @@ void ADC_Init(void)
                        | ADCCFG_GNDSWRESEN_DIS | ADCCFG_EXTBUF_OFF;
 }
 
+#ifdef ALGORITHM_AVERAGE
+static signed long long adc0_sum = 0, adc1_sum = 0;
+static auto adc0_count = 0, adc1_count = 0;
+#endif
+
+#ifdef ALGORITHM_PEAK2PEAK
+static signed long adc0_peak, adc1_peak;
+#endif
+
+static auto adc0high_pga = 2, adc0low_pga = 2, adc1high_pga = 2, adc1low_pga = 2, ntc_pga = 2;
+
+static auto adc_dummy = 0;
+static auto lastLDO = GP1IN_IN0_BBA;
 
 /**
    @brief Processes the ADC values in interrupt routine
@@ -215,20 +228,6 @@ void ADC_Init(void)
 **/
 void ADC_IRQ(void)
 {
-#ifdef ALGORITHM_AVERAGE
-   static signed long long adc0_sum = 0, adc1_sum = 0;
-   static auto adc0_count = 0, adc1_count = 0;
-#endif
-
-#ifdef ALGORITHM_PEAK2PEAK
-   static signed long adc0_peak, adc1_peak;
-#endif
-
-   static auto adc0high_pga = 2, adc0low_pga = 2, adc1high_pga = 2, adc1low_pga = 2, ntc_pga = 2;
-
-   static auto adc_dummy = 0;
-   static auto lastLDO = GP1IN_IN0_BBA;
-
    if (lastLDO != GP1IN_IN0_BBA) {
 #ifdef ALGORITHM_AVERAGE
 
