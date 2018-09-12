@@ -50,6 +50,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /********************************* Global data ********************************/
 #define ADC_VREF  4.096 // V
+#define ADC_CODE_CALIBRATION  (((ADN8810_IFS * 71.5) / 1000) / ADC_VREF * 65535)
 
 /************************** Variable Definitions ******************************/
 typedef enum{
