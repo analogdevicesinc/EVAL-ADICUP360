@@ -132,7 +132,7 @@ int main(int argc, char *argv[])
 
 {
    float volatile f32temp = 0.0f;
-   float adxl355Scale;
+   float adxl355Scale = 0.0f;
 
    /* Initialize SPI1 */
    SPI_Init();
