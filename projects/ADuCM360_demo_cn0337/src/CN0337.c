@@ -112,7 +112,7 @@ void CN0337_Init(void)
 
 float CN0337_CalculateResistance(uint16_t u16adc, float f32voltage)
 {
-   float f32r;
+   float f32r = 0;
 
 #if(RTD_FORMULA == TWO_POINT_CALIBRATION)         /* Check which method for calculation was selected */
 
