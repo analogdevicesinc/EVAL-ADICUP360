@@ -159,7 +159,7 @@ void CN0336_WriteData(float f32current, float f32voltage, uint16_t u16adc)
 
 float CN0336_InputCurrent(uint16_t u16adc, float f32voltage)
 {
-   float f32i;
+   float f32i = 0;
 
 #if(CALC_FORMULA == TWO_POINT_CALIBRATION)         /* Check which method for calculation was selected */
 
