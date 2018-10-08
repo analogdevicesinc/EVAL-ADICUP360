@@ -1,0 +1,23 @@
+language: c
+
+sudo: required
+
+matrix:
+  include:
+    - os: linux
+      env: BUILD_TYPE=astyle
+    - os: linux
+      compiler: gcc
+    - os: linux
+      compiler: clang
+    - os: osx
+      compiler: gcc
+    - os: osx
+      compiler: clang
+
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ./ci/travis/before_install_darwin ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./ci/travis/before_install_linux ; fi
+
+script:
+  - ./ci/scripts/run_build.sh
