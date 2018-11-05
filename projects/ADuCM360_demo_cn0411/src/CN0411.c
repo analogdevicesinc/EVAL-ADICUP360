@@ -986,9 +986,11 @@ void CN0411_cmd_help(uint8_t *args, struct cn0411_device *cn0411_dev)
 	printf("                                 <val> = values 100, 1000 \n");
 	printf(" pwmfreq <val>                 - Set PWM frequency value (Hz) \n");
 	printf("                                 <val> = values 94, 2400 \n");
-	printf(" cellconst (low/normal/high)   - set cell constant for "
+	printf(" cellconst (low/normal/high/<val>)\n");
+	printf("                               - set cell constant for "
 	       "conductivity types\n");
-	printf(" solution (kcl/nacl)           - set parameters for specific "
+	printf(" solution (kcl/nacl/<val_tmp_coeff,val_tds_factor>)\n");
+	printf("                               - set parameters for specific "
 	       "solution \n");
 	printf(" temp                          - Display temperature value\n");
 	printf(" vinput (pos/neg)              - Display Positive/Negative input "
@@ -1241,6 +1243,7 @@ void CN0411_cmd_pwm_freq(uint8_t *args, struct cn0411_device * cn0411_dev)
 void CN0411_cmd_cell_const(uint8_t *args, struct cn0411_device *cn0411_dev)
 {
 	uint8_t *p = args;
+	float input_val;
 	char arg[7];
 
 	/* Check if this function gets an argument */
@@ -1248,6 +1251,7 @@ void CN0411_cmd_cell_const(uint8_t *args, struct cn0411_device *cn0411_dev)
 		/* Save cell constant parameter */
 		CN0411_get_argv(arg, p);
 	}
+
 	if(!strcmp(arg, "low")) {
 		cn0411_dev->cell_const = CELL_CONST_LOW;
 		printf("Cell Constant set to low.\n");
@@ -1258,7 +1262,13 @@ void CN0411_cmd_cell_const(uint8_t *args, struct cn0411_device *cn0411_dev)
 		cn0411_dev->cell_const = CELL_CONST_HIGH;
 		printf("Cell Constant set to high.\n");
 	} else {
-		printf("Incorrect input value!\n");
+		input_val = atof(arg);
+		if(input_val > 0) {
+			cn0411_dev->cell_const = input_val;
+			printf("Cell Constant set to %.2f.\n", input_val);
+		} else {
+			printf("Incorrect input value!\n");
+		}
 	}
 }
 
@@ -1272,7 +1282,9 @@ void CN0411_cmd_cell_const(uint8_t *args, struct cn0411_device *cn0411_dev)
 void CN0411_cmd_solution(uint8_t *args, struct cn0411_device *cn0411_dev)
 {
 	uint8_t *p = args;
-	char arg[5];
+	uint8_t index;
+	float input_val;
+	char *str, arg[5];
 
 	/* Check if this function gets an argument */
 	while (*(p = CN0411_find_argv(p)) != '\0') {
@@ -1288,7 +1300,24 @@ void CN0411_cmd_solution(uint8_t *args, struct cn0411_device *cn0411_dev)
 		cn0411_dev->solution.tds_factor = TDS_NACL;
 		printf("Solution set to NaCl.\n");
 	} else {
-		printf("Incorrect input value!\n");
+		index = 0;
+		str = strtok (arg, ",");
+		while (str != NULL) {
+			input_val = atof(str);
+			if(input_val < 0 || index > 1) {
+				printf("Incorrect input value!\n");
+				break;
+			} else if(index == 0) {
+				cn0411_dev->solution.temp_coeff = input_val;
+				printf("Temperature coefficient set to %.2f.\n",
+				       cn0411_dev->solution.temp_coeff);
+			} else {
+				cn0411_dev->solution.tds_factor = input_val;
+				printf("TDS factor set to %.2f.\n", cn0411_dev->solution.tds_factor);
+			}
+			str = strtok (NULL, ",");
+			index++;
+		}
 	}
 }
 
