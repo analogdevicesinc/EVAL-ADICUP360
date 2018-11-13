@@ -201,7 +201,7 @@ uint32_t SPI_Read(uint8_t ui8address, enRegsNum enRegs)
       ui32valueM = SpiRx(pADI_SPI0);
       ui32valueL = SpiRx(pADI_SPI0);
 
-      ui32Result = ((ui32valueH << 16) | (ui32valueL << 8) | ui32valueL); /* Set read result*/
+      ui32Result = ((ui32valueH << 16) | (ui32valueM << 8) | ui32valueL); /* Set read result*/
 
    }
 
