@@ -436,7 +436,7 @@ void CN0398::init()
     // Set IO_Control_2
     regNr = AD7124::AD7124_IOCon2;               //Select IO_Control_2 register
     setValue = 0;
-    setValue |= AD7124_8_IO_CTRL2_REG_GPIO_VBIAS7; // enable AIN3 as digital output
+    setValue |= AD7124_8_IO_CTRL2_REG_GPIO_VBIAS7; //enable bias voltage on AIN7
     setValue &= 0xFFFFFF;
     ad7124.WriteDeviceRegister(regNr, setValue);// Write data to ADC
 
