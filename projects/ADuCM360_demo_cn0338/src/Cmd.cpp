@@ -189,6 +189,29 @@ void CCmdHelp::on_Enter(void)
 }
 
 /**
+   @brief handle ascii characters
+
+   @return none
+**/
+void handle_ascii_data(char c)
+{
+   cmd_buffer[cmd_tail] = c;
+
+   putchar(cmd_buffer[cmd_tail]);
+
+   if (cmd_tail != (CMD_BUFFER_SIZE - 1)) {
+      ++cmd_tail;
+   } else {
+      cmd_tail = 0;
+   }
+
+   if (cmd_tail == cmd_head) {
+      puts("\r\nYou typed too much!\r");
+      printf("Please re-enter: ");
+   }
+}
+
+/**
    @brief Read command
 
    @return none
@@ -196,26 +219,13 @@ void CCmdHelp::on_Enter(void)
 void Cmd_ReadData(void)
 {
    while (uart_rx_head != uart_rx_tail) {
+      char c = uart_rx_queue[uart_rx_head];
+      if (c >= ' ' && c <= '~') {
+         handle_ascii_data(c);
+         continue;
+      }
+
       switch (uart_rx_queue[uart_rx_head]) {
-      case ' ' ... '~':
-         cmd_buffer[cmd_tail] = uart_rx_queue[uart_rx_head];
-
-         putchar(cmd_buffer[cmd_tail]);
-
-         if (cmd_tail != (CMD_BUFFER_SIZE - 1)) {
-            ++cmd_tail;
-
-         } else {
-            cmd_tail = 0;
-         }
-
-         if (cmd_tail == cmd_head) {
-            puts("\r\nYou typed too much!\r");
-            printf("Please re-enter: ");
-         }
-
-         break;
-
       case '\r':
       case '\n':
          puts("\r");
