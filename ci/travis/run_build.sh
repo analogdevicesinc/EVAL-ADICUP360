@@ -1,12 +1,15 @@
 #!/bin/bash
 set -e
 
+. ./ci/travis/lib.sh
+
 build_default() {
-    . ./ci/scripts/cppcheck.sh
+    . ./build/cppcheck.sh
 }
 
 build_astyle() {
-    . ./ci/scripts/astyle.sh
+    export ASTYLE_EXT_LIST=".cpp .hpp"
+    . ./build/astyle.sh
 }
 
 build_${BUILD_TYPE:-default}
