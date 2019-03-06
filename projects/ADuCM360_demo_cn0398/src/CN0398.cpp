@@ -213,7 +213,7 @@ float CN0398::read_ph(float temperature)
     else
     {
        float m =  (calibration_ph[1][0] - calibration_ph[0][0]) / (calibration_ph[1][1] - calibration_ph[0][1]);
-       ph = m * (volt - calibration_ph[1][1] + offset_voltage) + calibration_ph[1][0];
+       ph = m * (volt - calibration_ph[1][1] - offset_voltage) + calibration_ph[1][0];
     }
 
     set_digital_output(P2, false);
