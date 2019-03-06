@@ -35,3 +35,6 @@
 # Debug and Release folder
 Debug/
 Release/
+
+# Build folder
+build/
