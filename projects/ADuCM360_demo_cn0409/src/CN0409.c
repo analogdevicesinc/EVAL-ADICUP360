@@ -292,6 +292,56 @@ void CN0409_InteractiveMenu(void)
 }
 
 /**
+ * Wait for the user to press "ENTER" then prepare for the next one.
+ *
+ * @param void
+ *
+ * @return void
+ */
+static void cn0409_wait_enter(void)
+{
+	while(!uart_enter);
+	uart_enter = 0;
+	uart_received = 0;
+}
+
+/**
+ * Get the calibration parameters from the CLI in case no calibration is made
+ * and it's the first time running the program on the platform.
+ *
+ * @param void
+ *
+ * @return void
+ */
+static void cn0409_cli_get_cal(void)
+{
+	cn0409_wait_enter();
+	ISORatioCoeff.slope = atof(s);
+	AppPrintf("\n\tRatio intercept: ");
+	cn0409_wait_enter();
+	ISORatioCoeff.intercept = atof(s);
+	ISORatioCoeff.status = UPDATED;
+	u32Buffer[0] = *((uint32_t *) (&ISORatioCoeff.slope));
+	u32Buffer[1] = *((uint32_t *) (&ISORatioCoeff.intercept));
+	u32Buffer[2] = *((uint32_t *) (&ISORatioCoeff.status));
+	FeePErs(RATIO_COEF_FLASH);
+	WriteToFlash(u32Buffer, RATIO_COEF_FLASH, sizeof(u32Buffer));
+	AppPrintf("\n\tNon-ratio m coefficient: ");
+	cn0409_wait_enter();
+	ISONonRatioCoeff.m = atof(s);
+	AppPrintf("\n\tNon-ratio b coefficient: ");
+	cn0409_wait_enter();
+	AppPrintf("\n");
+	ISONonRatioCoeff.b = atof(s);
+	ISONonRatioCoeff.status = UPDATED;
+	u32Buffer[0] = *((uint32_t *) (&ISONonRatioCoeff.m));
+	u32Buffer[1] = *((uint32_t *) (&ISONonRatioCoeff.b));
+	u32Buffer[2] = *((uint32_t *) (&ISONonRatioCoeff.status));
+	FeePErs(NONRATIO_COEF_FLASH);
+	WriteToFlash(u32Buffer, NONRATIO_COEF_FLASH, sizeof(u32Buffer));
+}
+
+/**
    @brief ISO7027 selection menu
 
    @return void
@@ -371,10 +421,14 @@ void CN0409_TurbidityCalculation(void)
 		ISONonRatioCoeff.status = (enum CN0409_CoeffUpdate)u32Buffer[2];
 
 		if (ISORatioCoeff.status != UPDATED ||
-		    ISONonRatioCoeff.status != UPDATED)
+		    ISONonRatioCoeff.status != UPDATED) {
 			/* Calibration is required */
 			AppPrintf("Calibration is required because of "
-				  "invalid coefficients! \n\r");
+				  "invalid coefficients! Please provide calibration "
+				  "coefficients for both ratio and non-ratio measurement.\n\r"
+				  "\tRatio slope: ");
+			cn0409_cli_get_cal();
+		}
 	}
 	/* At this point, NTU measurements are auto-ranging */
 	AppPrintf("Place the solution required to calculate "
