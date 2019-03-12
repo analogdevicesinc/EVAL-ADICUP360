@@ -121,7 +121,7 @@ void UART_Int_Handler (void)
 			s[_index] = '\0';
 			_index = 0;
 		}
-		if (((c >= '0') && (c <= '9')) | (c == '.')) {
+		if (((c >= '0') && (c <= '9')) || (c == '.')) {
 			s[_index] = c;
 			_index++;
 		}
