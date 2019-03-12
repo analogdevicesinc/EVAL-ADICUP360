@@ -57,8 +57,8 @@
 
 /*Calibration solutions values*/
 #define FIRST_POINT 0.1
-#define SECOND_POINT 40.0
-#define THIRD_POINT 1000.0
+#define SECOND_POINT 100.0
+#define THIRD_POINT 750.0
 
 #define AVERAGE_DATA 256.0
 
