@@ -469,7 +469,7 @@ void CN0395_CmdCalibration(uint8_t *args, sMeasurementVariables *sMeasVar)
          AppPrintf("\nPlace the P2 jumper between P2-1 and P2-2 (RCAL1) and press <c> key");
          AppPrintf("\n");
 
-         char response = '';
+         char response = '\0';
          while (response != 'c') {
                UART_ReadChar(&response);   // Read character from UART
          }
