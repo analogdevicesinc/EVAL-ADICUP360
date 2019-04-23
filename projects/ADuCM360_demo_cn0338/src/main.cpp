@@ -113,8 +113,6 @@ void UART_Int_Handler(void)
          } else {
             --uart_rx_tail;
          }
-
-         assert(false);
       }
    }
 }
