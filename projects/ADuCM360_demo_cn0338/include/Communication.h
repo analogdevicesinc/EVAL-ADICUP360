@@ -57,7 +57,7 @@ extern "C"
 /********************************* Internal defines ****************************/
 
 #define UART_TX_QUEUE_SIZE 64
-#define UART_RX_QUEUE_SIZE 8
+#define UART_RX_QUEUE_SIZE 64
 
 #define MAX_BAUD_RATE 460800u
 #define MIN_BAUD_RATE 19200u
@@ -78,8 +78,8 @@ extern int cmd_head, cmd_tail;
 
 /* Write data mode */
 typedef enum {
-   UART_WRITE_INT = 1,               /* Write data while in an interrupt routine */
-   UART_WRITE
+	UART_WRITE_INT = 1,               /* Write data while in an interrupt routine */
+	UART_WRITE
 } enWriteData;
 
 /*************************** Functions prototypes *****************************/

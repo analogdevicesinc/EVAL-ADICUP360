@@ -222,7 +222,7 @@ void Cmd_ReadData(void)
       char c = uart_rx_queue[uart_rx_head];
       if (c >= ' ' && c <= '~') {
          handle_ascii_data(c);
-         if(uart_rx_head == 63)
+         if(uart_rx_head == UART_RX_QUEUE_SIZE - 1)
         	 uart_rx_head = 0;
          else
         	 uart_rx_head++;
