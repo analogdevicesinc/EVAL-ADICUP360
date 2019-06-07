@@ -50,7 +50,6 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <ADUCM360.h>
 #include <UrtLib.h>
 
 #include "CN0216.h"

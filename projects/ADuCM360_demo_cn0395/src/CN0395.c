@@ -55,7 +55,6 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ClkLib.h"
 #include <FeeLib.h>
 
-#include <ADUCM360.h>
 #include <CN0395.h>
 #include "Communication.h"
 #include "Timer.h"
