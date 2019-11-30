@@ -1,9 +1,11 @@
 #!/bin/bash
 set -e
 
+sudo apt-get update
+
 . ./ci/travis/lib.sh
 
-build_default() {
+build_cppcheck() {
     . ./build/cppcheck.sh
 }
 
@@ -12,4 +14,4 @@ build_astyle() {
     . ./build/astyle.sh
 }
 
-build_${BUILD_TYPE:-default}
+build_${BUILD_TYPE}
