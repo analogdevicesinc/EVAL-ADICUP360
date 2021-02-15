@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TRAVIS_BUILD_DIR=${TRAVIS_BUILD_DIR:-'./'}
+TOP_DIR=${TOP_DIR:-'./'}
 
 command_exists() {
 	local cmd=$1
@@ -31,11 +31,11 @@ ensure_command_exists wget
 ensure_command_exists sudo
 
 # Get the common stuff from no-OS
-[ -f ${TRAVIS_BUILD_DIR}/build/lib.sh ] || {
-	mkdir -p ${TRAVIS_BUILD_DIR}/build
+[ -f ${TOP_DIR}/build/lib.sh ] || {
+	mkdir -p ${TOP_DIR}/build
 	wget https://raw.githubusercontent.com/analogdevicesinc/no-OS/master/ci/travis/lib.sh \
-		-O ${TRAVIS_BUILD_DIR}/build/lib.sh
+		-O ${TOP_DIR}/build/lib.sh
 }
 
-. ${TRAVIS_BUILD_DIR}/build/lib.sh
+. ${TOP_DIR}/build/lib.sh
 
