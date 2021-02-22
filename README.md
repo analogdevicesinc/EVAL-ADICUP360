@@ -1,5 +1,7 @@
 # EVAL-ADICUP360 Read Me
 
+[![Build Status](https://dev.azure.com/AnalogDevices/OpenSource/_apis/build/status/analogdevicesinc.EVAL-ADICUP360?branchName=master)](https://dev.azure.com/AnalogDevices/OpenSource/_build/latest?definitionId=19&branchName=master)
+
 ## Overview ##
 The EVAL-ADICUP360 is about an open source prototyping platform that can be used in combination with hardware and software to achieve application level goals.  The platform is pin compatible with Arduino Uno shields and PMOD expansion modules.  The EVAL-ADICUP360 has dual 24-bit sigma deltas analog to digital converters inside an ARM Cortex-M3, which has I2C, SPI, and UART peripherals available.
 
