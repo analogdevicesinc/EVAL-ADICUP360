@@ -53,7 +53,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <cmath>
 
 #include "Cmd.h"
-#include "Cmd_Settings.h"
+#include "Cmd_settings.h"
 
 #include <ADuCM360.h>
 #include <AdcLib.h>
