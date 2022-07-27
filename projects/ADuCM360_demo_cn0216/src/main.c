@@ -87,101 +87,109 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 void UART_Int_Handler (void)
 {
 
-   unsigned short  status;
-   char c;
+	unsigned short  status;
+	char c;
 
-   status = UrtIntSta(pADI_UART);                      /* Check UART status */
+	status = UrtIntSta(pADI_UART);                      /* Check UART status */
 
-   if (status & COMIIR_NINT) {
-      return;   /* Check if UART is busy */
-   }
+	if (status & COMIIR_NINT) {
+		return;   /* Check if UART is busy */
+	}
 
-   switch (status & COMIIR_STA_MSK) {                  /* Check what command to execute */
-   case COMIIR_STA_RXBUFFULL:                         /* Check if UART register is available to be read */
+	switch (status &
+		COMIIR_STA_MSK) {                  /* Check what command to execute */
+	case COMIIR_STA_RXBUFFULL:                         /* Check if UART register is available to be read */
 
-      UART_ReadChar(&c);                             /* Read character from UART */
+		UART_ReadChar(&c);                             /* Read character from UART */
 
-      if( c == 13) {                            /* Check if read character is ENTER */
-         uart_cmd = UART_TRUE;                        /* Set flag */
-      }
+		if( c == 13) {                            /* Check if read character is ENTER */
+			uart_cmd = UART_TRUE;                        /* Set flag */
+		}
 
-      break;
+		break;
 
 
-   case COMIIR_STA_TXBUFEMPTY:                      /* Check if UART register is available to be written */
+	case COMIIR_STA_TXBUFEMPTY:                      /* Check if UART register is available to be written */
 
-      if (uart_tcnt) {                              /* Check uart counter */
+		if (uart_tcnt) {                              /* Check uart counter */
 
-         uart_tbusy = UART_TRUE;                    /* UART is busy with writing*/
+			uart_tbusy = UART_TRUE;                    /* UART is busy with writing*/
 
-         uart_tcnt--;                               /* Decrease  uart counter */
+			uart_tcnt--;                               /* Decrease  uart counter */
 
-         UART_WriteChar(uart_tx_buffer[uart_tpos++], UART_WRITE);          /* Write character to UART */
+			UART_WriteChar(uart_tx_buffer[uart_tpos++],
+				       UART_WRITE);          /* Write character to UART */
 
-         if (uart_tpos == UART_TX_BUFFER_SIZE) {                         /* Check if TX buffer is full */
-            uart_tpos = 0;                      /* Reset buffer counter  */
-         }
+			if (uart_tpos ==
+			    UART_TX_BUFFER_SIZE) {                         /* Check if TX buffer is full */
+				uart_tpos = 0;                      /* Reset buffer counter  */
+			}
 
-      } else {
+		} else {
 
-         uart_tbusy = UART_FALSE;                  /* UART is no longer busy with writing */
-      }
+			uart_tbusy =
+				UART_FALSE;                  /* UART is no longer busy with writing */
+		}
 
-      break;
+		break;
 
-   default:
-      ;
-   }
+	default:
+		;
+	}
 
 }
 
 int main (int argc, char *argv[])
 {
-   /* Program variables */
-   uint32_t ui32AdcValue;
-   float fVoltage, fWeight;
+	/* Program variables */
+	uint32_t ui32AdcValue;
+	float fVoltage, fWeight;
 
-   /* Start the System Tick Timer. */
-   timer_start();
+	/* Start the System Tick Timer. */
+	timer_start();
 
-   /* Initialize AD7791 */
-   AD7791_Init();
-   /* Initialize CN0216 application */
-   CN0216_Init();
+	/* Initialize AD7791 */
+	AD7791_Init();
+	/* Initialize CN0216 application */
+	CN0216_Init();
 
-   UART_WriteString("\r\nPress the <ENTER> key to measure and display the weigh scale data.\r\n ");
+	UART_WriteString("\r\nPress the <ENTER> key to measure and display the weigh scale data.\r\n ");
 
-   // Infinite loop
-   while (1) {
+	// Infinite loop
+	while (1) {
 
-      if (uart_cmd == UART_TRUE) {
+		if (uart_cmd == UART_TRUE) {
 
-         /* Read data register */
-         ui32AdcValue = AD7791_DataScan();
+			/* Read data register */
+			ui32AdcValue = AD7791_DataScan();
 
-         /* Convert ADC codes into input voltage to the converter */
-         fVoltage = AD7791_ConvertToVolts(ui32AdcValue);
+			/* Convert ADC codes into input voltage to the converter */
+			fVoltage = AD7791_ConvertToVolts(ui32AdcValue);
 
-         /* Calculate unknown weight using ADC reading and grams per LSB number */
-         fWeight = CN0216_WeightCalculation (ui32AdcValue);
+			/* Calculate unknown weight using ADC reading and grams per LSB number */
+			fWeight = CN0216_WeightCalculation (ui32AdcValue);
 
 
-         if ((fWeight > (CAL_WEIGHT + (CAL_WEIGHT * 0.025))) || (fWeight < (-(CAL_WEIGHT * 0.025)))) {
-            CN0216_Printf("\r\nWeight being measured is out of range for this calibration weight.");
-            CN0216_Printf("\r\nPlease measure a weight within the calibration boundaries.\r\n ");
+			if ((fWeight > (CAL_WEIGHT + (CAL_WEIGHT * 0.025)))
+			    || (fWeight < (-(CAL_WEIGHT * 0.025)))) {
+				CN0216_Printf("\r\nWeight being measured is out of range for this calibration weight.");
+				CN0216_Printf("\r\nPlease measure a weight within the calibration boundaries.\r\n ");
 
-         } else {
-            CN0216_Printf("\r\nADC Data Register Value = %#08x", ui32AdcValue);     /* Send valid data register read value */
-            CN0216_Printf("\r\nADC Input Voltage input = %f V", fVoltage);           /* Send valid voltage input value */
-            CN0216_Printf("\r\nSensor Input Weight = %f grams", fWeight);                         /* Send valid grams value */
-         }
+			} else {
+				CN0216_Printf("\r\nADC Data Register Value = %#08x",
+					      ui32AdcValue);     /* Send valid data register read value */
+				CN0216_Printf("\r\nADC Input Voltage input = %f V",
+					      fVoltage);           /* Send valid voltage input value */
+				CN0216_Printf("\r\nSensor Input Weight = %f grams",
+					      fWeight);                         /* Send valid grams value */
+			}
 
-         UART_WriteString("\r\n");
+			UART_WriteString("\r\n");
 
-         uart_cmd = UART_FALSE;
-      }
+			uart_cmd = UART_FALSE;
+		}
 
-   }
+	}
 
 }
 
