@@ -78,10 +78,10 @@ float fFeedbackResistor;
 **/
 void CN0357_Init(void)
 {
-   /* Initialize SPI */
-   SPI_Init();
-   /* Initialize UART port */
-   UART_Init (B9600, COMLCR_WLS_8BITS);
+	/* Initialize SPI */
+	SPI_Init();
+	/* Initialize UART port */
+	UART_Init (B9600, COMLCR_WLS_8BITS);
 
 }
 
@@ -98,11 +98,11 @@ void CN0357_Init(void)
 **/
 float CN0357_CalcPPM(float fAdcVoltage, float fRDACValue, float fsensitivity)
 {
-   float fConcentration = 0;
+	float fConcentration = 0;
 
-   fConcentration = (fabs(fAdcVoltage) / fRDACValue) / fsensitivity;
+	fConcentration = (fabs(fAdcVoltage) / fRDACValue) / fsensitivity;
 
-   return fConcentration;
+	return fConcentration;
 }
 
 /**
@@ -115,16 +115,20 @@ float CN0357_CalcPPM(float fAdcVoltage, float fRDACValue, float fsensitivity)
 **/
 void CN0357_DisplayData(uint16_t ui16Data, float fData1, float fdata2)
 {
-   if (uart_cmd == UART_TRUE) {  /* condition becomes true when the system receives as Carriage Return(CR) command from the UART */
+	if (uart_cmd ==
+	    UART_TRUE) {  /* condition becomes true when the system receives as Carriage Return(CR) command from the UART */
 
-      AppPrintf("\r\nADC Data Register Value = %#08x", ui16Data);   /* Send valid ADC data register value*/
-      AppPrintf("\r\nADC Input Voltage input = %f V", fData1);      /* Send valid voltage input value */
-      AppPrintf("\r\nGas Concentration = %f PPM", fdata2);          /* Send valid gas concentration value */
+		AppPrintf("\r\nADC Data Register Value = %#08x",
+			  ui16Data);   /* Send valid ADC data register value*/
+		AppPrintf("\r\nADC Input Voltage input = %f V",
+			  fData1);      /* Send valid voltage input value */
+		AppPrintf("\r\nGas Concentration = %f PPM",
+			  fdata2);          /* Send valid gas concentration value */
 
-      UART_WriteString("\r\n");
+		UART_WriteString("\r\n");
 
-      uart_cmd = UART_FALSE;
-   }
+		uart_cmd = UART_FALSE;
+	}
 
 }
 

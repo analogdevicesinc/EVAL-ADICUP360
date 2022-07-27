@@ -73,23 +73,23 @@ float fGramsPerLsb;
 **/
 void CN0216_Init(void)
 {
-   /* Initialize UART port */
-   UART_Init (B9600, COMLCR_WLS_8BITS);
-   timer_sleep(50);
+	/* Initialize UART port */
+	UART_Init (B9600, COMLCR_WLS_8BITS);
+	timer_sleep(50);
 
-   /* Calibration routine */
-   UART_WriteString("\r\nTaking zero scale calibration measurement");
-   UART_WriteString("\r\nPress <ENTER> to calibrate.\r\n");
+	/* Calibration routine */
+	UART_WriteString("\r\nTaking zero scale calibration measurement");
+	UART_WriteString("\r\nPress <ENTER> to calibrate.\r\n");
 
-   fZeroScaleCal = CN0216_CalibrationMeasurement();
-   UART_WriteString("\r\nZero scale calibration measurement complete.\r\n ");
-   UART_WriteString("\r\nPlease place calibration weight on scale, to obtain full scale calibration point");
-   UART_WriteString("\r\nPress <ENTER> to calibrate.");
-   fFullScaleCal = CN0216_CalibrationMeasurement();
-   UART_WriteString("\r\nFull scale calibration measurement complete.\r\n ");
+	fZeroScaleCal = CN0216_CalibrationMeasurement();
+	UART_WriteString("\r\nZero scale calibration measurement complete.\r\n ");
+	UART_WriteString("\r\nPlease place calibration weight on scale, to obtain full scale calibration point");
+	UART_WriteString("\r\nPress <ENTER> to calibrate.");
+	fFullScaleCal = CN0216_CalibrationMeasurement();
+	UART_WriteString("\r\nFull scale calibration measurement complete.\r\n ");
 
-   /* Calculate gram per LSB value */
-   fGramsPerLsb = CN0216_GramsPerCode(fFullScaleCal, fZeroScaleCal);
+	/* Calculate gram per LSB value */
+	fGramsPerLsb = CN0216_GramsPerCode(fFullScaleCal, fZeroScaleCal);
 }
 
 
@@ -102,29 +102,29 @@ void CN0216_Init(void)
 
 float CN0216_CalibrationMeasurement(void)
 {
-   uint8_t cal = 0;
-   uint8_t i = 0;
-   uint32_t ui32calibrationData = 0;
-   float fCalibrationData = 0.0;
+	uint8_t cal = 0;
+	uint8_t i = 0;
+	uint32_t ui32calibrationData = 0;
+	float fCalibrationData = 0.0;
 
-   timer_sleep(100);
+	timer_sleep(100);
 
-   while (cal == 0) {
-      if (uart_cmd == UART_TRUE) {
-         UART_WriteString("\r\n");
+	while (cal == 0) {
+		if (uart_cmd == UART_TRUE) {
+			UART_WriteString("\r\n");
 
-         for (i = 0; i < 100; i++) {
-            ui32calibrationData += SPI_Read(DATA_READ , SPI_READ_ADC_DATA);
-            timer_sleep(50);
-         }
+			for (i = 0; i < 100; i++) {
+				ui32calibrationData += SPI_Read(DATA_READ, SPI_READ_ADC_DATA);
+				timer_sleep(50);
+			}
 
-         fCalibrationData = ui32calibrationData / 100.0;
-         uart_cmd = UART_FALSE;
-         cal = 1;
-      }
-   }
+			fCalibrationData = ui32calibrationData / 100.0;
+			uart_cmd = UART_FALSE;
+			cal = 1;
+		}
+	}
 
-   return fCalibrationData;
+	return fCalibrationData;
 }
 
 /**
@@ -139,11 +139,12 @@ float CN0216_CalibrationMeasurement(void)
 
 float CN0216_GramsPerCode (float fCalFullScale, float fCalZeroScale)
 {
-   float fgramsCode;
+	float fgramsCode;
 
-   fgramsCode = (float)CAL_WEIGHT / (fCalFullScale - fCalZeroScale);  /* Calculate number of grams per LSB */
+	fgramsCode = (float)CAL_WEIGHT / (fCalFullScale -
+					  fCalZeroScale);  /* Calculate number of grams per LSB */
 
-   return fgramsCode;
+	return fgramsCode;
 }
 
 
@@ -158,11 +159,12 @@ float CN0216_GramsPerCode (float fCalFullScale, float fCalZeroScale)
 
 float CN0216_WeightCalculation (uint32_t ui32AdcData)
 {
-   float f32Weight;
+	float f32Weight;
 
-   f32Weight = ((float)ui32AdcData - fZeroScaleCal) * fGramsPerLsb;         /* Calculate weight */
+	f32Weight = ((float)ui32AdcData - fZeroScaleCal) *
+		    fGramsPerLsb;         /* Calculate weight */
 
-   return f32Weight;
+	return f32Weight;
 }
 
 /**
@@ -176,15 +178,15 @@ float CN0216_WeightCalculation (uint32_t ui32AdcData)
 **/
 void CN0216_Printf(const char *fmt, ...)
 {
-   char buff[256];
+	char buff[256];
 
-   va_list args;
-   va_start (args, fmt);
+	va_list args;
+	va_start (args, fmt);
 
-   vsprintf (buff, fmt, args);
-   va_end (args);
+	vsprintf (buff, fmt, args);
+	va_end (args);
 
-   UART_WriteString(buff);
+	UART_WriteString(buff);
 }
 
 
