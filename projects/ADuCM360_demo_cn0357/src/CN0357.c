@@ -52,7 +52,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <math.h>
 
 #include "UrtLib.h"
-#include <ADUCM360.h>
+#include <ADuCM360.h>
 #include "CN0357.h"
 #include "AD7790.h"
 #include "AD5270.h"

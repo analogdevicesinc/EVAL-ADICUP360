@@ -54,7 +54,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <UrtLib.h>
 
 #include "Test.h"
-#include "Test_config.h"
+#include "Test_Config.h"
 // ----------------------------------------------------------------------------
 //
 // Print a greeting message on the trace device and enter a loop
