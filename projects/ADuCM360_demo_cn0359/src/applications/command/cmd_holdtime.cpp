@@ -45,7 +45,7 @@
 int cmd_holdtime(int argc, char *argv[])
 {
 	if (argc != 2) {
-		printf("%s: error, syntax: ADDRESS %s HOLD_TIME\n\n", argv[0], argv[0]);
+		printf("%s: syntax error, please use the following syntax: %s HOLD_TIME_VALUE\n\n", argv[0], argv[0]);
 	} else {
 		pwm_file pwm;
 		pwm.hold = -1;

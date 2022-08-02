@@ -75,51 +75,39 @@ int rx_line(int argc, char *argv[])
 	fgets(line, 128, stdin);
 
 	char *p;
-	decltype(flash_file::rs485_address) rs485_address, address = -1;
-
-	flash_file * p_flash_file;
-	fseek(p_flash, (int) (&p_flash_file->rs485_address) - (int) (p_flash_file),
-	      SEEK_SET);
-	fread(&rs485_address, sizeof(flash_file::rs485_address), 1, p_flash);
-
 	p = strtok(line, ", \t\r\n");
-	sscanf(p, "%i", &address);
 
-	if (address == rs485_address) {
-		p = strtok(nullptr, ", \t\r\n");
+	for (int i = 0; i < SIZE(command_table); ++i) {
+		if (!strcmp(p, command_table[i].cmd)) {
+			app msg;
+			msg.fun = command_table[i].fun;
+			msg.argc = 1;
+			msg.argv = new char*[1];
+			msg.argv[0] = new char[strlen(command_table[i].cmd) + 1];
+			strcpy(msg.argv[0], command_table[i].cmd);
 
-		for (int i = 0; i < SIZE(command_table); ++i) {
-			if (!strcmp(p, command_table[i].cmd)) {
-				app msg;
-				msg.fun = command_table[i].fun;
-				msg.argc = 1;
-				msg.argv = new char*[1];
-				msg.argv[0] = new char[strlen(command_table[i].cmd) + 1];
-				strcpy(msg.argv[0], command_table[i].cmd);
+			for (p = strtok(nullptr, ", \t\r\n"); p != nullptr;
+			     p = strtok(nullptr, ", \t\r\n")) {
+				char **old_argv;
+				old_argv = msg.argv;
 
-				for (p = strtok(nullptr, ", \t\r\n"); p != nullptr;
-				     p = strtok(nullptr, ", \t\r\n")) {
-					char **old_argv;
-					old_argv = msg.argv;
+				msg.argv = new char*[msg.argc + 1];
 
-					msg.argv = new char*[msg.argc + 1];
-
-					for (int j = 0; j < msg.argc; ++j) {
-						msg.argv[j] = old_argv[j];
-					}
-
-					msg.argv[msg.argc] = new char[strlen(p) + 1];
-
-					strcpy(msg.argv[msg.argc], p);
-
-					delete[] old_argv;
-					++msg.argc;
+				for (int j = 0; j < msg.argc; ++j) {
+					msg.argv[j] = old_argv[j];
 				}
 
-				post_message(msg);
+				msg.argv[msg.argc] = new char[strlen(p) + 1];
 
-				break;
+				strcpy(msg.argv[msg.argc], p);
+
+				delete[] old_argv;
+				++msg.argc;
 			}
+
+			post_message(msg);
+
+			break;
 		}
 	}
 }

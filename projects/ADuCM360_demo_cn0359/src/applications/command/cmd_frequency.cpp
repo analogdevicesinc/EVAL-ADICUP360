@@ -45,7 +45,7 @@
 int cmd_frequency(int argc, char *argv[])
 {
 	if (argc != 2) {
-		printf("%s: error, syntax: ADDRESS %s FREQUENCY\n\n", argv[0], argv[0]);
+		printf("%s: syntax error, please use the following syntax: %s FREQUENCY_VALUE\n\n", argv[0], argv[0]);
 	} else {
 		pwm_file pwm;
 		pwm.freq = -1;
