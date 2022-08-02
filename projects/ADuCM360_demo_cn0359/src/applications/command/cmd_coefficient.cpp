@@ -44,7 +44,7 @@
 int cmd_coefficient(int argc, char *argv[])
 {
 	if (argc != 2) {
-		printf("%s: error, syntax: ADDRESS %s COEFFICIENT\n\n", argv[0], argv[0]);
+		printf("%s: syntax error, please use the following syntax: %s COEFFICIENT_VALUE\n\n", argv[0], argv[0]);
 	} else {
 		float coefficient = -1;
 		sscanf(argv[1], "%f", &coefficient);

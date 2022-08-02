@@ -62,7 +62,6 @@ extern void flash_open(void);
 
 struct flash_file {
 	int baud_rate = 115200;
-	int rs485_address = 30;
 	float voltage = 1.f;
 	float frequency = 100.f;
 	float temp_coef = 2.f;
@@ -75,9 +74,6 @@ struct flash_file {
 struct {
 	const int min_baud_rate = 9600;
 	const int max_baud_rate = 460800;
-
-	const int min_rs485_address = 1;
-	const int max_rs485_address = 254;
 
 	const float min_voltage = 0.1f;
 	const float max_voltage = 10.f;

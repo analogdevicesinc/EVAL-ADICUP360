@@ -111,8 +111,8 @@
 								</inputType>
 							</tool>
 							<tool id="arm.toolchain.gcc.cpp.compiler.1414713179" name="CrossCore GCC ARM Embedded C++ Compiler" superClass="arm.toolchain.gcc.cpp.compiler">
-								<option defaultValue="false" id="arm.base.compiler.option.optimization.enable.1344226594" name="Enable optimization" superClass="arm.base.compiler.option.optimization.enable" useByScannerDiscovery="false" value="false" valueType="boolean"/>
-								<option defaultValue="arm.base.compiler.option.optimization.og" id="arm.base.compiler.option.optimization.1582164046" name="Optimization level" superClass="arm.base.compiler.option.optimization" useByScannerDiscovery="false" value="arm.base.compiler.option.optimization.og" valueType="enumerated"/>
+								<option defaultValue="false" id="arm.base.compiler.option.optimization.enable.1344226594" name="Enable optimization" superClass="arm.base.compiler.option.optimization.enable" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+								<option defaultValue="arm.base.compiler.option.optimization.og" id="arm.base.compiler.option.optimization.1582164046" name="Optimization level" superClass="arm.base.compiler.option.optimization" useByScannerDiscovery="false" value="arm.base.compiler.option.optimization.ofast" valueType="enumerated"/>
 								<option defaultValue="true" id="arm.base.compiler.option.debug.1588427951" name="Generate debug information (-g)" superClass="arm.base.compiler.option.debug" useByScannerDiscovery="false" valueType="boolean"/>
 								<option id="arm.toolchain.gcc.cpp.compiler.option.mcpu.1480160321" name="-mcpu" superClass="arm.toolchain.gcc.cpp.compiler.option.mcpu" useByScannerDiscovery="false" value="cortex-m3" valueType="string"/>
 								<option id="arm.base.compiler.option.proc.2134901658" name="-mproc" superClass="arm.base.compiler.option.proc" useByScannerDiscovery="false" value=" ADuCM360" valueType="string"/>

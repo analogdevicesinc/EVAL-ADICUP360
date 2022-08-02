@@ -45,7 +45,7 @@
 int cmd_poll(int argc, char *argv[])
 {
 	if (argc != 1) {
-		printf("%s: error, syntax: ADDRESS %s\n\n", argv[0], argv[0]);
+		printf("%s: syntax error, please use the following syntax: %s\n\n", argv[0], argv[0]);
 	} else {
 		flash_file flash_var;
 		flash_file * p_flash_file = &flash_var;

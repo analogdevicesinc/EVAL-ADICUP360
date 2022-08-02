@@ -45,7 +45,7 @@
 int cmd_voltage(int argc, char *argv[])
 {
 	if (argc != 2) {
-		printf("%s: error, syntax: ADDRESS %s VOLTAGE\n\n", argv[0], argv[0]);
+		printf("%s: syntax error, please use the following syntax: %s VOLTAGE_VALUE\n\n", argv[0], argv[0]);
 	} else {
 		dac_file dac;
 		dac.voltage = -1;

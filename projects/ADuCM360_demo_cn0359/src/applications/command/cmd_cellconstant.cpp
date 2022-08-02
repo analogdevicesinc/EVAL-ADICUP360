@@ -44,7 +44,7 @@
 int cmd_cellconstant(int argc, char *argv[])
 {
 	if (argc != 2) {
-		printf("%s: error, syntax: ADDRESS %s CELL_CONSTANT\n\n", argv[0], argv[0]);
+		printf("%s: syntax error, please use the following syntax: %s CELL_CONSTANT_VALUE\n\n", argv[0], argv[0]);
 	} else {
 		float constant = -1;
 		sscanf(argv[1], "%f", &constant);

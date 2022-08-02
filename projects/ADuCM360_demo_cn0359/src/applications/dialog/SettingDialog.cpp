@@ -48,7 +48,6 @@
 #include <applications/dialog/CellConstantDialog.h>
 #include <applications/dialog/CoefficientDialog.h>
 #include <applications/dialog/BaudRateDialog.h>
-#include <applications/dialog/AddressDialog.h>
 #include <applications/dialog/ContrastDialog.h>
 #include <applications/dialog/HoldTimeDialog.h>
 #include <applications/dialog/SetupTimeDialog.h>
@@ -64,8 +63,7 @@ struct {
 	{"T-H hold time", &HoldTimeDialog},
 	{"TEMP Coefficient", &CoefficientDialog},
 	{"Cell Constant", &CellConstantDialog},
-	{"RS-485 Baud Rate", &BaudRateDialog},
-	{"RS-485 Address", &AddressDialog},
+	{"Baud Rate", &BaudRateDialog},
 	{"Return To Home", &HomeDialog},
 	{"LCD Contrast", &ContrastDialog},
 	{"Firmware Info", &FirmwareDialog}

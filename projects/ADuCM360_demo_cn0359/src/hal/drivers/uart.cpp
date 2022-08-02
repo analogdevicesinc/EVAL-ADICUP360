@@ -126,21 +126,15 @@ void uart_open(void)
 			       CLKCON1_UARTCD_DIV1;
 
 	//	schematic
-	pADI_GP0->GPCON = (pADI_GP0->GPCON & ~GP0CON_CON5_MSK) | GP0CON_CON5_GPIOIRQ1;
 	pADI_GP0->GPCON = (pADI_GP0->GPCON & ~GP0CON_CON6_MSK) | GP0CON_CON6_UARTRXD;
 	pADI_GP0->GPCON = (pADI_GP0->GPCON & ~GP0CON_CON7_MSK) | GP0CON_CON7_UARTTXD;
 
-	GP0OCE_OCE5_BBA = false;
 	GP0OCE_OCE6_BBA = false;
 	GP0OCE_OCE7_BBA = false;
 
-	GP0CLR_CLR5_BBA = true; //change to receive status
-
-	GP0OEN_OEN5_BBA = true;
 	GP0OEN_OEN6_BBA = false;
 	GP0OEN_OEN7_BBA = true;
 
-	GP0PUL_PUL5_BBA = true;
 	GP0PUL_PUL6_BBA = true;
 	GP0PUL_PUL7_BBA = true;
 
@@ -217,8 +211,6 @@ ssize_t uart_write(const void *buf, size_t count)
 			++tx_fifo_front;
 		}
 
-		GP0SET_SET5_BBA = true; //change to send status
-
 		pADI_UART->COMTX = c;
 	}
 
@@ -227,9 +219,7 @@ ssize_t uart_write(const void *buf, size_t count)
 
 static int tx_empty(int argc, char *argv[])
 {
-	if (COMLSR_TEMT_BBA) {
-		GP0CLR_CLR5_BBA = true; //change to receive status
-	} else {
+	if (!COMLSR_TEMT_BBA) {
 		app msg;
 		msg.argc = 0;
 		msg.fun = tx_empty;

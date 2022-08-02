@@ -78,8 +78,6 @@ void initial_devices(void)
 	    && setting.temp_coef >= configure_file.min_temp_coef
 	    && setting.voltage <= configure_file.max_voltage
 	    && setting.voltage >= configure_file.min_voltage
-	    && setting.rs485_address <= configure_file.max_rs485_address
-	    && setting.rs485_address >= configure_file.min_rs485_address
 	    && setting.setup <= configure_file.max_setup
 	    && setting.setup >= configure_file.min_setup
 	    && setting.hold <= configure_file.max_hold
@@ -95,8 +93,8 @@ void initial_devices(void)
 		beep(50, 50, 50, 50, 50, 50, 50, 50, 50);
 	}
 
-	// p_uart = fopen("uart", "rb+");
-	// setvbuf(p_uart, nullptr, _IONBF, 16);
+	p_uart = fopen("uart", "r");
+	setvbuf(p_uart, nullptr, _IONBF, 0);
 
 	p_lcd = fopen("lcd", "rb+");
 	setvbuf(p_lcd, nullptr, _IOFBF, 16);
