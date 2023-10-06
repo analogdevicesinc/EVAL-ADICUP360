@@ -10,7 +10,7 @@ pr:
 
 variables:
   runCondition: true
-  targetBranch: $[ variables['Build.SourceBranchName'] ]
+  targetBranch: $[ variables['System.PullRequest.TargetBranchName'] ]
 
 jobs:
 - job: LinuxBuilds
