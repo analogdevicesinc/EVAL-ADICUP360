@@ -13,3 +13,4 @@
 // for further information: https://cppcheck.sourceforge.net/manual.pdf 
 
 *:projects/ADuCM360_demo_blink/IAR/system/*
+*:projects/ADuCM360_demo_cn0359_reva/src/applications/*
