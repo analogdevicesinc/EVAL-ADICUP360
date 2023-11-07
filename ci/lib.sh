@@ -39,3 +39,5 @@ ensure_command_exists sudo
 
 . ${TOP_DIR}/build/lib.sh
 
+# Call function from ${TOP_DIR}/build/lib.sh to download common scripts
+download_common_scripts
