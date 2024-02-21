@@ -33,7 +33,7 @@ ensure_command_exists sudo
 # Get the common stuff from no-OS
 [ -f ${TOP_DIR}/build/lib.sh ] || {
 	mkdir -p ${TOP_DIR}/build
-	wget https://raw.githubusercontent.com/analogdevicesinc/no-OS/master/ci/lib.sh \
+	wget https://raw.githubusercontent.com/analogdevicesinc/no-OS/main/ci/lib.sh \
 		-O ${TOP_DIR}/build/lib.sh
 }
 
